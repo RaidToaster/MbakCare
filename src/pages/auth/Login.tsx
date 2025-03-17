@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 function Login() {
     return (
-        <div className="h-screen w-screen bg-[#F7F8F1] flex flex-col md:flex-row">
+        <div className="max-h-screen w-screen bg-[#F7F8F1] flex flex-col md:flex-row">
             {/* Left */}
             <div className="hidden md:block md:w-2/5  items-center justify-center">
                 <img
@@ -18,12 +18,12 @@ function Login() {
             </div>
 
             {/* Right */}
-            <div className="sm:w-full h-screen md:w-3/5 flex items-center justify-center p-8 relative">
-                <div className='absolute top-0 translate-y-16 z-10'>
+            <div className="sm:w-full min-h-screen md:w-3/5 flex items-center justify-center p-8 relative">
+                <div className='absolute top-0 sm:translate-y-32 md:translate-y-16 z-10'>
                     <img
                         src={logo}
                         alt="Company Logo"
-                        className='h-64 w-auto'
+                        className='sm:h-32 md:h-64 w-auto'
                     />
                 </div>
 
