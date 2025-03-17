@@ -7,8 +7,16 @@ import Login from './pages/auth/Login.tsx'
 
 const router = createBrowserRouter([
   {
-    path: "/login",
-    element: <Login />
+    path: "/auth",
+    children: [{
+      path: "login",
+      element: <Login />
+    },
+    {
+      path: "register",
+      element: <Login />
+    }
+    ]
   }
 ])
 
