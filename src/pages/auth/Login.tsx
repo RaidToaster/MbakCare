@@ -1,7 +1,6 @@
 import { Input } from '@/components/ui/input'
 import loginimage from '../../assets/images/login/login.png'
 import logo from '../../assets/images/logo/logombak.svg'
-import google from '../../assets/images/logo/google.svg'
 import { Button } from '@/components/ui/button'
 import { Lock, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
