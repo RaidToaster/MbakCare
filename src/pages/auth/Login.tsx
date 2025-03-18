@@ -73,12 +73,12 @@ function Login() {
                     <div className='flex flex-col items-center justify-center gap-2 mb-6'>
                         <div className="relative w-full">
                             <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="email" placeholder="Email" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="email" type="email" placeholder="Email" onChange={handleChange} />
                         </div>
 
                         <div className="relative w-full">
                             <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="password" placeholder="Password" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="password" type="password" placeholder="Password" onChange={handleChange} />
                         </div>
                     </div>
 
