@@ -3,7 +3,7 @@ import logo from '../../assets/images/logo/logombak.svg'
 import { Button } from '@/components/ui/button'
 import { Mail, Lock, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { SignUpForm } from './interfaces/types'
+import { SignUpForm } from '@/model/types.ts'
 import { useState } from 'react'
 import { supabase } from '@/lib/supabase'
 
