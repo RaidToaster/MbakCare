@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Lock, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import { LoginForm } from './interfaces/types'
+import { LoginForm } from '@/model/types.ts'
 import { supabase } from '@/lib/supabase'
 
 function Login() {
@@ -18,7 +18,7 @@ function Login() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const [loading, setLoading] = useState<Boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string | null>('')
 
     const handleLogin = async () => {

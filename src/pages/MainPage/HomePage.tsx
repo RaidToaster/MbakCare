@@ -13,7 +13,7 @@ const HomePage = () => {
                     <p>We help customers and household helpers connect with each other</p>
                     <button className={"flex flex-row gap-4 text-[#EFBB4B]"}>
                         <h3>GET STARTED</h3>
-                        <ArrowRight />
+                        <ArrowRight/>
                     </button>
                 </div>
                 <img src={landingImg} className={"w-140 h-120"} alt={"Pictures"}/>
@@ -28,8 +28,8 @@ const HomePage = () => {
                 </div>
             </div>
             <div className="bg-white p-16 flex flex-row justify-center items-center gap-32">
-                <h1>Customer Review</h1>
-                <p>Reviews</p>
+                <h1>Customer Reviews</h1>
+                <p></p>
             </div>
             <MainFooter/>
         </div>
