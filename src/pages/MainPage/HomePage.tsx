@@ -29,6 +29,7 @@ const HomePage = () => {
             </div>
             <div className="bg-white p-16 flex flex-row justify-center items-center gap-32">
                 <h1>Customer Review</h1>
+                <p>Reviews</p>
             </div>
             <MainFooter/>
         </div>
