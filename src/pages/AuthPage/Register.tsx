@@ -3,8 +3,70 @@ import logo from '../../assets/images/logo/logombak.svg'
 import { Button } from '@/components/ui/button'
 import { Mail, Lock, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { SignUpForm } from './interfaces/types'
+import { useState } from 'react'
+import { supabase } from '@/lib/supabase'
 
 function Register() {
+    const [form, setForm] = useState<SignUpForm>({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
+
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSignUp = async () => {
+        setLoading(true)
+        setError(null)
+
+        const { data: { user }, error: authError } = await supabase.auth.signUp({
+            email: form.email,
+            password: form.password,
+            options: {
+                data: {
+                    name: form.name
+                }
+            }
+        })
+
+        if (authError) {
+            console.error('authError:', authError);
+            setError(authError.message)
+            setLoading(false)
+            return
+        }
+
+        const { data: checkUser, error: dbError } = await supabase.from('users').select('id').match({ email: user?.email })
+        console.log(dbError);
+
+        if (checkUser && checkUser.length > 0) {
+            setError('User already exists')
+            setLoading(false)
+            return
+        }
+
+        const { data, error } = await supabase.from('users').insert({
+            id: user?.id,
+            name: form.name,
+            email: user?.email,
+        })
+
+        if (error) {
+            console.error('dbError:', error);
+            setError(error.message);
+        } else {
+            console.log('User created and data inserted:', data);
+        }
+        setLoading(false);
+    }
+
     return (
         <div className="max-h-screen w-screen bg-[#F7F8F1] flex flex-col md:flex-row">
             <div className="sm:w-full min-h-screen md:w-full flex items-center justify-center p-8 relative">
@@ -22,27 +84,27 @@ function Register() {
                     <div className='flex flex-col items-center justify-center gap-2 mb-6'>
                         <div className="relative w-full">
                             <User className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="text" placeholder="Full Name" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="text" placeholder="Full Name" name="name" value={form.name} onChange={handleChange} />
                         </div>
 
                         <div className="relative w-full">
                             <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="email" placeholder="Email" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="email" placeholder="Email" name="email" value={form.email} onChange={handleChange} />
                         </div>
 
                         <div className="relative w-full">
                             <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="password" placeholder="Password" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="password" placeholder="Password" name="password" value={form.password} onChange={handleChange} />
                         </div>
 
                         <div className="relative w-full">
                             <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="password" placeholder="Confirm Password" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="password" placeholder="Confirm Password" name="confirmPassword" value={form.confirmPassword} onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className='flex flex-col items-center justify-center gap-5 mb-6'>
-                        <Button className='w-72 h-12 rounded-4xl bg-[#EE7C9E] hover:bg-pink-300 cursor-pointer font-medium'>
+                        <Button onClick={handleSignUp} className='w-72 h-12 rounded-4xl bg-[#EE7C9E] hover:bg-pink-300 cursor-pointer font-medium'>
                             Register
                         </Button>
 

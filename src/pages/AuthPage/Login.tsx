@@ -4,8 +4,42 @@ import logo from '../../assets/images/logo/logombak.svg'
 import { Button } from '@/components/ui/button'
 import { Lock, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { LoginForm } from './interfaces/types'
+import { supabase } from '@/lib/supabase'
 
 function Login() {
+    const [form, setForm] = useState<LoginForm>({
+        email: '',
+        password: ''
+    })
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const [loading, setLoading] = useState<Boolean>(false)
+    const [error, setError] = useState<string | null>('')
+
+    const handleLogin = async () => {
+        setLoading(true)
+        setError('')
+
+        const { data: { user }, error } = await supabase.auth.signInWithPassword({
+            email: form.email,
+            password: form.password,
+        })
+
+        if (error) {
+            setError(error.message)
+            setLoading(false)
+            return
+        }
+
+        console.log(user?.email)
+
+    }
+
     return (
         <div className="max-h-screen w-screen bg-[#F7F8F1] flex flex-col md:flex-row">
             {/* Left */}
@@ -39,17 +73,17 @@ function Login() {
                     <div className='flex flex-col items-center justify-center gap-2 mb-6'>
                         <div className="relative w-full">
                             <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="email" placeholder="Email" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="email" type="email" placeholder="Email" onChange={handleChange} />
                         </div>
 
                         <div className="relative w-full">
                             <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" type="password" placeholder="Password" />
+                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="password" type="password" placeholder="Password" onChange={handleChange} />
                         </div>
                     </div>
 
                     <div className='flex flex-col items-center justify-center gap-5 mb-6'>
-                        <Button className='w-72 h-12 rounded-4xl bg-[#EE7C9E] hover:bg-pink-300 cursor-pointer font-medium'>
+                        <Button onClick={handleLogin} className='w-72 h-12 rounded-4xl bg-[#EE7C9E] hover:bg-pink-300 cursor-pointer font-medium'>
                             Login
                         </Button>
 
