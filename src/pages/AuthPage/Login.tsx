@@ -1,6 +1,6 @@
 import { Input } from '@/components/ui/input'
 import loginimage from '../../assets/images/login/login.png'
-import logo from '../../assets/images/logo/logombak.svg'
+import logo from '../../assets/images/logo/Pink.png'
 import { Button } from '@/components/ui/button'
 import { Lock, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -41,8 +41,7 @@ function Login() {
     }
 
     return (
-        <div className="max-h-screen w-screen bg-[#F7F8F1] flex flex-col md:flex-row">
-            {/* Left */}
+        <div className="max-h-screen w-screen bg-[#FBF3EB] flex flex-col md:flex-row">
             <div className="hidden md:block md:w-2/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000cb] to-transparent z-10"></div>
                 <img
@@ -56,9 +55,8 @@ function Login() {
                 </div>
             </div>
 
-            {/* Right */}
-            <div className="sm:w-full min-h-screen md:w-3/5 flex items-center justify-center p-8 relative">
-                <div className='absolute top-0 sm:translate-y-48 md:translate-y-10 z-10'>
+            <div className="sm:w-full min-h-screen md:w-3/5 flex flex-col items-center justify-center p-8 gap-16">
+                <div className='top-0 sm:translate-y-48 md:translate-y-10 z-10'>
                     <img
                         src={logo}
                         alt="Company Logo"
@@ -66,18 +64,18 @@ function Login() {
                     />
                 </div>
 
-                <div className='bg-white flex flex-col items-center justify-center px-12 py-18 rounded-xl shadow-md border-opacity-5 border-1 border-[#8F9ABA] relative mt-16'>
+                <div className='flex flex-col items-center justify-center px-12'>
                     <div className='flex items-center justify-center mb-4'>
                         <h2 className='font-semibold text-3xl'>Nice to see you again!</h2>
                     </div>
-                    <div className='flex flex-col items-center justify-center gap-2 mb-6'>
-                        <div className="relative w-full">
-                            <Mail className="absolute left-3 top-3 text-gray-400" size={18} />
+                    <div className='flex flex-col items-center justify-center gap-2 mb-6 relative'>
+                        <div className="w-full flex items-center">
+                            <Mail className="absolute left-4 text-gray-400" size={18} />
                             <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="email" type="email" placeholder="Email" onChange={handleChange} />
                         </div>
 
-                        <div className="relative w-full">
-                            <Lock className="absolute left-3 top-3 text-gray-400" size={18} />
+                        <div className="w-full flex items-center">
+                            <Lock className="absolute left-4 text-gray-400" size={18} />
                             <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="password" type="password" placeholder="Password" onChange={handleChange} />
                         </div>
                     </div>

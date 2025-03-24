@@ -19,9 +19,9 @@ const HomeInfo = ({ title, desc, type}: { title: string; desc: string; type: num
     }
     return (
         <div className={"flex flex-col justify-center items-center gap-4"}>
-            <img src={picture(type)} alt={"Pictures"} className={"w-40 h-40"}/>
-            <h3 className={"text-2xl font-bold"}>{title}</h3>
-            <p>{desc}</p>
+            <img src={picture(type)} alt={"Pictures"} className={"h-40"}/>
+            <h3 className={"text-2xl font-bold text-center"}>{title}</h3>
+            <p className={"text-center w-2/3"}>{desc}</p>
         </div>
     );
 };

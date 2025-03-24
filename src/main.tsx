@@ -9,7 +9,7 @@ import HomePage from "@/pages/MainPage/HomePage.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/AuthPage",
+    path: "/auth",
     children: [{
       path: "login",
       element: <Login />
