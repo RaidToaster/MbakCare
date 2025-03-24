@@ -1,5 +1,5 @@
 import { Input } from '@/components/ui/input'
-import logo from '../../assets/images/logo/logombak.svg'
+import logo from '../../assets/images/logo/Pink.png'
 import { Button } from '@/components/ui/button'
 import { Mail, Lock, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
