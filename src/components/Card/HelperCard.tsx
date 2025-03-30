@@ -1,0 +1,46 @@
+import {MdLocationOn} from "react-icons/md";
+import {GiSevenPointedStar} from "react-icons/gi";
+import {FaCalendar, FaCircle} from "react-icons/fa";
+
+function HelperCard() {
+    return (
+        <div className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm"}>
+            <div className={"flex flex-col relative w-1/3 gap-5"}>
+                <div className={"w-full flex justify-center relative"}>
+                    <img className={"h-24 w-24 rounded-full border-1 border-[#492924]"} alt={""}/>
+                    <div className={"right-15 top-3"}>
+                        <GiSevenPointedStar className={"absolute right-15 -top-3 text-[#EE7C9E]"} size={40}/>
+                        <p className={"absolute right-19 text-white -top-1"}>1</p>
+                    </div>
+                </div>
+                <div className={"bg-[#EE7C9E] rounded-br-3xl flex justify-center"}>
+                    <p className={"text-white"}>Full Time</p>
+                </div>
+            </div>
+
+
+            <div className={"flex flex-col gap-2 text-[#EE7C9E] justify-start"}>
+                <h2 className={"font-bold"}>Kevin Pramudya Mahardika - 20 Years Old</h2>
+                <p>New Worker</p>
+                <div className={"flex flex-row gap-5 items-center"}>
+                    <MdLocationOn className={"text-[#EE7C9E]"}/>
+                    <p className={"text-sm"}>Bekasi</p>
+                </div>
+                <div className={"flex flex-row gap-5 items-center"}>
+                    <GiSevenPointedStar className={"text-[#EE7C9E]"}/>
+                    <p className={"text-sm"}>0 Experience</p>
+                </div>
+                <div className={"flex flex-row gap-5 items-center"}>
+                    <FaCalendar className={"text-[#EE7C9E]"}/>
+                    <p className={"text-sm"}>From 01 March 2025</p>
+                </div>
+                <div className={"flex flex-row gap-5 items-center"}>
+                    <FaCircle color={"green"}/>
+                    <p className={"text-sm"}>Active</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default HelperCard;
