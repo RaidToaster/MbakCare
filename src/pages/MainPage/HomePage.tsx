@@ -1,11 +1,8 @@
-import MainFooter from "@/components/Footer/MainFooter.tsx";
+import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import landingImg from "../../assets/images/home/Landing Image.png"
 import HomeInfo from "@/components/ui/HomeInfo.tsx";
 import {ArrowRight} from "lucide-react";
 import {IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
-import Testi1 from "../../assets/images/home/Testimoni Portrait 1.png"
-import Profile1 from "../../assets/images/home/Review Profile 1.png"
-import {AiFillStar} from "react-icons/ai";
 import { useNavigate} from "react-router-dom";
 import ReviewCard from "@/components/Card/ReviewCard.tsx";
 
