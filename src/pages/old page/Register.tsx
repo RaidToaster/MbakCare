@@ -1,11 +1,11 @@
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui/input.tsx'
 import logo from '../../assets/images/logo/Pink.png'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button.tsx'
 import { Mail, Lock, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { SignUpForm } from '@/model/types.ts'
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase.ts'
 
 function Register() {
     const [form, setForm] = useState<SignUpForm>({

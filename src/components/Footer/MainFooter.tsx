@@ -16,7 +16,7 @@ const MainFooter = () => {
                             <p>MbakCare is a reliable service connection platform that bridges customers with trusted household helpers, offering a seamless experience through structured task management, ratings, and professional development features.</p>
                         </div>
                     </div>
-                    <div className={"flex flex-col gap-4 font-bold text-center md:text-start"}>
+                    <div className={"flex flex-row justify-center md:justify-start md:flex-col gap-4 font-bold text-center md:text-start"}>
                         <p>TUTORIALS</p>
                         <p>FAQS</p>
                         <p>TERMS OF SERVICE</p>
@@ -25,7 +25,7 @@ const MainFooter = () => {
                     <div className={"flex flex-col gap-4 text-center md:text-start justify-center md:justify-start"}>
                         <p className={"font-bold"}>FOLLOW US</p>
                         <p>Yes, we are social</p>
-                        <div className={"w-full flex flex-col md:flex-row gap-4 justify-center md:justify-start items-center"}>
+                        <div className={"w-full flex flex-row gap-4 justify-center md:justify-start items-center"}>
                             <FaInstagram className={"text-white w-8 h-8"}/>
                             <FaFacebook className={"text-white w-8 h-8"}/>
                             <FaTwitter className={"text-white w-8 h-8"}/>
