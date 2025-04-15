@@ -1,16 +1,27 @@
 import {MdLocationOn} from "react-icons/md";
 import {GiSevenPointedStar} from "react-icons/gi";
 import {FaCalendar, FaCircle} from "react-icons/fa";
+import test from "@/assets/images/profile/test.jpg"
 
 function HelperCard() {
+
+    function statusDisplay(status:string):string{
+        if(status === "Active"){
+            return "green"
+        }else if(status === "Resigned"){
+            return "yellow"
+        }
+        return "red"
+    }
+
     return (
         <div className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm"}>
             <div className={"flex flex-col relative w-1/3 gap-5"}>
                 <div className={"w-full flex justify-center relative"}>
-                    <img className={"h-24 w-24 rounded-full border-1 border-[#492924]"} alt={""}/>
+                    <img src={test} className={"h-24 w-24 rounded-full border-1 border-[#492924] object-cover"} alt={""}/>
                     <div className={"right-15 top-3"}>
-                        <GiSevenPointedStar className={"absolute right-15 -top-3 text-[#EE7C9E]"} size={40}/>
-                        <p className={"absolute right-19 text-white -top-1"}>1</p>
+                        <GiSevenPointedStar className={"absolute right-10 -top-3 text-[#EE7C9E]"} size={40}/>
+                        <p className={"absolute right-14 text-white -top-1"}>1</p>
                     </div>
                 </div>
                 <div className={"bg-[#EE7C9E] rounded-br-3xl flex justify-center"}>
@@ -19,7 +30,7 @@ function HelperCard() {
             </div>
 
 
-            <div className={"flex flex-col gap-2 text-[#EE7C9E] justify-start"}>
+            <div className={"flex flex-col gap-2 justify-start text-[#492924]"}>
                 <h2 className={"font-bold"}>Kevin Pramudya Mahardika - 20 Years Old</h2>
                 <p>New Worker</p>
                 <div className={"flex flex-row gap-5 items-center"}>
@@ -35,8 +46,8 @@ function HelperCard() {
                     <p className={"text-sm"}>From 01 March 2025</p>
                 </div>
                 <div className={"flex flex-row gap-5 items-center"}>
-                    <FaCircle color={"green"}/>
-                    <p className={"text-sm"}>Active</p>
+                    <FaCircle color={statusDisplay("")}/>
+                    <p className={"text-sm"}>Inactive</p>
                 </div>
             </div>
         </div>
