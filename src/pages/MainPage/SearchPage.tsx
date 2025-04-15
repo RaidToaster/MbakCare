@@ -1,16 +1,18 @@
-import MainFooter from "@/components/Footer/MainFooter.tsx";
+import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {ArrowUpWideNarrow} from "lucide-react";
 import {Input} from "@/components/ui/input.tsx";
 import {CiSearch} from "react-icons/ci";
 import {FaFilter} from "react-icons/fa";
 import HelperCard from "@/components/Card/HelperCard.tsx";
+import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 
 function SearchPage() {
 
     return (
         <div className={"h-screen w-screen"}>
-            <div className={"flex flex-col w-full h-full justify-center px-64 py-8 gap-8 overflow-hidden"}>
+            <NavigationBar/>
+            <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 overflow-hidden"}>
                 <div className={"flex flex-row justify-between"}>
                     <div className={"flex flex-row gap-5"}>
                         <div className={"flex flex-row relative justify-center items-center w-full bg-[#F7F8F1] rounded-md"}>
