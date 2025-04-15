@@ -12,7 +12,7 @@ const MainFooter = () => {
                             <img src={logo} alt={"Logo"} className={"w-16 h-16"}/>
                             <p className={"font-bold"}>MbakCare</p>
                         </div>
-                        <div className={"flex flex-col gap-4 w-1/2 md:w-full text-center md:text-start"}>
+                        <div className={"flex flex-col gap-4 w-full text-center md:text-start"}>
                             <p>MbakCare is a reliable service connection platform that bridges customers with trusted household helpers, offering a seamless experience through structured task management, ratings, and professional development features.</p>
                         </div>
                     </div>
