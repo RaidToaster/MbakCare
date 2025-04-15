@@ -15,7 +15,7 @@ function HomePage () {
     }
 
     return (
-        <div className="h-full w-screen bg-white">
+        <div className="h-full w-full bg-white">
             <div className="bg-white p-8 md:p-16 flex flex-col md:flex-row justify-center items-center gap-32 ">
                 <div className={"flex flex-col gap-8 text-[#492924] md:text-start justify-center md:justify-start text-center w-full md:w-1/2"}>
                     <h2>WE ARE A</h2>
@@ -43,14 +43,14 @@ function HomePage () {
                     <HomeInfo title="Task Management" desc ="Organize tasks with To-Do Lists & real-time tracking." type={4}/>
                 </div>
             </div>
-            <div className="bg-white p-16 flex flex-row justify-center items-center gap-16 ">
+            <div className="bg-white p-16 flex flex-row justify-center items-center gap-16 py-24 md:py-0">
                 <IoIosArrowBack className={"hidden md:block w-16 h-16"}/>
                 <ReviewCard/>
                 <IoIosArrowForward className={"hidden md:block w-16 h-16"}/>
             </div>
             <div className="bg-white p-16 flex md:flex-row flex-col justify-between items-center gap-32">
                 <img src={landingImg} alt={"Pictures"} className={"h-120"}/>
-                <div className={"flex flex-col gap-16 md:justify-end justify-center w-full md:w-1/2 md:text-end text-center"}>
+                <div className={"flex flex-col gap-16 md:justify-end justify-center w-full md:w-1/2 md:text-end text-center py-24 md:py-0"}>
                     <h1 className={"text-4xl text-[#492924] font-bold"}>Join Our Mission!</h1>
                     <p className={""}>MbakCare welcomes partnerships with various organizations, including training centers, orphanages, and institutions dedicated to workforce development. We believe that collaboration is key to enhancing the skills and professionalism of our household helpers, ensuring they receive proper training and opportunities for growth. If you are interested in working with us to improve and empower our helpers, feel free to contact us. We’d love to collaborate!</p>
                 </div>

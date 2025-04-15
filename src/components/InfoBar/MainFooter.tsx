@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo/Broken White.png"
 
 const MainFooter = () => {
     return (
-        <div className="min-w-screen">
+        <div className="min-w-full max-w-screen">
             <div className="flex flex-col gap-16 px-32 bg-[#EE7C9E] py-8 text-white text-sm">
                 <div className={"flex flex-col gap-16 md:flex-row justify-center md:justify-between"}>
                     <div className={"flex flex-col gap-8 w-full md:w-1/2 items-center justify-center md:justify-start md:gap-4"} >
