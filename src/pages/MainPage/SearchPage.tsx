@@ -10,7 +10,7 @@ import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 function SearchPage() {
 
     return (
-        <div className={"h-screen w-screen"}>
+        <div className={"min-w-full max-w-screen h-screen"}>
             <NavigationBar/>
             <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 overflow-hidden"}>
                 <div className={"flex flex-row justify-between"}>

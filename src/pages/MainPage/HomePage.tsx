@@ -4,7 +4,7 @@ import HomeInfo from "@/components/ui/HomeInfo.tsx";
 import {ArrowRight} from "lucide-react";
 import {IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 import { useNavigate} from "react-router-dom";
-import ReviewCard from "@/components/Card/ReviewCard.tsx";
+import HelperReviewCard from "@/components/Card/HelperReviewCard.tsx";
 
 
 function HomePage () {
@@ -45,7 +45,7 @@ function HomePage () {
             </div>
             <div className="bg-white p-16 flex flex-row justify-center items-center gap-16 py-24 md:py-0">
                 <IoIosArrowBack className={"hidden md:block w-16 h-16"}/>
-                <ReviewCard/>
+                <HelperReviewCard/>
                 <IoIosArrowForward className={"hidden md:block w-16 h-16"}/>
             </div>
             <div className="bg-white p-16 flex md:flex-row flex-col justify-between items-center gap-32">
