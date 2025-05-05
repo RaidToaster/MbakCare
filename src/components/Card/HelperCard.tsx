@@ -18,7 +18,7 @@ function HelperCard() {
         <div className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm"}>
             <div className={"flex flex-col relative w-1/3 gap-5"}>
                 <div className={"w-full flex justify-center relative"}>
-                    <img src={test} className={"h-24 w-24 rounded-full border-1 border-[#492924] object-cover"} alt={""}/>
+                    <img src={test} className={"h-24 w-24 rounded-full border-1 border-[#492924] object-cover"} alt={"Pictures"}/>
                     <div className={"right-15 top-3"}>
                         <GiSevenPointedStar className={"absolute right-10 -top-3 text-[#EE7C9E]"} size={40}/>
                         <p className={"absolute right-14 text-white -top-1"}>1</p>

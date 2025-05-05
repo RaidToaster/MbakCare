@@ -10,6 +10,7 @@ import HelperRegister from "@/pages/AuthPage/HelperRegister.tsx";
 import MainRegister from "@/pages/AuthPage/MainRegister.tsx";
 import Register from "@/pages/old page/Register.tsx";
 import SearchPage from "@/pages/MainPage/SearchPage.tsx";
+import HelperProfile from "@/pages/MainPage/HelperProfile.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path:"/search",
     element:<SearchPage/>
+  },
+  {
+    path:"/helper-profile",
+    element:<HelperProfile/>
   },
   {
     path:"/hihi",

@@ -1,8 +1,8 @@
 import Profile1 from "@/assets/images/home/Review Profile 1.png";
-import {AiFillStar} from "react-icons/ai";
 import Testi1 from "@/assets/images/home/Testimoni Portrait 1.png";
+import StarRating from "@/components/ui/StarRating.tsx";
 
-function ReviewCard() {
+function HelperReviewCard() {
     return (
         <div
             className={"flex flex-row gap-8 text-[#492924] md:text-start justify-center md:justify-evenly text-center w-full items-center"}>
@@ -20,13 +20,7 @@ function ReviewCard() {
                     </div>
                 </div>
                 <div className={"flex flex-row gap-4 items-center justify-center md:justify-start"}>
-                    <div className={"flex flex-row gap-2"}>
-                        <AiFillStar className={"text-[#EFBB4B]"}/>
-                        <AiFillStar className={"text-[#EFBB4B]"}/>
-                        <AiFillStar className={"text-[#EFBB4B]"}/>
-                        <AiFillStar className={"text-[#EFBB4B]"}/>
-                        <AiFillStar/>
-                    </div>
+                    <StarRating rating={4.2}/>
                     <p>4.8</p>
                 </div>
             </div>
@@ -35,4 +29,4 @@ function ReviewCard() {
     );
 }
 
-export default ReviewCard;
+export default HelperReviewCard;
