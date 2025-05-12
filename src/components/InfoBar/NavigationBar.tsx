@@ -54,7 +54,8 @@ function NavigationBar() {
                     <a href={"/contracts"}>Contracts</a>
                 </div>
                 <div>
-                    <img src={icon} alt={"Profile"} className={"h-16 w-16 rounded-full object-fit object-center border-2 border-black"} />
+                    <img src={icon} alt={"Profile"}
+                         className={"h-16 w-16 p-0.5 rounded-full object-fit object-center border-2 border-white"}/>
                 </div>
             </div>
             {isOpen && (
