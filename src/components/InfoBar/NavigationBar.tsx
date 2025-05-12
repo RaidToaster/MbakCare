@@ -18,7 +18,7 @@ function NavigationBar() {
     }
 
     return (
-        <div className={"w-full fixed flex flex-row p-6 bg-[#EE7C9E] text-white z-40"}>
+        <div className={"min-w-full max-w-screen fixed flex flex-row p-6 bg-[#EE7C9E] text-white z-40"}>
             <div className={"flex flex-row gap-10 items-center w-full md:w-auto justify-between md:justify-start"}>
                 <button className={"flex md:hidden flex-row gap-4 items-center"}>
                     <motion.div
