@@ -77,7 +77,7 @@ function HelperProfile() {
 
                     <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Level Information </h1>
+                            <h1 className={"text-xl"}>Level Information</h1>
                         </div>
                         <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
                             <div className={"flex flex-row items-center gap-4"}>
@@ -102,7 +102,7 @@ function HelperProfile() {
 
                     <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Salary Expectation </h1>
+                            <h1 className={"text-xl"}>Salary Expectation</h1>
                         </div>
                         <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
                             <div className={"flex flex-row items-center gap-4"}>
