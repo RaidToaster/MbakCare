@@ -1,6 +1,6 @@
 import Profile1 from "@/assets/images/home/Review Profile 1.png";
 import Testi1 from "@/assets/images/home/Testimoni Portrait 1.png";
-import StarRating from "@/components/ui/StarRating.tsx";
+import StarRating from "@/components/InfoComponent/StarRating.tsx";
 
 function HelperReviewCard() {
     return (

@@ -1,4 +1,4 @@
-import StarRating from "@/components/ui/StarRating.tsx";
+import StarRating from "@/components/InfoComponent/StarRating.tsx";
 import test from "@/assets/images/profile/test.jpg"
 
 function CustomerReviewCard() {

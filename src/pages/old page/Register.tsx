@@ -1,6 +1,6 @@
-import { Input } from '@/components/ui/input.tsx'
+import { Input } from '@/components/InfoComponent/input.tsx'
 import logo from '../../assets/images/logo/Pink.png'
-import { Button } from '@/components/ui/button.tsx'
+import { Button } from '@/components/InfoComponent/button.tsx'
 import { Mail, Lock, User } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { SignUpForm } from '@/model/types.ts'
