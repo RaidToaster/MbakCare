@@ -1,10 +1,11 @@
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import landingImg from "../../assets/images/home/Landing Image.png"
-import HomeInfo from "@/components/ui/HomeInfo.tsx";
+import HomeInfo from "@/components/InfoComponent/HomeInfo.tsx";
 import {ArrowRight} from "lucide-react";
 import {IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import HelperReviewCard from "@/components/Card/HelperReviewCard.tsx";
+import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 
 
 function HomePage () {
@@ -16,6 +17,7 @@ function HomePage () {
 
     return (
         <div className="h-full w-full bg-white">
+            <NavigationBar/>
             <div className="bg-white p-8 md:p-16 flex flex-col md:flex-row justify-center items-center gap-32 ">
                 <div className={"flex flex-col gap-8 text-[#492924] md:text-start justify-center md:justify-start text-center w-full md:w-1/2"}>
                     <h2>WE ARE A</h2>

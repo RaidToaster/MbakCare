@@ -2,9 +2,9 @@ import customer from "../../assets/images/main/Customer Image.png"
 import {Link, useNavigate} from "react-router-dom";
 import logo from "@/assets/images/logo/Pink.png";
 import {FaLock, FaUser} from "react-icons/fa";
-import {Input} from "@/components/ui/input.tsx";
+import {Input} from "@/components/InfoComponent/input.tsx";
 import {MdEmail} from "react-icons/md";
-import {Button} from "@/components/ui/button.tsx";
+import {Button} from "@/components/InfoComponent/button.tsx";
 import {FcGoogle} from "react-icons/fc";
 import {TbArrowBackUp} from "react-icons/tb";
 function CustomerRegister() {

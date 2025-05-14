@@ -2,8 +2,11 @@ import {MdLocationOn} from "react-icons/md";
 import {GiSevenPointedStar} from "react-icons/gi";
 import {FaCalendar, FaCircle} from "react-icons/fa";
 import test from "@/assets/images/profile/test.jpg"
+import {useNavigate} from "react-router-dom";
 
 function HelperCard() {
+
+    const navigate = useNavigate();
 
     function statusDisplay(status:string):string{
         if(status === "Active"){
@@ -14,8 +17,12 @@ function HelperCard() {
         return "red"
     }
 
+    function showInformation(){
+        navigate("/helper-profile")
+    }
+
     return (
-        <div className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm"}>
+        <div className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm cursor-default"} onClick={showInformation}>
             <div className={"flex flex-col relative w-1/3 gap-5"}>
                 <div className={"w-full flex justify-center relative"}>
                     <img src={test} className={"h-24 w-24 rounded-full border-1 border-[#492924] object-cover"} alt={"Pictures"}/>
