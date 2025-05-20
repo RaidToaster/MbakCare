@@ -11,6 +11,8 @@ import MainRegister from "@/pages/AuthPage/MainRegister.tsx";
 import Register from "@/pages/old page/Register.tsx";
 import SearchPage from "@/pages/MainPage/SearchPage.tsx";
 import HelperProfile from "@/pages/MainPage/HelperProfile.tsx";
+import TaskCard from "@/components/Card/TaskCard.tsx";
+import TaskPage from "@/pages/MainPage/TaskPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
   {
     path:"/hihi",
     element:<Register/>
+  },
+  {
+    path:"/task",
+    element:<TaskPage/>
   }
 ])
 
