@@ -4,7 +4,7 @@ import {PiIdentificationCardLight, PiNotebook} from "react-icons/pi";
 import {IoLocationOutline} from "react-icons/io5";
 import {RiGraduationCapLine} from "react-icons/ri";
 import {LuCalendarCheck} from "react-icons/lu";
-import {TbArrowBackUp, TbBadge, TbMoneybag} from "react-icons/tb";
+import {TbArrowBackUp, TbBadge, TbContract, TbMoneybag} from "react-icons/tb";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import SkillBox from "@/components/InfoComponent/SkillBox.tsx";
 import AchievementDesc from "@/components/InfoComponent/AchievementDesc.tsx";
@@ -55,11 +55,14 @@ function HelperProfile() {
                                             <AiFillStar size={24} fill="#EFBB4B" color="#EFBB4B"/>
                                         </div>
                                     </div>
-                                    <p className={"text-[#EFBB4B]"}>{defaultRate} | Rated by 3 client(s)</p>
+                                    <p className={"text-[#EFBB4B]"}>{defaultRate} | Rated by {0} client(s)</p>
                                 </div>
-                                <p>Married | No Kids | Muslim | From Bekasi</p>
+                                <p>Married | No Kids | Kristen Protestan | From Bekasi</p>
                             </div>
-                            <button className={"bg-[#EE7C9E] p-4 text-white rounded-md h-16"}>Make Contract</button>
+                            <button className={"bg-[#EE7C9E] p-4 text-white rounded-md h-16 flex items-center gap-4"}>
+                                <TbContract size={32} className={"text-white"}/>
+                                Make Contract
+                            </button>
                         </div>
                     </div>
 
