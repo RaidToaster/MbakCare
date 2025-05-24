@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
+          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/50",
         destructive:
           "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
         outline:
@@ -25,20 +25,31 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        xl: "w-72 h-12",
         icon: "size-9",
+        super:"px-4 md:px-16 py-4 w-1/2 border-2 border-black"
       },
+      color:{
+        pink:"bg-[#EE7C9E] hover:bg-pink-300 cursor-pointer text-white",
+        white:"bg-white hover:bg-gray-300 text-black",
+        black:"bg-black hover:bg-gray-600 text-white"
+      },
+      rounded:{
+        max:"rounded-4xl",
+        med:"rounded-md"
+      }
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      color: 'pink',
+      rounded: 'med'
     },
   }
 )
 
 function Button({
-  className,
-  variant,
-  size,
+  className, variant, size, color,rounded,
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
@@ -50,7 +61,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(buttonVariants({ variant, size, className, color, rounded }))}
       {...props}
     />
   )

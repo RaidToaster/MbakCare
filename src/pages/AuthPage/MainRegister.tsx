@@ -2,6 +2,7 @@ import logo from "../../assets/images/logo/Pink.png"
 import customer from "../../assets/images/main/Customer Image.png"
 import helper from "../../assets/images/main/Helper Image.png"
 import {Link, useNavigate} from "react-router-dom";
+import {Button} from "@/components/InfoComponent/button.tsx";
 
 function MainRegister() {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ function MainRegister() {
                 <div className={"bg-[#EE7C9E] w-full md:w-1/2 h-full flex flex-col justify-center items-center gap-8 py-16 md:py-0"}>
                     <h1 className={"font-bold text-2xl md:text-4xl text-white text-center"}>I'm Here for Hiring</h1>
                     <img src={customer} className={"h-64 md:h-80"} alt="Customer Img"/>
-                    <button className={"bg-white px-4 md:px-16 py-4 rounded-full border-2 border-black w-1/2 text-center"} onClick={redirectCustomer}>Sign Up as Customer</button>
+                    <Button className={"text-md"} size={'super'} onClick={redirectCustomer} color={'white'} rounded={'max'}>Sign Up as Customer</Button>
                     <div className='flex flex-row items-center justify-center gap-2 text-white text-sm'>
                         <p className='font-light'>Have an account?</p>
                         <Link to='/auth/login' className='font-light underline'>Sign In Now</Link>
@@ -34,7 +35,7 @@ function MainRegister() {
                 <div className={"bg-[#FFE5E7] w-full md:w-1/2 h-full flex flex-col justify-center items-center gap-8 py-16 md:py-0"}>
                     <h1 className={"font-bold text-2xl md:text-4xl text-black text-center"}>I'm Here for Seeking Job</h1>
                     <img src={helper} className={"h-64 md:h-80"} alt="Helper Img"/>
-                    <button className={"bg-white px-4 md:px-16 py-4 rounded-full border-2 border-black w-1/2 text-center"} onClick={redirectHelper}>Sign Up as Helper</button>
+                    <Button className={"text-md"} size={'super'} onClick={redirectHelper} color={'white'} rounded={'max'}>Sign Up as Helper</Button>
                     <div className='flex flex-row items-center justify-center gap-2 text-black text-sm'>
                         <p className='font-light'>Have an account?</p>
                         <Link to='/auth/login' className='font-light underline'>Sign In Now</Link>
