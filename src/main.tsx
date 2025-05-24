@@ -11,8 +11,8 @@ import MainRegister from "@/pages/AuthPage/MainRegister.tsx";
 import Register from "@/pages/old page/Register.tsx";
 import SearchPage from "@/pages/MainPage/SearchPage.tsx";
 import HelperProfile from "@/pages/MainPage/HelperProfile.tsx";
-import TaskCard from "@/components/Card/TaskCard.tsx";
 import TaskPage from "@/pages/MainPage/TaskPage.tsx";
+import ContractCreationPage from "@/pages/MainPage/ContractCreationPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +58,10 @@ const router = createBrowserRouter([
   {
     path:"/task",
     element:<TaskPage/>
+  },
+  {
+    path:"/contract",
+    element:<ContractCreationPage/>
   }
 ])
 

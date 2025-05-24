@@ -50,14 +50,14 @@ function CustomerRegister() {
                 <div className={"w-52"}>
                     <p className={"text-xs"}>By continuing, you agree to our <b>Terms</b> and <b>Privacy Policy</b></p>
                 </div>
-                <Button className={"w-80 px-8 py-6 rounded-full bg-[#EE7C9E] hover:bg-[#D96B89]"}>
+                <Button size={'xl'} rounded={'max'} color={'pink'}>
                     <div className={"flex flex-row gap-1"}>
                         <p>Register</p>
                         <p className={"md:hidden"}>as a Customer</p>
                     </div>
                 </Button>
-                <Button className={"w-80 px-8 py-6 rounded-full"}>
-                    <FcGoogle size={64}/>
+                <Button size={'xl'} rounded={'max'} color={'black'}>
+                    <FcGoogle/>
                     <p>Or Sign Up with Google</p>
                 </Button>
                 <div className='flex flex-row items-center justify-center gap-2 text-sm'>

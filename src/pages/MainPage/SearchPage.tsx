@@ -10,7 +10,7 @@ import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 function SearchPage() {
 
     return (
-        <div className={"min-w-full max-w-screen h-screen"}>
+        <div className={"min-w-full max-w-screen h-screen cursor-default"}>
             <NavigationBar/>
             <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 overflow-hidden"}>
                 <div className={"flex flex-row justify-between"}>
@@ -19,12 +19,12 @@ function SearchPage() {
                             <Input className={"border-2 rounded-md pr-10 w-96"} placeholder={"Search with Helper Name"}/>
                             <CiSearch className={"absolute text-gray-500 right-5"}/>
                         </div>
-                        <Button className={"flex flex-row gap-5 bg-[#EE7C9E] hover:bg-[#EE7C9E]"}>
+                        <Button className={"flex flex-row gap-5"}>
                             <FaFilter/>
                             <p>Filter</p>
                         </Button>
                     </div>
-                    <Button className={"px-8 bg-[#EE7C9E] hover:bg-[#EE7C9E]"}>
+                    <Button>
                         <ArrowUpWideNarrow/>
                         <p>Last Active</p>
                     </Button>

@@ -16,7 +16,7 @@ function HomePage () {
     }
 
     return (
-        <div className="h-full w-full bg-white">
+        <div className="min-h-screen min-w-full h-full w-full cursor-default bg-white">
             <NavigationBar/>
             <div className="bg-white p-8 md:p-16 flex flex-col md:flex-row justify-center items-center gap-32 ">
                 <div className={"flex flex-col gap-8 text-[#492924] md:text-start justify-center md:justify-start text-center w-full md:w-1/2"}>

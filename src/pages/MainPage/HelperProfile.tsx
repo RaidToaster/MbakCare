@@ -33,11 +33,10 @@ function HelperProfile() {
     }
 
     return (
-        <div className="bg-white min-w-full max-w-screen h-full">
+        <div className="bg-white min-h-screen min-w-full max-w-screen h-full cursor-default">
             <NavigationBar/>
             <div className="w-full flex flex-col md:flex-row justify-between px-8 md:px-32 py-8 pt-40 text-[#492924]">
                 <div className={"flex flex-col gap-8"}>
-
                     <div className={"w-11/12 flex flex-col rounded-md shadow-md overflow-hidden bg-[#F7F8F1] relative"}>
                         <TbArrowBackUp className={"absolute left-5 top-5 text-white"} size={48} onClick={backTrack}/>
                         <img src={banner} alt={"User Profile"} className={"w-full h-[200px] object-cover object-top"}/>
@@ -137,7 +136,7 @@ function HelperProfile() {
                                 </div>
                             </div>
                             <div className={"bg-[#FFF2F3] border-l-2 border-[#EE7C9E] px-8 py-4 rounded-sm"}>
-                                <p>
+                                <p className={"text-justify"}>
                                     <b>Disclaimer:</b><br/>
                                     The level shown above reflects the helper's overall work experience and skill
                                     proficiency. It is not based on calendar years, but rather on actual tasks
