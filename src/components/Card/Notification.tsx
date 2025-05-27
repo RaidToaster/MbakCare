@@ -1,4 +1,4 @@
-import {Button} from "@/components/InfoComponent/button.tsx";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 
 function Notification({title, message, variant}: {title:string, message:string, variant:number}) {
     return (

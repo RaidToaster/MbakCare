@@ -1,7 +1,7 @@
 import { Input } from '@/components/InfoComponent/input'
 import loginimage from '../../assets/images/login/login.png'
 import logo from '../../assets/images/logo/Pink.png'
-import { Button } from '@/components/InfoComponent/button'
+import { Button } from '@/components/InfoComponent/Button.tsx'
 import { Lock, Mail } from 'lucide-react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'

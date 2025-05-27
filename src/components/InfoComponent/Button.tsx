@@ -30,9 +30,9 @@ const buttonVariants = cva(
         super:"px-4 md:px-16 py-4 w-1/2 border-2 border-black"
       },
       color:{
-        pink:"bg-[#EE7C9E] hover:bg-pink-300 cursor-pointer text-white",
-        white:"bg-white hover:bg-gray-300 text-black",
-        black:"bg-black hover:bg-gray-600 text-white"
+        pink:"bg-[#EE7C9E] text-white hover:bg-pink-300 cursor-pointer ",
+        white:"bg-white border-[#EE7C9E] border-1 text-[#EE7C9E] hover:bg-gray-300 cursor-pointer ",
+        black:"bg-black text-white hover:bg-gray-600 cursor-pointer"
       },
       rounded:{
         max:"rounded-4xl",

@@ -3,7 +3,7 @@ import helper from "../../assets/images/main/Helper Image.png"
 import {FaLock, FaUser} from "react-icons/fa";
 import {Input} from "@/components/InfoComponent/input.tsx";
 import {MdEmail} from "react-icons/md";
-import {Button} from "@/components/InfoComponent/button.tsx";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 import {FcGoogle} from "react-icons/fc";
 import {Link, useNavigate} from "react-router-dom";
 import { TbArrowBackUp} from "react-icons/tb";
