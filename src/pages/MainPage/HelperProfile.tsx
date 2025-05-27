@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
 import banner from "@/assets/images/profile/Profile Banner.png"
 import test from "@/assets/images/profile/test.jpg"
 import {AiFillStar} from "react-icons/ai";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 
 function HelperProfile() {
 
@@ -25,7 +26,11 @@ function HelperProfile() {
     const navigate = useNavigate();
 
     function backTrack (){
-        navigate(-1)
+        navigate("/search")
+    }
+
+    function toMakeContract (){
+        navigate('/contract/create')
     }
 
     function resultRate(rate:number): number{
@@ -58,10 +63,10 @@ function HelperProfile() {
                                 </div>
                                 <p>Married | No Kids | Kristen Protestan | From Bekasi</p>
                             </div>
-                            <button className={"bg-[#EE7C9E] p-4 text-white rounded-md h-16 flex items-center gap-4"}>
-                                <TbContract size={32} className={"text-white"}/>
+                            <Button onClick={toMakeContract} size={'lg'}>
+                                <TbContract className={"text-white size-6"}/>
                                 Make Contract
-                            </button>
+                            </Button>
                         </div>
                     </div>
 
@@ -165,7 +170,7 @@ function HelperProfile() {
                                     {listLanguage ? (
                                         listLanguage.map((item) => {
                                             return (
-                                                <SkillBox skill={item}/>
+                                                <SkillBox item={item}/>
                                             )
                                         })
                                     ) : (
@@ -179,7 +184,7 @@ function HelperProfile() {
                                     {listSkill ? (
                                         listSkill.map((item) => {
                                             return (
-                                                <SkillBox skill={item}/>
+                                                <SkillBox item={item}/>
                                             )
                                         })
                                     ) : (
@@ -193,7 +198,7 @@ function HelperProfile() {
                                     {listPersonality ? (
                                         listPersonality.map((item) => {
                                             return (
-                                                <SkillBox skill={item}/>
+                                                <SkillBox item={item}/>
                                             )
                                         })
                                     ) : (

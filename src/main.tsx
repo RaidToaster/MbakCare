@@ -13,6 +13,7 @@ import SearchPage from "@/pages/MainPage/SearchPage.tsx";
 import HelperProfile from "@/pages/MainPage/HelperProfile.tsx";
 import TaskPage from "@/pages/MainPage/TaskPage.tsx";
 import ContractCreationPage from "@/pages/MainPage/ContractCreationPage.tsx";
+import ContractDetailPage from "@/pages/MainPage/ContractDetailPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -61,8 +62,15 @@ const router = createBrowserRouter([
   },
   {
     path:"/contract",
-    element:<ContractCreationPage/>
-  }
+    children: [{
+        path: "create",
+        element: <ContractCreationPage/>
+      },
+      {
+        path: "detail",
+        element: <ContractDetailPage/>
+      }
+  ]}
 ])
 
 createRoot(document.getElementById('root')!).render(

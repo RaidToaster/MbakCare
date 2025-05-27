@@ -27,6 +27,12 @@ function ContractCreationPage() {
         }
     };
 
+    function generateContract (){
+        navigate('/contract/detail')
+    }
+
+
+
     return (
         <div className={"min-h-screen min-w-full max-w-screen h-full"}>
             <NavigationBar/>
@@ -52,7 +58,7 @@ function ContractCreationPage() {
                     <ContractQuestionCard question={"Select the facility/facilities you want to provide:"} list={defaultFacility}/>
                     <ContractQuestionCard question={"Select contract duration:"} list={["1 Year", "2 Years"]}/>
                     <div className={"flex items-center justify-center"}>
-                        <Button  onClick={backTrack} size={'xl'} className={"text-md"}>
+                        <Button  onClick={generateContract} size={'xl'} className={"text-md"}>
                             <TbContract className={"size-8"}/>
                             Generate Contract
                         </Button>
