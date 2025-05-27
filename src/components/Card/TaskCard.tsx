@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {LuBellRing} from "react-icons/lu";
 import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 
 
 function TaskCard() {
@@ -35,6 +36,14 @@ function TaskCard() {
                     <div className={"flex flex-row items-center p-6 gap-20 bg-[#F7F8F1]"}>
                         <div className={"flex flex-row gap-5"}>
 
+                        </div>
+                        <div className={"flex flex-row gap-5 justify-end"}>
+                            <Button size={'lg'} color={'white'} rounded={'med'} >
+                                Reject Task
+                            </Button>
+                            <Button size={'lg'} color={'pink'} rounded={'med'} >
+                                Mark as done
+                            </Button>
                         </div>
                     </div>
                 </div>

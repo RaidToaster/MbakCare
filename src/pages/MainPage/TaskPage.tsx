@@ -1,6 +1,6 @@
 import TaskCard from "@/components/Card/TaskCard.tsx";
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
-import {Button} from "@/components/InfoComponent/button.tsx";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 import {FaEdit} from "react-icons/fa";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 

@@ -4,7 +4,7 @@ import {TbArrowBackUp, TbContract} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import ContractQuestionCard from "@/components/Card/ContractQuestionCard.tsx";
-import {Button} from "@/components/InfoComponent/button.tsx";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 
 function ContractCreationPage() {
 

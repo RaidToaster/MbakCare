@@ -1,5 +1,5 @@
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
-import {Button} from "@/components/InfoComponent/button.tsx";
+import {Button} from "@/components/InfoComponent/Button.tsx";
 import {ArrowUpWideNarrow} from "lucide-react";
 import {Input} from "@/components/InfoComponent/input.tsx";
 import {CiSearch} from "react-icons/ci";
