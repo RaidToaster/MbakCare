@@ -2,7 +2,7 @@ import {useState} from "react";
 import {LuBellRing} from "react-icons/lu";
 import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
 import {Button} from "@/components/InfoComponent/Button.tsx";
-
+import test from "@/assets/images/profile/test.jpg"
 
 function TaskCard() {
 
@@ -29,15 +29,20 @@ function TaskCard() {
                 </div>
             </div>
             {isOpen && (
-                <div className={"flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
+                <div className={"flex flex-col justify-center rounded-md shadow-md overflow-hidden w-full"}>
                     <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
                         <h1 className={"text-md"}>Your task</h1>
                     </div>
-                    <div className={"flex flex-row items-center p-6 gap-20 bg-[#F7F8F1]"}>
-                        <div className={"flex flex-row gap-5"}>
-
+                    <div className={"flex flex-col p-6 gap-20 bg-[#F7F8F1]"}>
+                        <div className={"flex flex-col gap-5"}>
+                            <div className={"flex flex-nowrap gap-5 overflow-x-auto p-5"}>
+                                {Array.from(Array(10).keys()).map((_, i) => (
+                                    <img src={test} className={"w-64 h-48 flex-shrink-0 rounded-md object-cover"} alt=""/>
+                                ))}
+                            </div>
+                            <p>Description</p>
                         </div>
-                        <div className={"flex flex-row gap-5 justify-end"}>
+                        <div className={"flex flex-row gap-5 justify-end w-full"}>
                             <Button size={'lg'} color={'white'} rounded={'med'} >
                                 Reject Task
                             </Button>

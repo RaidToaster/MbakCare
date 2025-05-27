@@ -1,7 +1,8 @@
 import {cva, VariantProps} from "class-variance-authority";
+import {FaCheckCircle} from "react-icons/fa";
 
 const skillBoxVariants = cva(
-    "shadow-md px-4 py-2 rounded-md border-2",
+    "relative shadow-md px-4 py-2 rounded-md border-2",
     {
         variants: {
             variant: {
@@ -14,10 +15,11 @@ const skillBoxVariants = cva(
                 lg: "text-base px-6 py-3",
             },
             fixed:{
-                default: " ",
-                f:"w-62 flex items-center justify-center",
-
-            }
+                f:"w-54 flex items-center justify-center",
+            },
+            option:{
+                y:"hover:cursor-pointer",
+            },
         },
         defaultVariants: {
             variant: "default",
@@ -27,13 +29,29 @@ const skillBoxVariants = cva(
 )
 
 type SkillBoxProps = {
-    skill: string
+    item: string,
+    canSelected?: boolean,
+    isSelected?:boolean,
+    onSelect?:(item:string) => void
 } & VariantProps<typeof skillBoxVariants>
 
-function SkillBox({ skill, variant, size, fixed }: SkillBoxProps) {
+function SkillBox({ item, variant, size, fixed, option, canSelected = false, isSelected, onSelect }: SkillBoxProps) {
+
+    function handleClick() {
+        if (onSelect && canSelected) {
+            onSelect(item);
+        }
+    }
+
     return (
-        <div className={skillBoxVariants({ variant, size, fixed  })}>
-            <p>{skill}</p>
+        <div
+            className={`${skillBoxVariants({ variant, size, fixed, option })} ${isSelected ? "border-[#EE7C9E] text-[#EE7C9E]" : ""}`}
+            onClick={handleClick}
+        >
+            {isSelected && (
+                <FaCheckCircle className="absolute left-3 top-2" size={12} />
+            )}
+            <p>{item}</p>
         </div>
     );
 }
