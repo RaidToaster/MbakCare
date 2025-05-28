@@ -74,7 +74,7 @@ function HelperProfile() {
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
                             <h1 className={"text-xl"}>Professional Information</h1>
                         </div>
-                        <div className={"flex flex-row items-center p-6 gap-20 bg-[#F7F8F1]"}>
+                        <div className={"flex flex-col lg:flex-row items-start lg:items-center p-6 gap-4 lg:gap-20 bg-[#F7F8F1]"}>
                             <div className={"flex flex-col gap-4"}>
                                 <div className={"flex flex-row items-center gap-4"}>
                                     <PiNotebook className={"text-[#EE7C9E]"} size={size}/>
