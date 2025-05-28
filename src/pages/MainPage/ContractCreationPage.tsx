@@ -40,7 +40,7 @@ function ContractCreationPage() {
                 <div className="flex flex-col items-center justify-center relative">
                     <TbArrowBackUp className={"absolute left-0"} size={40} onClick={backTrack}/>
                     <h1 className={"font-bold text-4xl text-center"}>Contract Questions</h1>
-                    <div className="w-64 h-1 bg-[#DA807B] mt-1 rounded-md"></div>
+                    <div className="w-64 h-0.5 bg-[#DA807B] mt-1 rounded-md"></div>
                 </div>
                 <div className={"flex flex-col gap-4 w-full"}>
                     <div className={"bg-[#FFF2F3] px-12 py-8 rounded-md shadow-lg"}>
@@ -53,10 +53,10 @@ function ContractCreationPage() {
                                value={value}
                         />
                     </div>
-                    <ContractQuestionCard question={"Select the main tasks you want to assign:"} list={defaultSkill}/>
-                    <ContractQuestionCard question={"Are you willing to provide housing accommodation:"} list={["Yes", "No"]}/>
+                    <ContractQuestionCard question={"Select the main tasks you want to assign:"} list={defaultSkill} />
+                    <ContractQuestionCard question={"Are you willing to provide housing accommodation:"} list={["Yes", "No"]} multiple={false}/>
                     <ContractQuestionCard question={"Select the facility/facilities you want to provide:"} list={defaultFacility}/>
-                    <ContractQuestionCard question={"Select contract duration:"} list={["1 Year", "2 Years"]}/>
+                    <ContractQuestionCard question={"Select contract duration:"} list={["1 Year", "2 Years"]} multiple={false}/>
                     <div className={"flex items-center justify-center"}>
                         <Button  onClick={generateContract} size={'xl'} className={"text-md"}>
                             <TbContract className={"size-8"}/>
