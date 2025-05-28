@@ -30,14 +30,14 @@ function ContractDetailPage() {
     return (
         <div className={"min-h-screen min-w-full max-w-screen h-full"}>
             <NavigationBar/>
-            <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
-                <TbArrowBackUp className={"absolute left-48"} size={40} onClick={backTrack}/>
+            <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
+                <TbArrowBackUp className={"absolute left-48 hidden lg:block"} size={40} onClick={backTrack}/>
                 <div className="flex flex-col justify-center relative bg-[#F7F8F1] rounded-md p-6 gap-5 w-full text-justify px-14 shadow-md">
                     <h1 className={"text-3xl m-10 text-center font-bold"}>Employment Contract Between Customer And Helper</h1>
                     <p>Contract No: DW/YOG/2025/087<br/>
                         On this day, 04 April 2025, at Yogyakarta, a work contract has been mutually agreed upon
                         between:</p>
-                    <div className={"flex flex-row items-center justify-between w-full"}>
+                    <div className={"flex flex-col gap-2 lg:gap-0 lg:flex-row items-start lg:items-center lg:justify-between w-full"}>
                         <p>
                             <b>First Party:</b><br/>
                             <b>Name:</b> Joshua Sutanto<br/>

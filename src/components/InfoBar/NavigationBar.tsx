@@ -1,13 +1,15 @@
 import logo from "@/assets/images/logo/Broken White.png"
 import icon from "@/assets/images/profile/Default.png"
 import {RxHamburgerMenu} from "react-icons/rx";
-import React from "react";
 import { motion } from "framer-motion";
 import {IoClose} from "react-icons/io5";
+import {useState} from "react";
 
 function NavigationBar() {
 
-    const [isOpen, setIsOpen] = React.useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+
+    const isCustomer = false
 
     function toggleOpen() {
         setIsOpen(true)
@@ -18,9 +20,9 @@ function NavigationBar() {
     }
 
     return (
-        <div className={"min-w-full max-w-screen fixed flex flex-row p-6 bg-[#EE7C9E] text-white z-40"}>
-            <div className={"flex flex-row gap-10 items-center w-full md:w-auto justify-between md:justify-start"}>
-                <button className={"flex md:hidden flex-row gap-4 items-center"}>
+        <div className={`min-w-full max-w-screen fixed flex flex-row p-6 text-white z-40 ${isCustomer ? 'bg-[#EE7C9E]' : 'bg-[#996052]'}`}>
+            <div className={"flex flex-row gap-10 items-center w-full lg:w-auto justify-between lg:justify-start"}>
+                <button className={"flex lg:hidden flex-row gap-4 items-center"}>
                     <motion.div
                         initial={{rotate: 0}}
                         animate={{rotate: isOpen ? 180 : 0}}
@@ -39,15 +41,14 @@ function NavigationBar() {
                         </motion.div>
                     )}
                 </button>
-                <div className={"flex flex-row gap-4 items-center justify-center md:justify-start w-1/2 "}>
+                <div className={"flex flex-row gap-4 items-center justify-end lg:justify-start w-1/2 "}>
                     <img src={logo} alt={"Logo"} className={"w-16 h-16"}/>
                     <p className={"font-bold"}>MbakCare</p>
                 </div>
             </div>
-            <div className={"hidden md:flex flex-row items-center gap-16 justify-end w-full"}>
+            <div className={"hidden lg:flex flex-row items-center gap-16 justify-end w-full"}>
                 <div className={"flex flex-row gap-4 items-center justify-center"}>
                     <a href={"/home"}>Home</a>
-                    <a href={"/dashboard"}>Dashboard</a>
                     <a href={"/search"}>Find Helper</a>
                     <a href={"/task-manager"}>Task Manager</a>
                     <a href={"/payment-summary"}>Payments</a>
@@ -63,11 +64,10 @@ function NavigationBar() {
                     initial={{x: "-100%", opacity: 0}}
                     animate={isOpen ? {x: 0, opacity: 1} : {x: "-100%", opacity: 0}}
                     transition={{type: "spring", stiffness: 120, damping: 20}}
-                    className="fixed left-0 top-0 bg-[#EE7C9E] z-40 flex flex-col gap-8 px-12 pt-24 pb-20 rounded-br-xl shadow-xl"
+                    className={`lg:hidden fixed left-0 top-0 z-40 flex flex-col gap-8 px-12 pt-24 pb-20 rounded-br-xl shadow-xl ${isCustomer ? 'bg-[#EE7C9E]' : 'bg-[#996052]'}`}
                 >
                     <div className={"flex flex-col gap-4 items-start justify-start"}>
                         <a href={"/home"}>Home</a>
-                        <a href={"/dashboard"}>Dashboard</a>
                         <a href={"/search"}>Find Helper</a>
                         <a href={"/task-manager"}>Task Manager</a>
                         <a href={"/payment-summary"}>Payments</a>

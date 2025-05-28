@@ -12,7 +12,7 @@ function SearchPage() {
     return (
         <div className={"min-w-full max-w-screen h-screen cursor-default"}>
             <NavigationBar/>
-            <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 overflow-hidden"}>
+            <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 overflow-hidden"}>
                 <div className={"flex flex-row justify-between"}>
                     <div className={"flex flex-row gap-5"}>
                         <div className={"flex flex-row relative justify-center items-center w-full bg-[#F7F8F1] rounded-md"}>

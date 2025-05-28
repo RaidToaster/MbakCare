@@ -8,7 +8,7 @@ function TaskPage() {
     return (
         <div className={"min-w-full max-w-screen min-h-screen h-full cursor-default"}>
             <NavigationBar/>
-            <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
+            <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
                 <div className={"flex flex-col gap-8"}>
                     <div className={"w-full flex flex-row items-center justify-center relative"}>
                         <div className="flex flex-col items-center justify-center relative">
