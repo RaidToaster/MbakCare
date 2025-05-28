@@ -1,7 +1,7 @@
 import SkillBox from "@/components/InfoComponent/SkillBox.tsx";
 import {useState} from "react";
 
-function ContractQuestionCard({question,multiple = true, list}:{question:string,multiple:boolean, list:string[]}) {
+function ContractQuestionCard({question,multiple = true, list}:{question:string,multiple?:boolean, list:string[]}) {
 
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
 

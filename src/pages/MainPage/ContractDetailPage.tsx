@@ -9,7 +9,7 @@ import Notification from "@/components/Card/Notification.tsx";
 
 function ContractDetailPage() {
     const navigate = useNavigate();
-    // const defaultSkill = ["House Cleaning", "Cooking", "Laundry Care", "Pet Care", "Dishwashing"]
+    const defaultSkill = ["House Cleaning", "Cooking", "Laundry Care", "Pet Care", "Dishwashing"]
     const defaultFacility = ["Wi-Fi Access", "Free Meals", "Transport Fee", "Holiday Bonus", "Healthcare Support", "Weekend Off", "Job Supplies"]
 
     const [confirmPopup, setConfirmPopup] = useState(false)
@@ -57,11 +57,15 @@ function ContractDetailPage() {
                         <p className={"font-bold"}>1. Main Duties and Responsibilities</p>
                         <p className={"pl-4"}>
                             The Helper agrees to carry out the following five (5) main tasks as specified and agreed upon:
-                            Childcare & Babysitting
-                            Cooking
-                            House Cleaning
-                            Laundry Care
-                            Ironing & Clothes Care
+                        </p>
+                        {defaultSkill && (defaultSkill.map((skill, i) => {
+                                return (
+                                    <p className={"pl-4"} key={i}>
+                                        &gt; {skill}
+                                    </p>
+                                )})
+                        )}
+                        <p className={"pl-4"}>
                             The Helper shall perform these duties responsibly, professionally, and in accordance with
                             cleanliness and safety standards in the household.
                         </p>

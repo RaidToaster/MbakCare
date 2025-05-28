@@ -14,6 +14,7 @@ import HelperProfile from "@/pages/MainPage/HelperProfile.tsx";
 import TaskPage from "@/pages/MainPage/TaskPage.tsx";
 import ContractCreationPage from "@/pages/MainPage/ContractCreationPage.tsx";
 import ContractDetailPage from "@/pages/MainPage/ContractDetailPage.tsx";
+import PaymentSummaryPage from "@/pages/MainPage/PaymentSummaryPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +71,11 @@ const router = createBrowserRouter([
         path: "detail",
         element: <ContractDetailPage/>
       }
-  ]}
+  ]},
+  {
+    path:'/payment-summary',
+    element: <PaymentSummaryPage/>
+  }
 ])
 
 createRoot(document.getElementById('root')!).render(

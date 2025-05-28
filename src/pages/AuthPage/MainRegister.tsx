@@ -19,7 +19,7 @@ function MainRegister() {
     }
     return (
         <div className={"w-screen md:h-screen relative flex justify-center items-center"}>
-            <div className={"absolute p-4 md:p-8 bg-white rounded-full shadow-md"} onClick={redirectHome}>
+            <div className={"absolute p-4 md:p-8 bg-white rounded-full shadow-md cursor-pointer"} onClick={redirectHome}>
                 <img src={logo} alt="logo" className={"h-16 md:h-32"}/>
             </div>
             <div className={"w-screen md:h-screen flex flex-col md:flex-row items-center justify-center"}>

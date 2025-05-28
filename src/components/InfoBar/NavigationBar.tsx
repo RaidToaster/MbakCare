@@ -50,7 +50,7 @@ function NavigationBar() {
                     <a href={"/dashboard"}>Dashboard</a>
                     <a href={"/search"}>Find Helper</a>
                     <a href={"/task-manager"}>Task Manager</a>
-                    <a href={"/payments"}>Payments</a>
+                    <a href={"/payment-summary"}>Payments</a>
                     <a href={"/contracts"}>Contracts</a>
                 </div>
                 <div>
@@ -70,7 +70,7 @@ function NavigationBar() {
                         <a href={"/dashboard"}>Dashboard</a>
                         <a href={"/search"}>Find Helper</a>
                         <a href={"/task-manager"}>Task Manager</a>
-                        <a href={"/payments"}>Payments</a>
+                        <a href={"/payment-summary"}>Payments</a>
                         <a href={"/contracts"}>Contracts</a>
                     </div>
                 </motion.div>
