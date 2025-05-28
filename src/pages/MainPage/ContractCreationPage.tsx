@@ -36,7 +36,7 @@ function ContractCreationPage() {
     return (
         <div className={"min-h-screen min-w-full max-w-screen h-full"}>
             <NavigationBar/>
-            <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
+            <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
                 <div className="flex flex-col items-center justify-center relative">
                     <TbArrowBackUp className={"absolute left-0"} size={40} onClick={backTrack}/>
                     <h1 className={"font-bold text-4xl text-center"}>Contract Questions</h1>
@@ -57,6 +57,7 @@ function ContractCreationPage() {
                     <ContractQuestionCard question={"Are you willing to provide housing accommodation:"} list={["Yes", "No"]} multiple={false}/>
                     <ContractQuestionCard question={"Select the facility/facilities you want to provide:"} list={defaultFacility}/>
                     <ContractQuestionCard question={"Select contract duration:"} list={["1 Year", "2 Years"]} multiple={false}/>
+
                     <div className={"flex items-center justify-center"}>
                         <Button  onClick={generateContract} size={'xl'} className={"text-md"}>
                             <TbContract className={"size-8"}/>

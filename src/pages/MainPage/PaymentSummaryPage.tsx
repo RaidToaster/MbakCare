@@ -54,7 +54,7 @@ function PaymentSummaryPage() {
             )
         }else if(status == 3){
             return (
-                <div className={"flex flex-col items-center justify-center gap-5"}>
+                <div className={"flex flex-col items-center justify-center gap-5 text-center"}>
                     <p>We’ve received and verified your payment. Thank you for completing the transaction!</p>
                     <div className={"text-[#EE7C9E] flex flex-col items-center justify-center gap-2.5"}>
                         <FaCheckCircle className={"size-24 "}/>
@@ -76,7 +76,7 @@ function PaymentSummaryPage() {
     return (
         <div className={"min-h-screen min-w-full max-w-screen h-full"}>
             <NavigationBar/>
-            <div className={"flex flex-col w-full h-full px-8 md:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
+            <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
                 <div className="flex flex-col items-center justify-center relative">
                     <h1 className={"font-bold text-4xl text-center"}>Monthly Payment Summary</h1>
                     <div className="w-96 h-0.5 bg-[#DA807B] mt-2 rounded-md"></div>
@@ -126,7 +126,7 @@ function PaymentSummaryPage() {
 
                             <div className="flex justify-start mt-4">
                                 <div className="w-1/2 text-left">
-                                    <div className={"flex flex-row gap-2.5 items-center"}>
+                                    <div className={"flex flex-col gap-0.5 lg:flex-row lg:gap-2.5 items-start lg:items-center"}>
                                         <p className="font-semibold text-lg ">
                                             Total Amount Payable:
                                         </p>

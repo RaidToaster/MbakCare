@@ -49,8 +49,8 @@ function Login() {
     }
 
     return (
-        <div className="max-h-screen w-screen bg-[#FBF3EB] flex flex-col md:flex-row">
-            <div className="hidden md:block md:w-2/5 relative overflow-hidden">
+        <div className="max-h-screen w-screen bg-[#FBF3EB] flex flex-col lg:flex-row">
+            <div className="hidden lg:block lg:w-2/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000cb] to-transparent z-10"></div>
                 <img
                     src={loginimage}
@@ -63,12 +63,12 @@ function Login() {
                 </div>
             </div>
 
-            <div className="w-full min-h-screen md:w-3/5 flex flex-col items-center justify-center p-8 gap-16">
+            <div className="w-full min-h-screen lg:w-3/5 flex flex-col items-center justify-center p-8 gap-16">
                 <div className='z-10'>
                     <img
                         src={logo}
                         alt="Company Logo"
-                        className='h-32 md:h-64 w-auto'
+                        className='h-32 lg:h-64 w-auto'
                         onClick={toHome}
                     />
                 </div>

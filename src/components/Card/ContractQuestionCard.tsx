@@ -18,7 +18,7 @@ function ContractQuestionCard({question,multiple = true, list}:{question:string,
     return (
         <div className={"bg-[#FFF2F3] px-12 py-8 rounded-md shadow-md flex flex-col gap-4 cursor-default"}>
             <p>{question}</p>
-            <div className={"grid grid-cols-5 gap-2"}>
+            <div className={"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2"}>
                 {list.map((item) => (
                     <SkillBox
                         item={item}
