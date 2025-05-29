@@ -1,7 +1,7 @@
-import { Input } from '@/components/InfoComponent/input'
+import { Input } from '@/components/Inputer/Input.tsx'
 import loginimage from '../../assets/images/login/login.png'
 import logo from '../../assets/images/logo/Pink.png'
-import { Button } from '@/components/InfoComponent/Button.tsx'
+import { Button } from '@/components/Inputer/Button.tsx'
 import { Lock, Mail } from 'lucide-react'
 import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
@@ -80,12 +80,12 @@ function Login() {
                     <div className='flex flex-col items-center justify-center gap-2 mb-6 relative'>
                         <div className="w-full flex items-center">
                             <Mail className="absolute left-4 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="email" type="email" placeholder="Email" onChange={handleChange} />
+                            <Input serial={'auth'} name="email" type="email" placeholder="Email" onChange={handleChange} />
                         </div>
 
                         <div className="w-full flex items-center">
                             <Lock className="absolute left-4 text-gray-400" size={18} />
-                            <Input className="rounded-3xl w-80 h-12 pl-10 border-[#8F9ABA]/30 focus:border-[#EE7C9E] focus:ring-[#EE7C9E]" name="password" type="password" placeholder="Password" onChange={handleChange} />
+                            <Input serial={'auth'} name="password" type="password" placeholder="Password" onChange={handleChange} />
                         </div>
                     </div>
 

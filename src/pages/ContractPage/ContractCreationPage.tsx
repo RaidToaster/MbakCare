@@ -4,7 +4,7 @@ import {TbArrowBackUp, TbContract} from "react-icons/tb";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import ContractQuestionCard from "@/components/Card/ContractQuestionCard.tsx";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 
 function ContractCreationPage() {
 
@@ -14,8 +14,10 @@ function ContractCreationPage() {
         navigate(-1)
     }
 
-    const defaultSkill = ["House Cleaning", "Cooking", "Laundry Care", "Pet Care", "Dishwashing"]
-    const defaultFacility = ["Wi-Fi Access", "Free Meals", "Transport Fee", "Holiday Bonus", "Healthcare Support", "Weekend Off", "Job Supplies"]
+    const [defaultSkill] = useState<string[]>(["House Cleaning", "Cooking", "Laundry Care", "Pet Care", "Dishwashing"]);
+    const [defaultFacility] = useState<string[]>(["Wi-Fi Access", "Free Meals", "Transport Fee", "Holiday Bonus", "Healthcare Support", "Weekend Off", "Job Supplies"]);
+    const [defaultDuration] = useState<string[]>(["1 Year", "2 Years"]);
+    const confirmChoices = ["Yes", "No"]
 
     const [value, setValue] = useState("0");
 
@@ -38,7 +40,7 @@ function ContractCreationPage() {
             <NavigationBar/>
             <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
                 <div className="flex flex-col items-center justify-center relative">
-                    <TbArrowBackUp className={"absolute left-0"} size={40} onClick={backTrack}/>
+                    <TbArrowBackUp className={"cursor-pointer absolute left-0"} size={40} onClick={backTrack}/>
                     <h1 className={"font-bold text-4xl text-center"}>Contract Questions</h1>
                     <div className="w-64 h-0.5 bg-[#DA807B] mt-1 rounded-md"></div>
                 </div>
@@ -54,9 +56,9 @@ function ContractCreationPage() {
                         />
                     </div>
                     <ContractQuestionCard question={"Select the main tasks you want to assign:"} list={defaultSkill} />
-                    <ContractQuestionCard question={"Are you willing to provide housing accommodation:"} list={["Yes", "No"]} multiple={false}/>
+                    <ContractQuestionCard question={"Are you willing to provide housing accommodation:"} list={confirmChoices} multiple={false}/>
                     <ContractQuestionCard question={"Select the facility/facilities you want to provide:"} list={defaultFacility}/>
-                    <ContractQuestionCard question={"Select contract duration:"} list={["1 Year", "2 Years"]} multiple={false}/>
+                    <ContractQuestionCard question={"Select contract duration:"} list={defaultDuration} multiple={false}/>
 
                     <div className={"flex items-center justify-center"}>
                         <Button  onClick={generateContract} size={'xl'} className={"text-md"}>

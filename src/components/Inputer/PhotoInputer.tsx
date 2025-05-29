@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {AiOutlinePicture} from "react-icons/ai";
 
-function PhotoInputer({ onChange }: { onChange: (file: File) => void }) {
+function PhotoInputer({ onChange, defaultPhoto = null, full = false}: { onChange: (file: File) => void, defaultPhoto?:File|string|null, full?: boolean }) {
 
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(
+        defaultPhoto ?  (defaultPhoto instanceof File ? URL.createObjectURL(defaultPhoto) : defaultPhoto) : null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -16,7 +17,7 @@ function PhotoInputer({ onChange }: { onChange: (file: File) => void }) {
     return (
         <label
             htmlFor="photo-upload"
-            className="relative border border-gray-300 rounded-md w-64 h-48 px-4 flex items-center justify-center cursor-pointer hover:border-pink-400"
+            className={`overflow-hidden relative border flex items-center justify-center cursor-pointer hover:border-pink-400 ${full ? 'border-[#492924] rounded-full w-40 h-40' : 'border-gray-300 rounded-md w-72 h-64 px-4'}`}
         >
             {previewUrl ? (
                 <img

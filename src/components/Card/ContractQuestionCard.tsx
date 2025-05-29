@@ -1,35 +1,11 @@
-import SkillBox from "@/components/InfoComponent/SkillBox.tsx";
-import {useState} from "react";
+import BoxInput from "@/components/Inputer/BoxInput.tsx";
 
-function ContractQuestionCard({question,multiple = true, list}:{question:string,multiple?:boolean, list:string[]}) {
-
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
-
-    function handleSelect(skill: string) {
-        if (multiple) {
-            setSelectedItems(prev =>
-                prev.includes(skill) ? prev.filter(s => s !== skill) : [...prev, skill]
-            );
-        } else {
-            setSelectedItems([skill]);
-        }
-    }
+function ContractQuestionCard({question,multiple = true, list, onlyOne, multipleAns}:{question:string,multiple?:boolean, list:string[], onlyOne?:(arg0:string)=>void, multipleAns?:(arg0:string[])=>string[]}) {
 
     return (
         <div className={"bg-[#FFF2F3] px-12 py-8 rounded-md shadow-md flex flex-col gap-4 cursor-default"}>
             <p>{question}</p>
-            <div className={"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2"}>
-                {list.map((item) => (
-                    <SkillBox
-                        item={item}
-                        fixed={"f"}
-                        variant={'white'}
-                        option={'y'}
-                        canSelected={true}
-                        isSelected={selectedItems.includes(item)}
-                        onSelect={handleSelect}/>
-                ))}
-            </div>
+            <BoxInput list={list} onlyOne={onlyOne} multipleAns={multipleAns} multiple={multiple} />
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import Profile1 from "@/assets/images/home/Review Profile 1.png";
 import Testi1 from "@/assets/images/home/Testimoni Portrait 1.png";
-import StarRating from "@/components/InfoComponent/StarRating.tsx";
+import StarRating from "@/components/Inputer/StarRating.tsx";
 
 function HelperReviewCard() {
     return (
@@ -9,7 +9,7 @@ function HelperReviewCard() {
             <div
                 className={"flex flex-col gap-8 text-[#492924] md:text-start justify-center md:justify-start text-center w-full md:w-1/2"}>
                 <h1 className={"text-3xl font-bold"}>Customer Reviews</h1>
-                <p className={"md:w-2/3"}>"This platform has truly changed my life! I found a reliable job quickly, and
+                <p className={"md:w-2/3 text-justify"}>"This platform has truly changed my life! I found a reliable job quickly, and
                     the task management feature makes everything so much easier. I feel more valued and secure in my
                     work."</p>
                 <div className={"flex flex-row gap-4 items-center justify-center md:justify-start"}>

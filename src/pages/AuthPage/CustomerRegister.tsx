@@ -2,9 +2,9 @@ import customer from "../../assets/images/main/Customer Image.png"
 import {Link, useNavigate} from "react-router-dom";
 import logo from "@/assets/images/logo/Pink.png";
 import {FaLock, FaUser} from "react-icons/fa";
-import {Input} from "@/components/InfoComponent/input.tsx";
+import {Input} from "@/components/Inputer/Input.tsx";
 import {MdEmail} from "react-icons/md";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 import {FcGoogle} from "react-icons/fc";
 import {TbArrowBackUp} from "react-icons/tb";
 function CustomerRegister() {
@@ -31,19 +31,19 @@ function CustomerRegister() {
                     <div className={"flex flex-row gap-5 justify-center items-center relative text-gray-500 w-full"}>
                         <FaUser size={16} className={"absolute left-5"}/>
                         <Input
-                            className={"w-80 h-16 pl-12 rounded-full py-2 border-2 focus:border-gray-700 focus:ring-[#EE7C9E]"}
+                            serial={'auth'}
                             placeholder={"Full Name"} maxLength={25} type={"text"}/>
                     </div>
                     <div className={"flex flex-row gap-5 justify-center items-center relative text-gray-500 w-full"}>
                         <MdEmail size={16} className={"absolute left-5"}/>
                         <Input
-                            className={"w-80 h-16 pl-12 rounded-full py-2 border-2 focus:border-gray-700 focus:ring-[#EE7C9E]"}
+                            serial={'auth'}
                             placeholder={"Email"} maxLength={25} type={"email"}/>
                     </div>
                     <div className={"flex flex-row gap-5 justify-center items-center relative text-gray-500 w-full"}>
                         <FaLock size={16} className={"absolute left-5"}/>
                         <Input
-                            className={"w-80 h-16 pl-12 rounded-full py-2 border-2 focus:border-gray-700 focus:ring-[#EE7C9E]"}
+                            serial={'auth'}
                             placeholder={"Password"} maxLength={25} type={"password"}/>
                     </div>
                 </div>
