@@ -1,11 +1,11 @@
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 import {useNavigate} from "react-router-dom";
 import {TbArrowBackUp} from "react-icons/tb";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 import {IoIosSend} from "react-icons/io";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import {useState} from "react";
-import Notification from "@/components/Card/Notification.tsx";
+import Notification from "@/components/InfoComponent/Notification.tsx";
 
 function ContractDetailPage() {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ function ContractDetailPage() {
     const [confirmPopup, setConfirmPopup] = useState(false)
 
     function backTrack (){
-        navigate(-1);
+        navigate('/contract/create');
     }
     
     function sendContract (){
@@ -31,7 +31,7 @@ function ContractDetailPage() {
         <div className={"min-h-screen min-w-full max-w-screen h-full"}>
             <NavigationBar/>
             <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
-                <TbArrowBackUp className={"absolute left-48 hidden lg:block"} size={40} onClick={backTrack}/>
+                <TbArrowBackUp className={"cursor-pointer absolute left-48 hidden lg:block "} size={40} onClick={backTrack}/>
                 <div className="flex flex-col justify-center relative bg-[#F7F8F1] rounded-md p-6 gap-5 w-full text-justify px-14 shadow-md">
                     <h1 className={"text-3xl m-10 text-center font-bold"}>Employment Contract Between Customer And Helper</h1>
                     <p>Contract No: DW/YOG/2025/087<br/>
@@ -193,7 +193,7 @@ function ContractDetailPage() {
 
             {confirmPopup && (
                 <Notification
-                    title={"Contract Sent Successfully"}
+                    title={"ContractPage Sent Successfully"}
                     message={"Please wait for their response. They may choose to accept, decline, or negotiate the contract with you."}
                     variant={0}
                     onClose={closePopup}

@@ -1,10 +1,20 @@
 import TaskCard from "@/components/Card/TaskCard.tsx";
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 import {FaEdit} from "react-icons/fa";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function TaskPage() {
+
+    const [defaultTask] = useState<string[]>(["House Cleaning", "Cooking", "Laundry Care", "Pet Care", "Dishwashing"]);
+    const [additionalTask] = useState<string[]>(defaultTask)
+    const navigate = useNavigate();
+
+    function toEditTask(){
+        navigate("/task/edit");
+    }
     return (
         <div className={"min-w-full max-w-screen min-h-screen h-full cursor-default"}>
             <NavigationBar/>
@@ -16,14 +26,17 @@ function TaskPage() {
                             <div className="w-24 h-1 bg-[#DA807B] mt-1 rounded-md"></div>
                         </div>
                         <Button
-                            className={"bg-[#EE7C9E] p-6 text-white flex items-center justify-center absolute right-0"}>
+                            className={"bg-[#EE7C9E] p-6 text-white flex items-center justify-center absolute right-0"}
+                            onClick={toEditTask}
+                        >
                             <FaEdit size={32}/>
                             Edit Tasks
                         </Button>
                     </div>
                     <div className={"flex flex-col gap-1 w-full"}>
-                        <TaskCard/>
-                        <TaskCard/>
+                        {defaultTask && defaultTask.length > 0 && defaultTask.map((item) => (
+                            <TaskCard title={item} description={item} isDone={false}/>
+                        ))}
                     </div>
                 </div>
                 <div className={"flex flex-col gap-8"}>
@@ -34,8 +47,9 @@ function TaskPage() {
                         </div>
                     </div>
                     <div className={"flex flex-col gap-1 w-full"}>
-                        <TaskCard/>
-                        <TaskCard/>
+                        {additionalTask && additionalTask.length > 0 && additionalTask.map((item) => (
+                            <TaskCard title={item} description={item} isDone={true}/>
+                        ))}
                     </div>
                 </div>
                 <div className={"flex flex-col gap-4"}>

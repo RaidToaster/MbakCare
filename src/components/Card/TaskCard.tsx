@@ -1,10 +1,11 @@
 import {useState} from "react";
 import {LuBellRing} from "react-icons/lu";
 import {MdKeyboardArrowDown, MdKeyboardArrowUp} from "react-icons/md";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 import test from "@/assets/images/profile/test.jpg"
+import {FaCheckCircle} from "react-icons/fa";
 
-function TaskCard() {
+function TaskCard({title, description, pictures, isDone } : {title: string, description: string, pictures?: string[], isDone:boolean}) {
 
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const size = 32
@@ -17,10 +18,14 @@ function TaskCard() {
             <div className={"flex flex-row justify-between bg-[#FFF2F3] rounded-md p-6 items-center text-[#492924]"}>
                 <div className={"flex flex-row gap-5"}>
                     <h3 className={"text-[#EE7C9E]"}>Task Title: </h3>
-                    <h3>Babysitting</h3>
+                    <h3>{title}</h3>
                 </div>
                 <div className={"flex flex-row gap-3 items-center"}>
-                    <LuBellRing />
+                    {isDone ? (
+                        <FaCheckCircle size={size} className={"text-[#EE7C9E]"}/>
+                    ):(
+                        <LuBellRing size={size} className={'hover:text-[#EE7C9E]'}/>
+                    )}
                     {isOpen ? (
                         <MdKeyboardArrowUp onClick={toggleExpand} size={size}/>
                     ):(
@@ -39,17 +44,23 @@ function TaskCard() {
                                 {Array.from(Array(10).keys()).map((i) => (
                                     <img src={test} className={"w-64 h-48 flex-shrink-0 rounded-md object-cover"} alt="" key={i}/>
                                 ))}
+
+                                {pictures && pictures.length > 0 && pictures.map((i) => (
+                                    <img src={i} className={"w-64 h-48 flex-shrink-0 rounded-md object-cover"} alt="" key={i}/>
+                                ))}
                             </div>
-                            <p>Description</p>
+                            <p>{description}</p>
                         </div>
-                        <div className={"flex flex-row gap-5 justify-end w-full"}>
-                            <Button size={'lg'} color={'white'} rounded={'med'} >
-                                Reject Task
-                            </Button>
-                            <Button size={'lg'} color={'pink'} rounded={'med'} >
-                                Mark as done
-                            </Button>
-                        </div>
+                        {!isDone && (
+                            <div className={"flex flex-row gap-5 justify-end w-full"}>
+                                <Button size={'lg'} color={'white'} rounded={'med'}>
+                                    Reject Task
+                                </Button>
+                                <Button size={'lg'} color={'pink'} rounded={'med'}>
+                                    Mark as done
+                                </Button>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

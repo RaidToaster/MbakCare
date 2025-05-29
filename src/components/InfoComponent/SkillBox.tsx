@@ -14,9 +14,6 @@ const skillBoxVariants = cva(
                 default: "text-sm",
                 lg: "text-base px-6 py-3",
             },
-            fixed:{
-                f:"w-11/12 flex items-center justify-center",
-            },
             option:{
                 y:"hover:cursor-pointer",
             },
@@ -35,7 +32,7 @@ type SkillBoxProps = {
     onSelect?:(item:string) => void
 } & VariantProps<typeof skillBoxVariants>
 
-function SkillBox({ item, variant, size, fixed, option, canSelected = false, isSelected, onSelect }: SkillBoxProps) {
+function SkillBox({ item, variant, size, option, canSelected = false, isSelected, onSelect }: SkillBoxProps) {
 
     function handleClick() {
         if (onSelect && canSelected) {
@@ -45,7 +42,7 @@ function SkillBox({ item, variant, size, fixed, option, canSelected = false, isS
 
     return (
         <div
-            className={`${skillBoxVariants({ variant, size, fixed, option })} ${isSelected ? "border-[#EE7C9E] text-[#EE7C9E]" : ""}`}
+            className={`${skillBoxVariants({ variant, size, option })} ${isSelected ? "border-[#EE7C9E] text-[#EE7C9E]" : ""}`}
             onClick={handleClick}
         >
             {isSelected && (

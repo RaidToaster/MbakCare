@@ -1,12 +1,12 @@
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 import {useState} from "react";
-import PhotoInputer from "@/components/PhotoInputer.tsx";
+import PhotoInputer from "@/components/Inputer/PhotoInputer.tsx";
 import {FaCheckCircle} from "react-icons/fa";
 
 function PaymentSummaryPage() {
 
-    const [status, setStatus] = useState(3)
+    const [status, setStatus] = useState(2)
     const [photoEvidence, setPhotoEvidence] = useState<File|null>(null)
     const detail={
         id: 'INV-00123',
@@ -57,7 +57,7 @@ function PaymentSummaryPage() {
                 <div className={"flex flex-col items-center justify-center gap-5 text-center"}>
                     <p>We’ve received and verified your payment. Thank you for completing the transaction!</p>
                     <div className={"text-[#EE7C9E] flex flex-col items-center justify-center gap-2.5"}>
-                        <FaCheckCircle className={"size-24 "}/>
+                        <FaCheckCircle className={"size-24"}/>
                         <h3 className={"text-xl font-bold"}>Payment Received</h3>
                     </div>
                 </div>
@@ -149,8 +149,6 @@ function PaymentSummaryPage() {
                 <div>
                     {paymentStatus()}
                 </div>
-
-
             </div>
             <MainFooter/>
         </div>

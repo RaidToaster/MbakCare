@@ -1,4 +1,4 @@
-import StarRating from "@/components/InfoComponent/StarRating.tsx";
+import StarRating from "@/components/Inputer/StarRating.tsx";
 import test from "@/assets/images/profile/test.jpg"
 
 function CustomerReviewCard() {
@@ -13,7 +13,7 @@ function CustomerReviewCard() {
                     </div>
                 </div>
                 <StarRating rating={2.5}/>
-                <p className={"text-sm text-[#492924]"}>He is a good helper and I am happy with his work. You should hire him because he has workaholic mentality</p>
+                <p className={"text-sm text-[#492924] text-justify"}>He is a good helper and I am happy with his work. You should hire him because he has workaholic mentality</p>
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ import {useNavigate} from "react-router-dom";
 import banner from "@/assets/images/profile/Profile Banner.png"
 import test from "@/assets/images/profile/test.jpg"
 import {AiFillStar} from "react-icons/ai";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 
 function HelperProfile() {
 
@@ -40,10 +40,10 @@ function HelperProfile() {
     return (
         <div className="bg-white min-h-screen min-w-full max-w-screen h-full cursor-default">
             <NavigationBar/>
-            <div className="w-full flex flex-col gap-8 lg:gap-0 lg:flex-row justify-between px-8 lg:px-32 py-8 pt-40 text-[#492924]">
-                <div className={"flex flex-col gap-8"}>
+            <div className="w-full flex flex-col gap-8 lg:gap-0 lg:flex-row justify-center lg:justify-between px-8 lg:px-32 py-8 pt-40 text-[#492924]">
+                <div className={"flex flex-col gap-8 items-center"}>
                     <div className={"w-11/12 flex flex-col rounded-md shadow-md overflow-hidden bg-[#F7F8F1] relative"}>
-                        <TbArrowBackUp className={"absolute left-5 top-5 text-white"} size={48} onClick={backTrack}/>
+                        <TbArrowBackUp className={"cursor-pointer absolute left-5 top-5 text-white"} size={48} onClick={backTrack}/>
                         <img src={banner} alt={"User Profile"} className={"w-full h-[200px] object-cover object-top"}/>
                         <img src={test} alt={"User Profile"} className={"absolute w-40 h-40 object-cover rounded-full border-2 border-[#492924] top-1/2 left-14"}/>
                         <div className={"flex flex-col gap-2.5 items-end lg:flex-row justify-between p-8 lg:items-center"}>

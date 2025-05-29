@@ -1,4 +1,4 @@
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 import {useEffect} from "react";
 
 function Notification({title, message, variant, onClose}: {title:string, message:string, variant:number,onClose:() => void}) {

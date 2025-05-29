@@ -2,7 +2,7 @@ import logo from "../../assets/images/logo/Pink.png"
 import customer from "../../assets/images/main/Customer Image.png"
 import helper from "../../assets/images/main/Helper Image.png"
 import {Link, useNavigate} from "react-router-dom";
-import {Button} from "@/components/InfoComponent/Button.tsx";
+import {Button} from "@/components/Inputer/Button.tsx";
 
 function MainRegister() {
     const navigate = useNavigate();

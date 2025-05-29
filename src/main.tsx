@@ -10,11 +10,15 @@ import HelperRegister from "@/pages/AuthPage/HelperRegister.tsx";
 import MainRegister from "@/pages/AuthPage/MainRegister.tsx";
 import Register from "@/pages/old page/Register.tsx";
 import SearchPage from "@/pages/MainPage/SearchPage.tsx";
-import HelperProfile from "@/pages/MainPage/HelperProfile.tsx";
+import HelperProfile from "@/pages/ProfilePage/HelperProfile.tsx";
 import TaskPage from "@/pages/MainPage/TaskPage.tsx";
-import ContractCreationPage from "@/pages/MainPage/ContractCreationPage.tsx";
-import ContractDetailPage from "@/pages/MainPage/ContractDetailPage.tsx";
+import ContractCreationPage from "@/pages/ContractPage/ContractCreationPage.tsx";
+import ContractDetailPage from "@/pages/ContractPage/ContractDetailPage.tsx";
 import PaymentSummaryPage from "@/pages/MainPage/PaymentSummaryPage.tsx";
+import ProfilePage from "@/pages/ProfilePage/ProfilePage.tsx";
+import EditTaskPage from "@/pages/MainPage/EditTaskPage.tsx";
+import ViewInboxPage from "@/pages/InboxPage/ViewInboxPage.tsx";
+import InboxDetailPage from "@/pages/InboxPage/InboxDetailPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +54,10 @@ const router = createBrowserRouter([
     element:<SearchPage/>
   },
   {
+    path:"/profile",
+    element:<ProfilePage/>
+  },
+  {
     path:"/helper-profile",
     element:<HelperProfile/>
   },
@@ -59,19 +67,44 @@ const router = createBrowserRouter([
   },
   {
     path:"/task",
-    element:<TaskPage/>
+    children: [
+        {
+        path:"view",
+        element:<TaskPage/>
+      },
+      {
+        path:"edit",
+        element:<EditTaskPage/>
+      }
+
+        ]
   },
   {
     path:"/contract",
-    children: [{
-        path: "create",
-        element: <ContractCreationPage/>
-      },
+    children: [
+        {
+          path: "create",
+          element: <ContractCreationPage/>
+        },
       {
         path: "detail",
         element: <ContractDetailPage/>
       }
-  ]},
+      ]
+  },
+  {
+    path:"/inbox",
+    children: [
+      {
+        path: "view",
+        element: <ViewInboxPage/>
+      },
+      {
+        path: "detail",
+        element: <InboxDetailPage/>
+      }
+    ]
+  },
   {
     path:'/payment-summary',
     element: <PaymentSummaryPage/>
