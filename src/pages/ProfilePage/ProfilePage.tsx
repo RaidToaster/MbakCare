@@ -16,7 +16,7 @@ function ProfilePage() {
     const [languages] = useState<string[]>(['English','Indonesia', 'Russian', 'French', 'Spanish', 'Arabic', 'Mandarin']);
     const [defaultSkill] = useState<string[]>(["House Cleaning", "Cooking", "Laundry Care", "Pet Care", "Dishwashing"]);
     const [defaultJobTime] = useState<string[]>(["Full-Time", "Part-Time", "Temporary"]);
-    const [defaultContractStatus] = useState<string[]>(["Finished ContractPage", "New Worker", "Terminated"]);
+    const [defaultContractStatus] = useState<string[]>(["Finished Contract", "New Worker", "Terminated"]);
     const [defaultDayOff] = useState<string[]>(["Flexible", "Sunday Only", "Weekend", "Public Holidays"]);
     const [defaultFacility] = useState<string[]>(["Wi-Fi Access", "Free Meals", "Transport Fee", "Holiday Bonus", "Healthcare Support", "Weekend Off", "Job Supplies"]);
     const [defaultDuration] = useState<string[]>(["1 Year", "2 Years"]);
@@ -45,7 +45,7 @@ function ProfilePage() {
                 </div>
                 <div className={"bg-[#F7F8F1] p-8 rounded-md shadow-md flex flex-col gap-8 w-full"}>
                     <div className={"flex flex-col gap-2 w-full items-center justify-center"}>
-                        <h3 className={"text-xl font-semibold text-[#EE7C9E]"}>Profile Picture </h3>
+                        <h3 className={"text-xl font-semibold text-[#EE7C9E]"}>Profile Picture</h3>
                         <PhotoInputer onChange={takePhoto} defaultPhoto={icon} full={true}/>
                     </div>
                     <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
@@ -130,7 +130,7 @@ function ProfilePage() {
                     </div>
 
                     <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
-                        <h3 className={"text-md font-semibold text-[#EE7C9E]"}>Required Helper Level</h3>
+                        <h3 className={"text-md font-semibold text-[#EE7C9E]"}>Start Work Date</h3>
                         <Input value={5} onChange={handleChange} type="date"/>
                     </div>
 

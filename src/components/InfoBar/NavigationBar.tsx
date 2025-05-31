@@ -13,12 +13,8 @@ function NavigationBar() {
 
     const isCustomer = false
 
-    function toggleOpen() {
-        setIsOpen(true)
-    }
-
-    function toggleClose() {
-        setIsOpen(false)
+    function togglePopup() {
+        setIsOpen(!isOpen)
     }
 
     function toProfile() {
@@ -28,15 +24,15 @@ function NavigationBar() {
     return (
         <div className={`min-w-full max-w-screen fixed flex flex-row p-6 text-white z-40 ${isCustomer ? 'bg-[#EE7C9E]' : 'bg-[#996052]'}`}>
             <div className={"flex flex-row gap-10 items-center w-full lg:w-auto justify-between lg:justify-start"}>
-                <button className={"flex lg:hidden flex-row gap-4 items-center"}>
+                <button className={"flex lg:hidden flex-row gap-4 items-center cursor-pointer"} onClick={togglePopup}>
                     <motion.div
                         initial={{rotate: 0}}
                         animate={{rotate: isOpen ? 180 : 0}}
                         transition={{duration: 0.3}}
-                        className="cursor-pointer z-50"
+                        className="z-50"
                     >
-                        {isOpen ? <IoClose size={32} onClick={toggleClose}/> :
-                            <RxHamburgerMenu size={32} onClick={toggleOpen}/>}
+                        {isOpen ? <IoClose size={32}/> :
+                            <RxHamburgerMenu size={32}/>}
                     </motion.div>
                     {isOpen && (
                         <motion.div
