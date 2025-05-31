@@ -41,6 +41,8 @@ function TaskCard({title, description, pictures, isDone } : {title: string, desc
                     <div className={"flex flex-col p-6 gap-20 bg-[#F7F8F1]"}>
                         <div className={"flex flex-col gap-5"}>
                             <div className={"flex flex-nowrap gap-5 overflow-x-auto p-5"}>
+
+                                {/*delete this if already fetched*/}
                                 {Array.from(Array(10).keys()).map((i) => (
                                     <img src={test} className={"w-64 h-48 flex-shrink-0 rounded-md object-cover"} alt="" key={i}/>
                                 ))}

@@ -10,7 +10,7 @@ import HelperRegister from "@/pages/AuthPage/HelperRegister.tsx";
 import MainRegister from "@/pages/AuthPage/MainRegister.tsx";
 import Register from "@/pages/old page/Register.tsx";
 import SearchPage from "@/pages/MainPage/SearchPage.tsx";
-import HelperProfile from "@/pages/ProfilePage/HelperProfile.tsx";
+import UserProfile from "@/pages/ProfilePage/UserProfile.tsx";
 import TaskPage from "@/pages/MainPage/TaskPage.tsx";
 import ContractCreationPage from "@/pages/ContractPage/ContractCreationPage.tsx";
 import ContractDetailPage from "@/pages/ContractPage/ContractDetailPage.tsx";
@@ -19,6 +19,7 @@ import ProfilePage from "@/pages/ProfilePage/ProfilePage.tsx";
 import EditTaskPage from "@/pages/MainPage/EditTaskPage.tsx";
 import ViewInboxPage from "@/pages/InboxPage/ViewInboxPage.tsx";
 import InboxDetailPage from "@/pages/InboxPage/InboxDetailPage.tsx";
+import LevelPage from "@/pages/ProfilePage/LevelPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -58,8 +59,12 @@ const router = createBrowserRouter([
     element:<ProfilePage/>
   },
   {
+    path:"/level",
+    element:<LevelPage/>
+  },
+  {
     path:"/helper-profile",
-    element:<HelperProfile/>
+    element:<UserProfile/>
   },
   {
     path:"/hihi",

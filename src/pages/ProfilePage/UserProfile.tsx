@@ -13,15 +13,17 @@ import banner from "@/assets/images/profile/Profile Banner.png"
 import test from "@/assets/images/profile/test.jpg"
 import {AiFillStar} from "react-icons/ai";
 import {Button} from "@/components/Inputer/Button.tsx";
+import {FaDotCircle} from "react-icons/fa";
 
-function HelperProfile() {
+function UserProfile() {
 
-    const listLanguage = ["Indonesia", "English", "Chinese"]
-    const listSkill = ["Skill 1", "Skill 2", "Skill 3"]
-    const listPersonality = ["Kind", "Caring", "Intimate"]
+    const list1 = ["Indonesia", "English", "Chinese"]
+    const list2 = ["Skill 1", "Skill 2", "Skill 3"]
+    const list3 = ["Kind", "Caring", "Intimate"]
     const size = 32
     const maxRate = 5
     const defaultRate = 2.5
+    const isHelper = true
 
     const navigate = useNavigate();
 
@@ -43,10 +45,13 @@ function HelperProfile() {
             <div className="w-full flex flex-col gap-8 lg:gap-0 lg:flex-row justify-center lg:justify-between px-8 lg:px-32 py-8 pt-40 text-[#492924]">
                 <div className={"flex flex-col gap-8 items-center"}>
                     <div className={"w-11/12 flex flex-col rounded-md shadow-md overflow-hidden bg-[#F7F8F1] relative"}>
-                        <TbArrowBackUp className={"cursor-pointer absolute left-5 top-5 text-white"} size={48} onClick={backTrack}/>
+                        <TbArrowBackUp className={"cursor-pointer absolute left-5 top-5 text-white"} size={48}
+                                       onClick={backTrack}/>
                         <img src={banner} alt={"User Profile"} className={"w-full h-[200px] object-cover object-top"}/>
-                        <img src={test} alt={"User Profile"} className={"absolute w-40 h-40 object-cover rounded-full border-2 border-[#492924] top-1/2 left-14"}/>
-                        <div className={"flex flex-col gap-2.5 items-end lg:flex-row justify-between p-8 lg:items-center"}>
+                        <img src={test} alt={"User Profile"}
+                             className={"absolute w-40 h-40 object-cover rounded-full border-2 border-[#492924] top-1/2 left-14"}/>
+                        <div
+                            className={"flex flex-col gap-2.5 items-end lg:flex-row justify-between p-8 lg:items-center"}>
                             <div className={"flex flex-col gap-2 pl-56"}>
                                 <h1 className={"text-xl font-bold"}>Kevin Pramudya Mahardika - 24 Years Old</h1>
                                 <div className={"flex flex-row gap-2"}>
@@ -65,7 +70,7 @@ function HelperProfile() {
                             </div>
                             <Button onClick={toMakeContract} size={'lg'}>
                                 <TbContract className={"text-white size-6"}/>
-                                Make Contract
+                                {isHelper ? 'Make Contract' : 'Send Request'}
                             </Button>
                         </div>
                     </div>
@@ -74,7 +79,8 @@ function HelperProfile() {
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
                             <h1 className={"text-xl"}>Professional Information</h1>
                         </div>
-                        <div className={"flex flex-col lg:flex-row items-start lg:items-center p-6 gap-4 lg:gap-20 bg-[#F7F8F1]"}>
+                        <div
+                            className={"flex flex-col lg:flex-row items-start lg:items-center p-6 gap-4 lg:gap-20 bg-[#F7F8F1]"}>
                             <div className={"flex flex-col gap-4"}>
                                 <div className={"flex flex-row items-center gap-4"}>
                                     <PiNotebook className={"text-[#EE7C9E]"} size={size}/>
@@ -128,90 +134,44 @@ function HelperProfile() {
                         </div>
                     </div>
 
-                    <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
-                        <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Level Information </h1>
-                        </div>
-                        <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
-                            <div className={"flex flex-row items-center gap-4"}>
-                                <TbBadge className={"text-[#EE7C9E]"} size={size}/>
-                                <div className={"flex flex-col justify-start"}>
-                                    <h2 className={"text-[#EE7C9E] text-xl"}>Current Level:</h2>
-                                    <h3 className={"text-xl"}>1</h3>
+                    {isHelper && (
+                        <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
+                            <div
+                                className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
+                                <h1 className={"text-xl"}>Level Information </h1>
+                            </div>
+                            <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
+                                <div className={"flex flex-row items-center gap-4"}>
+                                    <TbBadge className={"text-[#EE7C9E]"} size={size}/>
+                                    <div className={"flex flex-col justify-start"}>
+                                        <h2 className={"text-[#EE7C9E] text-xl"}>Current Level:</h2>
+                                        <h3 className={"text-xl"}>1</h3>
+                                    </div>
+                                </div>
+                                <div className={"bg-[#FFF2F3] border-l-2 border-[#EE7C9E] px-8 py-4 rounded-sm"}>
+                                    <p className={"text-justify"}>
+                                        <b>Disclaimer:</b><br/>
+                                        The level shown above reflects the helper's overall work experience and skill
+                                        proficiency. It is not based on calendar years, but rather on actual tasks
+                                        completed, responsibilities handled, and verified certifications. We use a
+                                        points-based system where:<br/>
+                                        &gt; Every completed task contributes to the helper's experience points
+                                        (EXP).<br/>
+                                        &gt; Certifications and formal training add extra EXP.<br/>
+                                        &gt; Level 10 = Equivalent of 5 Years of Real-World Experience.<br/>
+                                        The level shown above reflects the helper's overall work experience and skill
+                                        proficiency. It is not based on calendar years, but rather on actual tasks
+                                        completed, responsibilities handled, and verified certifications. We use a
+                                        points-based system where:
+                                    </p>
                                 </div>
                             </div>
-                            <div className={"bg-[#FFF2F3] border-l-2 border-[#EE7C9E] px-8 py-4 rounded-sm"}>
-                                <p className={"text-justify"}>
-                                    <b>Disclaimer:</b><br/>
-                                    The level shown above reflects the helper's overall work experience and skill
-                                    proficiency. It is not based on calendar years, but rather on actual tasks
-                                    completed, responsibilities handled, and verified certifications. We use a
-                                    points-based system where:<br/>
-                                    &gt; Every completed task contributes to the helper's experience points (EXP).<br/>
-                                    &gt; Certifications and formal training add extra EXP.<br/>
-                                    &gt; Level 10 = Equivalent of 5 Years of Real-World Experience.<br/>
-                                    The level shown above reflects the helper's overall work experience and skill
-                                    proficiency. It is not based on calendar years, but rather on actual tasks
-                                    completed, responsibilities handled, and verified certifications. We use a
-                                    points-based system where:
-                                </p>
-                            </div>
                         </div>
-                    </div>
+                    )}
 
                     <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Skill & Character </h1>
-                        </div>
-                        <div className={"flex flex-col p-6 gap-4 bg-[#F7F8F1]"}>
-                            <div className={"flex flex-col gap-2"}>
-                                <h2 className={"text-[#EE7C9E] text-xl"}>Language:</h2>
-                                <div className={"flex flex-row gap-2"}>
-                                    {listLanguage ? (
-                                        listLanguage.map((item) => {
-                                            return (
-                                                <SkillBox item={item}/>
-                                            )
-                                        })
-                                    ) : (
-                                        <p className={"text-black"}>None</p>
-                                    )}
-                                </div>
-                            </div>
-                            <div className={"flex flex-col gap-2"}>
-                                <h2 className={"text-[#EE7C9E] text-xl"}>Main Skills:</h2>
-                                <div className={"flex flex-row gap-2"}>
-                                    {listSkill ? (
-                                        listSkill.map((item) => {
-                                            return (
-                                                <SkillBox item={item}/>
-                                            )
-                                        })
-                                    ) : (
-                                        <p className={"text-black"}>None</p>
-                                    )}
-                                </div>
-                            </div>
-                            <div className={"flex flex-col gap-2"}>
-                                <h2 className={"text-[#EE7C9E] text-xl"}>Personality:</h2>
-                                <div className={"flex flex-row gap-2"}>
-                                    {listPersonality ? (
-                                        listPersonality.map((item) => {
-                                            return (
-                                                <SkillBox item={item}/>
-                                            )
-                                        })
-                                    ) : (
-                                        <p className={"text-black"}>None</p>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
-                        <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>About Me </h1>
+                            <h1 className={"text-xl"}>{isHelper ? 'About Me' : 'About My Family'}</h1>
                         </div>
                         <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
                             <p className={"text-[#492924]"}>
@@ -231,42 +191,129 @@ function HelperProfile() {
 
                     <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Work Experience </h1>
+                            <h1 className={"text-xl"}>{isHelper ? 'Skill & Character' : 'Duties & Facility'}</h1>
                         </div>
-                        <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
-
+                        <div className={"flex flex-col p-6 gap-4 bg-[#F7F8F1]"}>
+                            <div className={"flex flex-col gap-2"}>
+                                <h2 className={"text-[#EE7C9E] text-md"}>Language:</h2>
+                                <div className={"flex flex-row gap-2"}>
+                                    {list1 ? (
+                                        list1.map((item) => {
+                                            return (
+                                                <SkillBox item={item}/>
+                                            )
+                                        })
+                                    ) : (
+                                        <p className={"text-black"}>None</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className={"flex flex-col gap-2"}>
+                                <h2 className={"text-[#EE7C9E] text-md"}>Main {isHelper ? 'Skills' : 'Duties'}:</h2>
+                                <div className={"flex flex-row gap-2"}>
+                                    {list2 ? (
+                                        list2.map((item) => {
+                                            return (
+                                                <SkillBox item={item}/>
+                                            )
+                                        })
+                                    ) : (
+                                        <p className={"text-black"}>None</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className={"flex flex-col gap-2"}>
+                                <h2 className={"text-[#EE7C9E] text-md"}>{isHelper ? 'Personality' : 'Provided Facilities'}:</h2>
+                                <div className={"flex flex-row gap-2"}>
+                                    {list3 ? (
+                                        list3.map((item) => {
+                                            return (
+                                                <SkillBox item={item}/>
+                                            )
+                                        })
+                                    ) : (
+                                        <p className={"text-black"}>None</p>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
-                        <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Achievements </h1>
-                        </div>
-                        <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
-                            <AchievementDesc/>
-                        </div>
-                    </div>
+                    {isHelper && (
+                        <>
+                            <div
+                                className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
+                                <div
+                                    className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
+                                    <h1 className={"text-xl"}>Work Experience </h1>
+                                </div>
+                                <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
+                                    <div className={'flex flex-row gap-8 items-center'}>
+                                        <FaDotCircle size={24}/>
+                                        <div className={'flex flex-col gap-0.5 justify-center'}>
+                                            <p className={'text-[#EE7C9E]'}>20 Aug 2025 - 21 Sept 2025</p>
+                                            <p className={'text-md'}>Family in Sleman</p>
+                                            <div className={'flex flex-row gap-1'}>
+                                                <p>Main duties: </p>
+                                                {list2 && list2.map((item, i) => (
+                                                    <p key={i}>
+                                                        {item}{i < list2.length - 1 ? ',' : ''}
+                                                    </p>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div
+                                className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
+                                <div
+                                    className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
+                                    <h1 className={"text-xl"}>Achievements</h1>
+                                </div>
+                                <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
+                                    <AchievementDesc/>
+                                </div>
+                            </div>
+
+                            <div
+                                className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
+                                <div
+                                    className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
+                                    <h1 className={"text-xl"}>On Job Moments</h1>
+                                </div>
+                                <div className={"flex flex-nowrap gap-5 overflow-x-auto p-5"}>
+                                    {/*change this if already fetched*/}
+                                    {Array.from(Array(10).keys()).map((i) => (
+                                        <img src={test} className={"w-64 h-48 flex-shrink-0 rounded-md object-cover"}
+                                             alt=""
+                                             key={i}/>
+                                    ))}
+                                </div>
+                            </div>
+                        </>
+                    )}
+
 
                     <div className={"w-11/12 flex flex-col justify-center rounded-md shadow-md overflow-hidden"}>
                         <div className={"w-full flex items-center bg-[#F3ABAC] px-8 py-4 border-b-2 border-[#492924]"}>
-                            <h1 className={"text-xl"}>Salary Expectation </h1>
+                            <h1 className={"text-xl"}>{isHelper ? 'Salary Expectation' : 'Minimum Salary to Be Paid'}</h1>
                         </div>
                         <div className={"flex flex-col p-6 gap-8 bg-[#F7F8F1]"}>
                             <div className={"flex flex-row items-center gap-4"}>
                                 <TbMoneybag className={"text-[#EE7C9E]"} size={size}/>
                                 <div className={"flex flex-col justify-start"}>
-                                    <h2 className={"text-[#EE7C9E] text-xl"}>Salary:</h2>
+                                <h2 className={"text-[#EE7C9E] text-xl"}>Salary:</h2>
                                     <h3 className={"text-xl"}>Rp.5.000.000,00</h3>
                                 </div>
                             </div>
                             <div className={"bg-[#FFF2F3] border-l-2 border-[#EE7C9E] px-8 py-4 rounded-sm"}>
-                                <p>
+                                <p className={'text-md text-justify'}>
                                     <b>Disclaimer:</b><br/>
-                                    The stated salary is calculated based on the helper's experience level, accumulated
-                                    task history, and verified training or certifications. It represents the minimum
-                                    compensation that should be provided by the customer. The final salary may increase
-                                    depending on the number and complexity of tasks assigned, as agreed upon in the work
-                                    contract.
+                                    {isHelper ? 'The stated salary is calculated based on the helper\'s experience level, accumulated task history, and verified training or certifications. It represents the minimum compensation that should be provided by the customer. The final salary may increase depending on the number and complexity of tasks assigned, as agreed upon in the work contract.' :
+                                        'The stated minimum salary is calculated based on the helper’s experience level and the number of main tasks assigned. This salary may increase depending on additional tasks assigned later by the customer, as mutually agreed in the work contract.'}
                                 </p>
                             </div>
                         </div>
@@ -274,7 +321,7 @@ function HelperProfile() {
                 </div>
                 <div className={"flex flex-col gap-5"}>
                     <div className={"bg-[#DA807B] rounded-md px-10 py-4 flex justify-center items-center"}>
-                        <h1 className={"text-white text-xl"}>Customer Review</h1>
+                        <h1 className={"text-white text-xl"}>{isHelper ? 'Customer' : 'Helper'} Review</h1>
                     </div>
                     <div className={"w-full flex items-center justify-center"}>
                         <CustomerReviewCard/>
@@ -286,4 +333,4 @@ function HelperProfile() {
     );
 }
 
-export default HelperProfile;
+export default UserProfile;

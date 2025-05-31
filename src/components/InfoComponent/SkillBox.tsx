@@ -2,7 +2,7 @@ import {cva, VariantProps} from "class-variance-authority";
 import {FaCheckCircle} from "react-icons/fa";
 
 const skillBoxVariants = cva(
-    "relative shadow-md px-4 py-2 rounded-md border-2 text-center",
+    "relative shadow-md px-4 py-2 rounded-md border-2 text-[#492924] text-center flex items-center justify-center",
     {
         variants: {
             variant: {
