@@ -3,50 +3,68 @@ import loginimage from '../../assets/images/login/login.png'
 import logo from '../../assets/images/logo/Pink.png'
 import { Button } from '@/components/Inputer/Button.tsx'
 import { Lock, Mail } from 'lucide-react'
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { LoginForm } from '@/model/types.ts'
 import { supabase } from '@/lib/supabase'
-import {FcGoogle} from "react-icons/fc";
+import { FcGoogle } from "react-icons/fc";
+import { AuthService } from '@/lib/services/AuthService'
+
 
 function Login() {
+    const navigate = useNavigate();
 
-
-    const navigate = useNavigate()
     const [form, setForm] = useState<LoginForm>({
         email: '',
         password: ''
-    })
+    });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
+        if (error) setError(''); // Clear error when user types
     };
 
-    const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>('')
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>('');
 
     const handleLogin = async () => {
-        setLoading(true)
-        setError('')
+        setLoading(true);
+        setError('');
 
-        const { data: { user }, error } = await supabase.auth.signInWithPassword({
-            email: form.email,
-            password: form.password,
-        })
+        try {
+            // AuthService.loginWithEmailPassword returns { user, session, error }
+            // We are mainly interested if loginData.user exists (or if an error was thrown)
+            const loginData = await AuthService.loginWithEmailPassword(form.email, form.password);
 
-        if (error) {
-            setError(error.message)
-            setLoading(false)
-            return
+            if (loginData.user) {
+                setLoading(false);
+                navigate('/search');
+            } else {
+                setLoading(false);
+                setError("Login succeeded but user data was not available. Please try again.");
+            }
+        } catch (err: any) {
+            setError(err.message || "An unexpected error occurred during login.");
+            setLoading(false);
         }
+    };
 
-        console.log(user?.email)
+    const handleGoogleSignIn = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            await AuthService.signInWithGoogle();
 
-    }
+        } catch (err: any) {
+            setError(err.message || "Google Sign-In failed.");
+            setLoading(false);
+        }
+    };
 
     const toHome = () => {
-        navigate('/')
-    }
+        navigate('/');
+    };
+
 
     return (
         <div className="max-h-screen w-screen bg-[#FBF3EB] flex flex-col lg:flex-row">
@@ -80,12 +98,26 @@ function Login() {
                     <div className='flex flex-col items-center justify-center gap-2 mb-6 relative'>
                         <div className="w-full flex items-center">
                             <Mail className="absolute left-4 text-gray-400" size={18} />
-                            <Input serial={'auth'} name="email" type="email" placeholder="Email" onChange={handleChange} />
+                            <Input
+                                serial={'auth'}
+                                name="email"
+                                type="email"
+                                placeholder="Email"
+                                value={form.email}
+                                onChange={handleChange}
+                            />
                         </div>
 
                         <div className="w-full flex items-center">
                             <Lock className="absolute left-4 text-gray-400" size={18} />
-                            <Input serial={'auth'} name="password" type="password" placeholder="Password" onChange={handleChange} />
+                            <Input
+                                serial={'auth'}
+                                name="password"
+                                type="password"
+                                placeholder="Password"
+                                value={form.password}
+                                onChange={handleChange}
+                            />
                         </div>
                     </div>
 
@@ -101,8 +133,8 @@ function Login() {
                         </div>
 
                         <Button className="border-gray-300  cursor-pointer font-medium shadow-sm flex items-center justify-center gap-2 "
-                                color={'black'} rounded={'max'} size={'xl'}>
-                            <FcGoogle/>
+                            color={'black'} rounded={'max'} size={'xl'}>
+                            <FcGoogle />
                             Sign in with Google
                         </Button>
                     </div>

@@ -1,60 +1,120 @@
-import {MdLocationOn} from "react-icons/md";
-import {GiSevenPointedStar} from "react-icons/gi";
-import {FaCalendar, FaCircle} from "react-icons/fa";
-import test from "@/assets/images/profile/test.jpg"
-import {useNavigate} from "react-router-dom";
+import { MdLocationOn } from "react-icons/md";
+import { GiSevenPointedStar } from "react-icons/gi";
+import { FaCalendar, FaCircle } from "react-icons/fa";
+import defaultProfileIcon from "@/assets/images/profile/Default.png"; 
+import { useNavigate } from "react-router-dom";
+import { HelperSearchResult } from "@/lib/services/SearchService"; 
 
-function HelperCard() {
+interface HelperCardProps {
+    helper: HelperSearchResult;
+}
 
+function HelperCard({ helper }: HelperCardProps) {
     const navigate = useNavigate();
 
-    function statusDisplay(status:string):string{
-        if(status === "Active"){
-            return "green"
-        }else if(status === "Resigned"){
-            return "yellow"
+    function getStatusColor(status: string | null): string {
+        if (status === "Available") {
+            return "green"; 
+        } else if (status === "On Contract") {
+            return "orange";
+        } else if (status === "Unavailable") {
+            return "gray"; 
         }
-        return "red"
+        return "red";
     }
 
-    function showInformation(){
-        navigate("/helper-profile")
+    function showInformation() {
+        navigate(`/helper-profile/${helper.id}`);
     }
+
+
+    // const formatAvailableDate = (dateString: string | null | undefined) => {
+    //     if (!dateString) return "Not specified";
+    //     try {
+    //         return new Date(dateString).toLocaleDateString('en-GB', {
+    //             day: '2-digit', month: 'short', year: 'numeric'
+    //         });
+    //     } catch (e) {
+    //         return "Invalid date";
+    //     }
+    // };
+
+
+    const getJobTypeDisplay = (status: string | null): string => {
+        if (status === "Available") return "Seeking Job";
+        if (status === "On Contract") return "On Contract";
+        return status || "N/A";
+    };
 
     return (
-        <div className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm cursor-default"} onClick={showInformation}>
-            <div className={"flex flex-col relative w-1/3 gap-5"}>
+        <div
+            className={"flex flex-row bg-[#F7F8F1] gap-5 py-5 rounded-md shadow-sm cursor-pointer hover:shadow-lg transition-shadow"}
+            onClick={showInformation}
+        >
+            <div className={"flex flex-col relative w-1/3 items-center gap-3 sm:gap-4"}>
                 <div className={"w-full flex justify-center relative"}>
-                    <img src={test} className={"h-24 w-24 rounded-full border-1 border-[#492924] object-cover"} alt={"Pictures"}/>
-                    <div className={"absolute -right-5 top-0"}>
-                        <GiSevenPointedStar className={"absolute right-10 -top-3 text-[#EE7C9E]"} size={40}/>
-                        <p className={"absolute right-14 text-white -top-1"}>1</p>
-                    </div>
+                    <img
+                        src={helper.profile_picture || defaultProfileIcon}
+                        className={"h-20 w-20 sm:h-24 sm:w-24 rounded-full border-2 border-[#492924] object-cover"}
+                        alt={`${helper.name}'s profile`}
+                    />
+                    {helper.level !== null && (
+                        <div className={"absolute -right-3 top-[-8px] sm:-right-5 sm:top-[-12px]"}>
+                            <GiSevenPointedStar className={"absolute right-0 text-[#EE7C9E] w-9 h-9 sm:w-10 sm:h-10"} />
+                            <p className={"absolute right-[10px] top-[7px] sm:right-[11px] sm:top-[8px] text-white text-xs sm:text-sm font-semibold"}>
+                                {helper.level}
+                            </p>
+                        </div>
+                    )}
                 </div>
-                <div className={"bg-[#EE7C9E] rounded-br-3xl flex justify-center"}>
-                    <p className={"text-white"}>Full Time</p>
+
+                <div className={`w-full py-1 ${helper.contract_status === "Available" ? "bg-green-500" : "bg-[#EE7C9E]"} rounded-br-2xl rounded-bl-2xl sm:rounded-br-3xl sm:rounded-bl-none flex justify-center text-center`}>
+                    <p className={"text-white text-xs sm:text-sm font-medium px-2"}>{getJobTypeDisplay(helper.contract_status)}</p>
                 </div>
             </div>
 
 
-            <div className={"flex flex-col gap-2 justify-start text-[#492924]"}>
-                <h2 className={"font-bold"}>Kevin Pramudya Mahardika - 20 Years Old</h2>
-                <p>New Worker</p>
-                <div className={"flex flex-row gap-5 items-center"}>
-                    <MdLocationOn className={"text-[#EE7C9E]"}/>
-                    <p className={"text-sm"}>Bekasi</p>
+            <div className={"flex flex-col gap-1.5 sm:gap-2 justify-start text-[#492924] w-2/3 pr-2"}>
+                <h2 className={"font-bold text-md sm:text-lg truncate"}>
+                    {helper.name} {helper.age !== null ? `- ${helper.age} Yrs Old` : ''}
+                </h2>
+
+                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                    {helper.about_me ? (helper.about_me.substring(0, 30) + (helper.about_me.length > 30 ? "..." : "")) : "Helper"}
+                </p>
+
+                {helper.base_location_name && (
+                    <div className={"flex flex-row gap-2 sm:gap-3 items-center"}>
+                        <MdLocationOn className={"text-[#EE7C9E] flex-shrink-0"} size={16}/>
+                        <p className={"text-xs sm:text-sm truncate"}>{helper.base_location_name}</p>
+                    </div>
+                )}
+
+
+                <div className={"flex flex-row gap-2 sm:gap-3 items-center"}>
+                    <GiSevenPointedStar className={"text-[#EE7C9E] flex-shrink-0"} size={16}/>
+                    <p className={"text-xs sm:text-sm"}>
+                        {helper.rating !== null ? `${helper.rating.toFixed(1)} Rating` : (helper.level !== null ? `Level ${helper.level}` : "Experience N/A")}
+                    </p>
                 </div>
-                <div className={"flex flex-row gap-5 items-center"}>
-                    <GiSevenPointedStar className={"text-[#EE7C9E]"}/>
-                    <p className={"text-sm"}>0 Experience</p>
-                </div>
-                <div className={"flex flex-row gap-5 items-center"}>
-                    <FaCalendar className={"text-[#EE7C9E]"}/>
-                    <p className={"text-sm"}>From 01 March 2025</p>
-                </div>
-                <div className={"flex flex-row gap-5 items-center"}>
-                    <FaCircle color={statusDisplay("")}/>
-                    <p className={"text-sm"}>Inactive</p>
+
+                
+
+                 {helper.skills && helper.skills.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-1">
+                        {helper.skills.slice(0, 2).map(skill => ( 
+                            <span key={skill} className="bg-pink-100 text-pink-600 text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full">
+                                {skill}
+                            </span>
+                        ))}
+                        {helper.skills.length > 2 && <span className="text-[10px] sm:text-xs text-gray-500">+{helper.skills.length - 2} more</span>}
+                    </div>
+                )}
+
+
+                <div className={"flex flex-row gap-2 sm:gap-3 items-center mt-1"}>
+                    <FaCircle color={getStatusColor(helper.contract_status)} size={10}/>
+                    <p className={"text-xs sm:text-sm font-medium"}>{helper.contract_status || "Status Unknown"}</p>
                 </div>
             </div>
         </div>

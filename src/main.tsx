@@ -26,93 +26,93 @@ const router = createBrowserRouter([
     path: "/auth",
     children: [{
       path: "login",
-      element: <Login/>
+      element: <Login />
     },
     {
       path: "register",
-      element: <MainRegister/>
+      element: <MainRegister />
     },
     {
       path: "register-customer",
-      element: <CustomerRegister/>
+      element: <CustomerRegister />
     },
     {
       path: "register-helper",
-      element: <HelperRegister/>
+      element: <HelperRegister />
     }
     ],
   },
   {
-    path:"/",
-    element:<HomePage/>
+    path: "/",
+    element: <HomePage />
   },
   {
-    path:"/home",
-    element:<HomePage/>
+    path: "/home",
+    element: <HomePage />
   },
   {
-    path:"/search",
-    element:<SearchPage/>
+    path: "/search",
+    element: <SearchPage />
   },
   {
-    path:"/profile",
-    element:<ProfilePage/>
+    path: "/profile",
+    element: <ProfilePage />
   },
   {
-    path:"/level",
-    element:<LevelPage/>
+    path: "/level",
+    element: <LevelPage />
   },
   {
-    path:"/helper-profile",
-    element:<UserProfile/>
+    path: "/helper-profile/:id",
+    element: <UserProfile />
   },
   {
-    path:"/hihi",
-    element:<Register/>
+    path: "/hihi",
+    element: <Register />
   },
   {
-    path:"/task",
-    children: [
-        {
-        path:"view",
-        element:<TaskPage/>
-      },
-      {
-        path:"edit",
-        element:<EditTaskPage/>
-      }
-
-        ]
-  },
-  {
-    path:"/contract",
-    children: [
-        {
-          path: "create",
-          element: <ContractCreationPage/>
-        },
-      {
-        path: "detail",
-        element: <ContractDetailPage/>
-      }
-      ]
-  },
-  {
-    path:"/inbox",
+    path: "/task",
     children: [
       {
         path: "view",
-        element: <ViewInboxPage/>
+        element: <TaskPage />
+      },
+      {
+        path: "edit",
+        element: <EditTaskPage />
+      }
+
+    ]
+  },
+  {
+    path: "/contract",
+    children: [
+      {
+        path: "create",
+        element: <ContractCreationPage />
       },
       {
         path: "detail",
-        element: <InboxDetailPage/>
+        element: <ContractDetailPage />
       }
     ]
   },
   {
-    path:'/payment-summary',
-    element: <PaymentSummaryPage/>
+    path: "/inbox",
+    children: [
+      {
+        path: "view",
+        element: <ViewInboxPage />
+      },
+      {
+        path: "detail",
+        element: <InboxDetailPage />
+      }
+    ]
+  },
+  {
+    path: '/payment-summary',
+    element: <PaymentSummaryPage />
   }
 ])
 
