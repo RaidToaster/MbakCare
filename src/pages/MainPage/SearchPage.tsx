@@ -13,6 +13,7 @@ import BoxInput from "@/components/Inputer/BoxInput.tsx";
 import { supabase } from "@/lib/supabase";
 import { AuthService } from "@/lib/services/AuthService";
 import { SearchService, HelperSearchResult, HelperSearchFilters } from "@/lib/services/SearchService";
+import { useAuthCt } from "@/lib/auth-context";
 
 type UserRole = 'customer' | 'helper' | 'admin';
 
@@ -24,7 +25,7 @@ interface FilterOptions {
 function SearchPage() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isCurrentUserCustomer, setIsCurrentUserCustomer] = useState<boolean>(false);
-    const [isLoadingUserRole, setIsLoadingUserRole] = useState<boolean>(true);
+    const [isLoadingUserRole, setIsLoadingUserRole] = useState<boolean>(false);
 
     const [helpers, setHelpers] = useState<HelperSearchResult[]>([]);
     const [isLoadingHelpers, setIsLoadingHelpers] = useState<boolean>(false);
@@ -46,22 +47,25 @@ function SearchPage() {
     const [defaultLevelSelection] = useState<string[]>(["1-5", "6-10", "11-20"]);
     const [defaultSalarySection] = useState<string[]>(["<2000000", "2000000-4000000", "4000000-6000000", ">6000000"]);
 
-
+    const { userRole } = useAuthCt();
     useEffect(() => {
-        const fetchUserRole = async () => {
-            setIsLoadingUserRole(true);
-            const { data: { session } } = await supabase.auth.getSession();
-            const user = session?.user;
-            if (user) {
-                const role: UserRole | null = await AuthService.getUserRole(user.id);
-                setIsCurrentUserCustomer(role === 'customer');
-            } else {
-                setIsCurrentUserCustomer(false);
-            }
-            setIsLoadingUserRole(false);
-        };
-        fetchUserRole();
-    }, []);
+        setIsCurrentUserCustomer(userRole === 'customer');
+    }, [userRole]);
+    // useEffect(() => {
+    //     const fetchUserRole = async () => {
+    //         setIsLoadingUserRole(true);
+    //         const { data: { session } } = await supabase.auth.getSession();
+    //         const user = session?.user;
+    //         if (user) {
+    //             const role: UserRole | null = await AuthService.getUserRole(user.id);
+    //             setIsCurrentUserCustomer(role === 'customer');
+    //         } else {
+    //             setIsCurrentUserCustomer(false);
+    //         }
+    //         setIsLoadingUserRole(false);
+    //     };
+    //     fetchUserRole();
+    // }, []);
 
 
     useEffect(() => {
@@ -75,13 +79,13 @@ function SearchPage() {
 
 
     const loadHelpers = useCallback(async (page = 1, newFilters?: Partial<HelperSearchFilters>) => {
-        if (isLoadingUserRole || !isCurrentUserCustomer) {
-            if (!isLoadingUserRole && !isCurrentUserCustomer) {
-                setHelpers([]);
-                setHasMoreHelpers(false);
-            }
-            return;
-        }
+        // if (!isCurrentUserCustomer) {
+        //     if (!isCurrentUserCustomer) {
+        //         setHelpers([]);
+        //         setHasMoreHelpers(false);
+        //     }
+        //     return;
+        // }
 
         setIsLoadingHelpers(true);
         setSearchError(null);
@@ -106,17 +110,17 @@ function SearchPage() {
 
         } catch (error: any) {
             console.error("Failed to fetch helpers:", error);
-            setSearchError(error.message || "Could not load helpers.");
+            // setSearchError(error.message || "Could not load helpers.");
             setHasMoreHelpers(false);
         } finally {
             setIsLoadingHelpers(false);
         }
-    }, [isLoadingUserRole, isCurrentUserCustomer, appliedFilters, searchTerm, filterOptions]);
+    }, [isCurrentUserCustomer, appliedFilters, searchTerm, filterOptions]);
 
 
     useEffect(() => {
         loadHelpers(1);
-    }, [appliedFilters, searchTerm, isCurrentUserCustomer, isLoadingUserRole]);
+    }, [appliedFilters, searchTerm, isCurrentUserCustomer]);
 
 
     const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

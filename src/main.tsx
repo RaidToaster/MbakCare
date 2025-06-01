@@ -20,6 +20,7 @@ import EditTaskPage from "@/pages/MainPage/EditTaskPage.tsx";
 import ViewInboxPage from "@/pages/InboxPage/ViewInboxPage.tsx";
 import InboxDetailPage from "@/pages/InboxPage/InboxDetailPage.tsx";
 import LevelPage from "@/pages/ProfilePage/LevelPage.tsx";
+import { AuthProvider } from './lib/auth-context';
 
 const router = createBrowserRouter([
   {
@@ -118,6 +119,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )

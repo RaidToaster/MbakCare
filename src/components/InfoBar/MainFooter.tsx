@@ -4,30 +4,31 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { AuthService } from "@/lib/services/AuthService";
 import { Link } from "react-router-dom";
+import { useAuthCt } from "@/lib/auth-context";
 
 type UserRole = 'customer' | 'helper' | 'admin';
 
 const MainFooter = () => {
-    const [isCustomer, setIsCustomer] = useState<boolean>(false);
-
+    const { userRole } = useAuthCt();
+    const isCustomer = userRole === 'customer';
     useEffect(() => {
-        const fetchUserRole = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
-            const user = session?.user;
+        // const fetchUserRole = async () => {
+        //     const { data: { session } } = await supabase.auth.getSession();
+        //     const user = session?.user;
 
-            if (user) {
-                const role: UserRole | null = await AuthService.getUserRole(user.id);
-                setIsCustomer(role === 'customer');
-            } else {
-                setIsCustomer(false);
-            }
-        };
+        //     if (user) {
+        //         const role: UserRole | null = await AuthService.getUserRole(user.id);
+        //         setIsCustomer(role === 'customer');
+        //     } else {
+        //         setIsCustomer(false);
+        //     }
+        // };
 
-        fetchUserRole();
+        // fetchUserRole();
 
         const { data: authListener } = supabase.auth.onAuthStateChange(
             (_event, session) => {
-                fetchUserRole();
+                // fetchUserRole();
             }
         );
 
@@ -42,7 +43,7 @@ const MainFooter = () => {
                 <div className={"flex flex-col gap-12 lg:flex-row justify-center lg:justify-between items-start"}>
                     <div className={"flex flex-col gap-6 lg:gap-4 w-full lg:w-2/5 items-center text-center lg:items-start lg:text-left"} >
                         <Link to="/home" className={"flex flex-row gap-3 md:gap-4 items-center justify-center lg:justify-start w-full"}>
-                            <img src={logo} alt={"Logo"} className={"w-12 h-12 md:w-16 md:h-16"}/>
+                            <img src={logo} alt={"Logo"} className={"w-12 h-12 md:w-16 md:h-16"} />
                             <p className={"font-bold text-lg md:text-xl"}>MbakCare</p>
                         </Link>
                         <div className={"flex flex-col gap-4 w-full"}>
@@ -59,10 +60,10 @@ const MainFooter = () => {
                         <p className={"font-bold"}>FOLLOW US</p>
                         <p>Yes, we are social</p>
                         <div className={"w-full flex flex-row gap-4 justify-center lg:justify-start items-center"}>
-                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"}/></a>
-                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"}/></a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"}/></a>
-                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"><FaTiktok className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"}/></a>
+                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"} /></a>
+                            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"} /></a>
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"} /></a>
+                            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer"><FaTiktok className={"text-white w-7 h-7 md:w-8 md:h-8 hover:opacity-80"} /></a>
                         </div>
                     </div>
                 </div>

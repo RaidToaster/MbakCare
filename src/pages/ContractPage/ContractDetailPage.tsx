@@ -1,10 +1,10 @@
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
-import {useNavigate} from "react-router-dom";
-import {TbArrowBackUp} from "react-icons/tb";
-import {Button} from "@/components/Inputer/Button.tsx";
-import {IoIosSend} from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+import { TbArrowBackUp } from "react-icons/tb";
+import { Button } from "@/components/Inputer/Button.tsx";
+import { IoIosSend } from "react-icons/io";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
-import {useState} from "react";
+import { useState } from "react";
 import Notification from "@/components/InfoComponent/Notification.tsx";
 
 function ContractDetailPage() {
@@ -14,42 +14,42 @@ function ContractDetailPage() {
 
     const [confirmPopup, setConfirmPopup] = useState(false)
 
-    function backTrack (){
+    function backTrack() {
         navigate('/contract/create');
     }
-    
-    function sendContract (){
+
+    function sendContract() {
         setConfirmPopup(true)
     }
 
-    function closePopup (){
+    function closePopup() {
         setConfirmPopup(false)
-        navigate("/helper-profile")
+        navigate("/search")
     }
 
     return (
         <div className={"min-h-screen min-w-full max-w-screen h-full"}>
-            <NavigationBar/>
+            <NavigationBar />
             <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
-                <TbArrowBackUp className={"cursor-pointer absolute left-48 hidden lg:block "} size={40} onClick={backTrack}/>
+                <TbArrowBackUp className={"cursor-pointer absolute left-48 hidden lg:block "} size={40} onClick={backTrack} />
                 <div className="flex flex-col justify-center relative bg-[#F7F8F1] rounded-md p-6 gap-5 w-full text-justify px-14 shadow-md">
                     <h1 className={"text-3xl m-10 text-center font-bold"}>Employment Contract Between Customer And Helper</h1>
-                    <p>Contract No: DW/YOG/2025/087<br/>
+                    <p>Contract No: DW/YOG/2025/087<br />
                         On this day, 04 April 2025, at Yogyakarta, a work contract has been mutually agreed upon
                         between:</p>
                     <div className={"flex flex-col gap-2 lg:gap-0 lg:flex-row items-start lg:items-center lg:justify-between w-full"}>
                         <p>
-                            <b>First Party:</b><br/>
-                            <b>Name:</b> Joshua Sutanto<br/>
-                            <b>Address:</b> Jl. Solo No. 123, Yogyakarta<br/>
+                            <b>First Party:</b><br />
+                            <b>Name:</b> Joshua Sutanto<br />
+                            <b>Address:</b> Jl. Solo No. 123, Yogyakarta<br />
                             Hereinafter referred to as the Customer.
                         </p>
 
                         <p>
-                            <b>Second Party (Helper):</b><br/>
-                            <b>Name:</b> Nur Kusuma<br/>
-                            <b>Address:</b> Jl. Malioboro No. 456, Yogyakarta<br/>
-                            Hereinafter referred to as the Domestic Worker or Helper.<br/>
+                            <b>Second Party (Helper):</b><br />
+                            <b>Name:</b> Nur Kusuma<br />
+                            <b>Address:</b> Jl. Malioboro No. 456, Yogyakarta<br />
+                            Hereinafter referred to as the Domestic Worker or Helper.<br />
                         </p>
                     </div>
 
@@ -59,11 +59,12 @@ function ContractDetailPage() {
                             The Helper agrees to carry out the following five (5) main tasks as specified and agreed upon:
                         </p>
                         {defaultSkill && (defaultSkill.map((skill, i) => {
-                                return (
-                                    <p className={"pl-4"} key={i}>
-                                        &gt; {skill}
-                                    </p>
-                                )})
+                            return (
+                                <p className={"pl-4"} key={i}>
+                                    &gt; {skill}
+                                </p>
+                            )
+                        })
                         )}
                         <p className={"pl-4"}>
                             The Helper shall perform these duties responsibly, professionally, and in accordance with
@@ -92,11 +93,12 @@ function ContractDetailPage() {
                             The Helper will receive the following benefits from the Customer:
                         </p>
                         {defaultFacility && (defaultFacility.map((facility, i) => {
-                                return (
-                                    <p className={"pl-4"} key={i}>
-                                        &gt; {facility}
-                                    </p>
-                                )})
+                            return (
+                                <p className={"pl-4"} key={i}>
+                                    &gt; {facility}
+                                </p>
+                            )
+                        })
                         )}
                     </div>
 
@@ -104,14 +106,14 @@ function ContractDetailPage() {
                         <p className={"font-bold"}>5. Helper Salary and Payment System</p>
                         <p className={"pl-4"}>
                             The Helper’s salary will be transferred monthly through the Payment menu on the MbakCare
-                            platform.<br/>
+                            platform.<br />
                             An automatic monthly invoice will appear to ensure timely payment and to avoid missed or late
-                            payments from the Customer.<br/>
-                            The salary amount is calculated automatically by the system, based on:<br/>
-                            The Helper’s current level or experience (EXP)<br/>
-                            The number of main tasks assigned in the contract<br/>
-                            The total number of additional tasks requested during the month<br/>
-                            For this contract, the agreed monthly salary is <b>Rp5.600.000,00</b>.<br/>
+                            payments from the Customer.<br />
+                            The salary amount is calculated automatically by the system, based on:<br />
+                            The Helper’s current level or experience (EXP)<br />
+                            The number of main tasks assigned in the contract<br />
+                            The total number of additional tasks requested during the month<br />
+                            For this contract, the agreed monthly salary is <b>Rp5.600.000,00</b>.<br />
                             This system is designed to ensure that the salary is neither underpaid nor overpriced,
                             reflecting a fair workload-to-pay ratio.
                         </p>
@@ -147,11 +149,11 @@ function ContractDetailPage() {
                     <div className={"flex flex-col gap-1.5"}>
                         <p className={"font-bold"}>8. Rights and Responsibilities</p>
                         <p className={"pl-4"}>
-                            The Customer shall:<br/>
+                            The Customer shall:<br />
                             Pay the Helper’s salary on time as calculated by the system.
                             Provide a safe and respectful work environment.
-                            Allow sufficient rest time and honor the Helper’s rights.<br/>
-                            The Helper shall:<br/>
+                            Allow sufficient rest time and honor the Helper’s rights.<br />
+                            The Helper shall:<br />
                             Perform all assigned duties professionally and diligently.
                             Maintain discretion, cleanliness, and respect in the household.
                             Uphold trust and avoid any acts that could harm either party.
@@ -160,7 +162,7 @@ function ContractDetailPage() {
 
                     <div className={"flex flex-col gap-1.5"}>
                         <p className={"font-bold"}>
-                        9. Final Clause</p>
+                            9. Final Clause</p>
                         <p className={"pl-4"}>
                             This contract is made in duplicate and signed willingly by both parties without any coercion.
                             This contract is also subject to the applicable rules and policies set by the MbakCare platform.
@@ -170,7 +172,7 @@ function ContractDetailPage() {
                     <div className={"flex flex-row justify-between m-10"}>
                         <div className={"flex flex-col gap-4 text-center"}>
                             <h3>Customer</h3>
-                            <img alt={'Agree'}/>
+                            <img alt={'Agree'} />
                             <h3>Jonathan Sutanto</h3>
                         </div>
                         <div className={"flex flex-col gap-4 text-center justify-between"}>
@@ -189,7 +191,7 @@ function ContractDetailPage() {
                     </Button>
                 </div>
             </div>
-            <MainFooter/>
+            <MainFooter />
 
             {confirmPopup && (
                 <Notification
