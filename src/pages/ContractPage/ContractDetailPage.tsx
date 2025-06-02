@@ -40,7 +40,7 @@ function ContractDetailPage() {
     function backTrack() {
         // Navigate back to the creation page, potentially passing existing draft data
         // or just navigate(-1) if you don't need to preserve state on back navigation.
-        navigate('/contract/create', { state: { contractDraft: draftData, helperId: draftData?.helperId } });
+        navigate(-1);
     }
 
     const parseDurationToMonths = (durationString: string): number => {

@@ -120,6 +120,11 @@ function Login() {
                                 onChange={handleChange}
                             />
                         </div>
+                        {error && (
+                            <div className="w-full mt-2 text-sm text-red-500 text-center">
+                                {error}
+                            </div>
+                        )}
                     </div>
 
                     <div className='flex flex-col items-center justify-center gap-5 mb-6'>
@@ -155,4 +160,5 @@ function Login() {
 }
 
 export default Login
+
 

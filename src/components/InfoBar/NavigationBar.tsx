@@ -81,7 +81,7 @@ function NavigationBar() {
         { path: "/inbox/view", label: "Inbox" },
     ] : [
         { path: "/home", label: "Home" },
-        { path: "/search", label: "Find Job" },
+        { path: "/search-customer", label: "Find Job" },
         { path: "/task/view", label: "Task Manager" },
         { path: "/payment-summary", label: "Payments" },
         { path: "/inbox/view", label: "Inbox" },

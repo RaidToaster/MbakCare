@@ -109,6 +109,39 @@ type CustomerTableUpdateData = Partial<Omit<CustomerProfileData, 'id' | 'email' 
 
 
 export const ProfileService = {
+    async getCustomerProfileById(customerId: string): Promise<CustomerProfileData | null> {
+        const { data, error } = await supabase
+            .from('customers')
+            .select(`
+                id, family_description, num_family_members, has_pets, preferred_helper_level,
+                users (
+                    name, email, role, address, phone, profile_picture
+                )
+            `)
+            .eq('id', customerId)
+            .single<RawCustomerDataFromDB>();
+
+        if (error) {
+            console.error("Error fetching customer profile by id:", error);
+            if (error.code === 'PGRST116') return null;
+            throw error;
+        }
+        if (!data) return null;
+
+        return {
+            id: data.id,
+            name: data.users?.name ?? null,
+            email: data.users?.email ?? null,
+            role: data.users?.role ?? null,
+            address: data.users?.address ?? null,
+            phone: data.users?.phone ?? null,
+            profile_picture: data.users?.profile_picture ?? null,
+            family_description: data.family_description,
+            num_family_members: data.num_family_members,
+            has_pets: data.has_pets,
+            preferred_helper_level: data.preferred_helper_level,
+        } as CustomerProfileData;
+    },
     async getHelperProfileById(helperId: string): Promise<HelperProfileData | null> {
         const { data, error } = await supabase
             .from('helpers')
@@ -319,8 +352,8 @@ export const ProfileService = {
 
     async uploadProfilePicture(userId: string, file: File): Promise<{ publicUrl: string | null, error: Error | null }> {
         const fileExt = file.name.split('.').pop();
-        const fileName = `${userId}_${Date.now()}.${fileExt}`; // Ensure uniqueness
-        const filePath = `profile_pictures/${fileName}`; // Standardized path
+        const fileName = `${userId}_${Date.now()}.${fileExt}`;
+        const filePath = `profile_pictures/${fileName}`;
 
         const { error: uploadError } = await supabase.storage
             .from('avatars') // Bucket name

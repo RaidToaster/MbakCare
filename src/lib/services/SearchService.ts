@@ -31,6 +31,28 @@ export interface HelperSearchFilters {
     limit?: number;
 }
 
+export interface CustomerSearchResult {
+    id: string; // users.id
+    name: string;
+    profile_picture: string | null;
+    address: string | null; // users.address
+    family_description: string | null;
+    num_family_members: number | null;
+    has_pets: boolean | null;
+    preferred_helper_level: number | null;
+}
+
+export interface CustomerSearchFilters {
+    name?: string;
+    locationId?: string;
+    minFamilyMembers?: number;
+    maxFamilyMembers?: number;
+    hasPets?: boolean;
+    preferredHelperLevel?: number;
+    page?: number;
+    limit?: number;
+}
+
 export const SearchService = {
     async fetchHelpers(filters: HelperSearchFilters = {}): Promise<HelperSearchResult[]> {
         let query = supabase
@@ -118,6 +140,60 @@ export const SearchService = {
             contract_status: helper.contract_status,
             skills: helper.helper_skills.map((hs: any) => hs.skills.name),
         })) || [];
+    },
+
+    async fetchCustomers(filters: Partial<CustomerSearchFilters> = {}): Promise<CustomerSearchResult[]> {
+        let query = supabase
+            .from('customers')
+            .select(`
+                id,
+                family_description,
+                num_family_members,
+                has_pets,
+                preferred_helper_level,
+                users!inner (
+                    name,
+                    profile_picture,
+                    address,
+                    role
+                )
+            `)
+            .eq('users.role', 'customer');
+
+        if (filters.name) {
+            query = query.ilike('users.name', `%${filters.name}%`);
+        }
+        if (filters.hasPets !== undefined) {
+            query = query.eq('has_pets', filters.hasPets);
+        }
+        if (filters.preferredHelperLevel) {
+            query = query.gte('preferred_helper_level', filters.preferredHelperLevel);
+        }
+
+
+        const page = filters.page || 1;
+        const limit = filters.limit || 10;
+        const offset = (page - 1) * limit;
+        query = query.range(offset, offset + limit - 1);
+
+        const { data, error } = await query;
+
+        if (error) {
+            console.error("Error fetching customers:", error);
+            throw error;
+        }
+        if (!data) return [];
+
+        return data.map((customer: any) => ({
+            id: customer.id,
+            name: customer.users?.name ?? "N/A",
+            profile_picture: customer.users?.profile_picture ?? null,
+            address: customer.users?.address ?? null,
+            family_description: customer.family_description,
+            num_family_members: customer.num_family_members,
+            has_pets: customer.has_pets,
+            preferred_helper_level: customer.preferred_helper_level,
+        }));
     },
 
     async fetchFilterOptions() {

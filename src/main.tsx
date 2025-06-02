@@ -22,6 +22,8 @@ import InboxDetailPage from "@/pages/InboxPage/InboxDetailPage.tsx";
 import LevelPage from "@/pages/ProfilePage/LevelPage.tsx";
 import NotFoundPage from "@/pages/AuthPage/NotFoundPage.tsx";
 import { AuthProvider } from './lib/auth-context';
+import SearchCustomerPage from './pages/MainPage/SearchCustomerPage';
+import CustomerProfile from './pages/ProfilePage/CustomerProfile';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,10 @@ const router = createBrowserRouter([
     element: <SearchPage />
   },
   {
+    path: "/search-customer",
+    element: <SearchCustomerPage />
+  },
+  {
     path: "/profile",
     element: <ProfilePage />
   },
@@ -67,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/helper-profile/:id",
     element: <UserProfile />
+  },
+  {
+    path: "/customer-profile/:id",
+    element: <CustomerProfile />
   },
   {
     path: "/hihi",
@@ -113,8 +123,8 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:'/payment-summary',
-    element: <PaymentSummaryPage/>
+    path: '/payment-summary',
+    element: <PaymentSummaryPage />
   },
   {
     path: '*',
