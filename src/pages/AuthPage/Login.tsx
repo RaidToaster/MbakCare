@@ -28,6 +28,7 @@ function Login() {
     const [error, setError] = useState<string | null>('');
 
     const handleLogin = async () => {
+        console.log("Login button clicked");
         setLoading(true);
         setError('');
 
@@ -35,7 +36,7 @@ function Login() {
             // AuthService.loginWithEmailPassword returns { user, session, error }
             // We are mainly interested if loginData.user exists (or if an error was thrown)
             const loginData = await AuthService.loginWithEmailPassword(form.email, form.password);
-
+            console.log(loginData);
             if (loginData.user) {
                 setLoading(false);
                 navigate('/search');

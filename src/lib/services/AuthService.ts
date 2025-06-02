@@ -70,6 +70,16 @@ export const AuthService = {
                 profile_picture: "",
                 created_at: new Date().toISOString()
             });
+
+        const { error: customerProfileError } = await supabase
+            .from("customers")
+            .insert({
+                id: authData.user?.id
+            });
+
+        if (customerProfileError) {
+            throw new Error(customerProfileError.message);
+        }
         if (userProfileError) {
             throw new Error(userProfileError.message);
         }
@@ -106,7 +116,7 @@ export const AuthService = {
             .select('role')
             .eq('id', userId)
             .single();
-
+        console.log("FETCHED USER ROLE:", data)
         if (error && error.code !== 'PGRST116') { // PGRST116: 0 rows, not an error for this check
             console.error("Error fetching user role:", error.message);
             return null;
@@ -115,7 +125,12 @@ export const AuthService = {
     },
 
     async signOut() {
+        console.log("Signing out user...");
         const { error } = await supabase.auth.signOut();
-        if (error) throw new Error(error.message);
+        if (error) {
+            console.error("Error during sign out:", error.message);
+            throw new Error(error.message);
+        }
+        console.log("User signed out successfully.");
     }
 };

@@ -64,7 +64,6 @@ function NavigationBar() {
     async function handleLogout() {
         try {
             await AuthService.signOut();
-
             navigate('/auth/login');
         } catch (error) {
             console.error("Logout failed:", error);
@@ -147,7 +146,7 @@ function NavigationBar() {
                                 <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">My Profile</Link>
                                 <button
                                     onClick={handleLogout}
-                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer "
                                     role="menuitem"
                                 >
                                     Logout
@@ -182,8 +181,8 @@ function NavigationBar() {
                     <div className="mt-auto border-t border-white/20 pt-4">
                         {user ? (
                             <button
-                                onClick={() => { handleLogout(); togglePopup(); }}
-                                className="w-full text-left py-2 text-lg hover:text-gray-200"
+                                onClick={() => { togglePopup(); }}
+                                className="w-full text-left py-2 text-lg cursor-pointer hover:text-gray-200"
                             >
                                 Logout
                             </button>

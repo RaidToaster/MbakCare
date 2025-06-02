@@ -1,6 +1,6 @@
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import { Button } from "@/components/Inputer/Button.tsx";
-import { ArrowUpWideNarrow } from "lucide-react";
+// import { ArrowUpWideNarrow } from "lucide-react"; // Marked as unused
 import { Input } from "@/components/Inputer/Input.tsx";
 import { CiSearch } from "react-icons/ci";
 import { FaFilter } from "react-icons/fa";
@@ -10,12 +10,13 @@ import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import { useEffect, useState, useCallback } from "react";
 import BoxInput from "@/components/Inputer/BoxInput.tsx";
-import { supabase } from "@/lib/supabase";
+// import { supabase } from "@/lib/supabase"; // Marked as unused in this file directly
 import { AuthService } from "@/lib/services/AuthService";
 import { SearchService, HelperSearchResult, HelperSearchFilters } from "@/lib/services/SearchService";
-import { useAuthCt } from "@/lib/auth-context";
+import { useAuthCt } from "@/lib/auth-context"; // Assuming AuthContext.tsx and useAuth hook
+import { useNavigate } from "react-router-dom";
 
-type UserRole = 'customer' | 'helper' | 'admin';
+// type UserRole = 'customer' | 'helper' | 'admin'; // Marked as unused
 
 interface FilterOptions {
     locations: { id: string, name: string }[];
@@ -25,7 +26,7 @@ interface FilterOptions {
 function SearchPage() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isCurrentUserCustomer, setIsCurrentUserCustomer] = useState<boolean>(false);
-    const [isLoadingUserRole, setIsLoadingUserRole] = useState<boolean>(false);
+    const [isLoadingUserRole /*, setIsLoadingUserRole*/] = useState<boolean>(false); // setIsLoadingUserRole marked as unused
 
     const [helpers, setHelpers] = useState<HelperSearchResult[]>([]);
     const [isLoadingHelpers, setIsLoadingHelpers] = useState<boolean>(false);
@@ -35,7 +36,6 @@ function SearchPage() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [hasMoreHelpers, setHasMoreHelpers] = useState<boolean>(true);
 
-    // Filter States
     const [appliedFilters, setAppliedFilters] = useState<Partial<HelperSearchFilters>>({});
     const [tempFilters, setTempFilters] = useState<Partial<HelperSearchFilters>>({});
 
@@ -47,26 +47,28 @@ function SearchPage() {
     const [defaultLevelSelection] = useState<string[]>(["1-5", "6-10", "11-20"]);
     const [defaultSalarySection] = useState<string[]>(["<2000000", "2000000-4000000", "4000000-6000000", ">6000000"]);
 
-    const { userRole } = useAuthCt();
+    const { userRole, user } = useAuthCt();
+    const navigate = useNavigate();
+
+    // useEffect(() => {
+    //     const checkUserRole = async () => {
+    //         if (user && userRole === null && !AuthService.isLoading) { // Assuming AuthService might have an isLoading state from context
+    //             try {
+    //                 await AuthService.signOut();
+    //                 navigate("/auth/login");
+    //             } catch (error) {
+    //                 console.error("Error during sign out:", error);
+    //             }
+    //         }
+    //     };
+    //     if (!AuthService.isLoading) { // Prevent running if auth service is still initializing
+    //         checkUserRole();
+    //     }
+    // }, [userRole, user, navigate]);
+
     useEffect(() => {
         setIsCurrentUserCustomer(userRole === 'customer');
     }, [userRole]);
-    // useEffect(() => {
-    //     const fetchUserRole = async () => {
-    //         setIsLoadingUserRole(true);
-    //         const { data: { session } } = await supabase.auth.getSession();
-    //         const user = session?.user;
-    //         if (user) {
-    //             const role: UserRole | null = await AuthService.getUserRole(user.id);
-    //             setIsCurrentUserCustomer(role === 'customer');
-    //         } else {
-    //             setIsCurrentUserCustomer(false);
-    //         }
-    //         setIsLoadingUserRole(false);
-    //     };
-    //     fetchUserRole();
-    // }, []);
-
 
     useEffect(() => {
         SearchService.fetchFilterOptions().then(options => {
@@ -76,20 +78,17 @@ function SearchPage() {
         });
     }, []);
 
-
-
     const loadHelpers = useCallback(async (page = 1, newFilters?: Partial<HelperSearchFilters>) => {
-        // if (!isCurrentUserCustomer) {
-        //     if (!isCurrentUserCustomer) {
-        //         setHelpers([]);
-        //         setHasMoreHelpers(false);
-        //     }
-        //     return;
-        // }
+        if (isLoadingUserRole || !isCurrentUserCustomer) {
+            if (!isLoadingUserRole && !isCurrentUserCustomer) {
+                setHelpers([]);
+                setHasMoreHelpers(false);
+            }
+            return;
+        }
 
         setIsLoadingHelpers(true);
         setSearchError(null);
-
         const currentFilters = newFilters || appliedFilters;
 
         try {
@@ -105,33 +104,32 @@ function SearchPage() {
             } else {
                 setHelpers(prev => [...prev, ...results]);
             }
-            setHasMoreHelpers(results.length > 0);
+            setHasMoreHelpers(results.length > 0 && results.length === 10);
             setCurrentPage(page);
 
         } catch (error: any) {
-            console.error("Failed to fetch helpers:", error);
-            // setSearchError(error.message || "Could not load helpers.");
+            setSearchError(error.message || "Could not load helpers.");
             setHasMoreHelpers(false);
         } finally {
             setIsLoadingHelpers(false);
         }
-    }, [isCurrentUserCustomer, appliedFilters, searchTerm, filterOptions]);
+    }, [isLoadingUserRole, isCurrentUserCustomer, appliedFilters, searchTerm]);
 
 
     useEffect(() => {
-        loadHelpers(1);
-    }, [appliedFilters, searchTerm, isCurrentUserCustomer]);
+        if (isCurrentUserCustomer) { // Only load helpers if the user is a customer
+            loadHelpers(1);
+        } else if (!isLoadingUserRole) { // If not customer and role check is done, clear helpers
+            setHelpers([]);
+            setHasMoreHelpers(false);
+        }
+    }, [appliedFilters, searchTerm, isCurrentUserCustomer, isLoadingUserRole, loadHelpers]);
 
 
     const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
-    };
-
-    const handleApplySearch = () => {
         setCurrentPage(1);
-        loadHelpers(1);
     };
-
 
     function toggleFilterPopup() {
         if (!isFilterOpen) {
@@ -151,7 +149,6 @@ function SearchPage() {
         };
     }, [isFilterOpen]);
 
-
     const handleFilterChange = (filterName: keyof HelperSearchFilters, value: any) => {
         setTempFilters(prev => ({ ...prev, [filterName]: value }));
     };
@@ -166,7 +163,7 @@ function SearchPage() {
         setTempFilters({});
         setAppliedFilters({});
         setIsFilterOpen(false);
-
+        setCurrentPage(1);
     };
 
     const loadMoreHelpers = () => {
@@ -175,7 +172,6 @@ function SearchPage() {
         }
     };
 
-    // --- Helper functions to parse range strings for filters ---
     const parseRange = (rangeString: string): { min?: number; max?: number } => {
         if (rangeString.includes('-')) {
             const [min, max] = rangeString.split('-').map(s => parseInt(s.match(/\d+/)?.[0] || "0", 10));
@@ -187,35 +183,41 @@ function SearchPage() {
         }
         return {};
     };
-    const handleAgeFilterSelect = (selectedAges: string[]) => {
-        if (selectedAges.length === 0) {
+
+    const handleAgeFilterSelect = (selectedAges: string | string[]) => {
+        const agesArray = Array.isArray(selectedAges) ? selectedAges : (selectedAges ? [selectedAges] : []);
+        if (agesArray.length === 0) {
             handleFilterChange('minAge', undefined);
             handleFilterChange('maxAge', undefined);
             return;
         }
-        const firstRange = selectedAges[0];
+        const firstRange = agesArray[0];
         const { min, max } = parseRange(firstRange.split(" ")[0]);
         handleFilterChange('minAge', min);
         handleFilterChange('maxAge', max);
     };
-    const handleLevelFilterSelect = (selectedLevels: string[]) => {
-        if (selectedLevels.length === 0) {
+
+    const handleLevelFilterSelect = (selectedLevels: string | string[]) => {
+        const levelsArray = Array.isArray(selectedLevels) ? selectedLevels : (selectedLevels ? [selectedLevels] : []);
+        if (levelsArray.length === 0) {
             handleFilterChange('minLevel', undefined);
             handleFilterChange('maxLevel', undefined);
             return;
         }
-        const firstRange = selectedLevels[0];
+        const firstRange = levelsArray[0];
         const { min, max } = parseRange(firstRange.split(" ")[1]);
         handleFilterChange('minLevel', min);
         handleFilterChange('maxLevel', max);
     };
-    const handleSalaryFilterSelect = (selectedSalaries: string[]) => {
-        if (selectedSalaries.length === 0) {
+
+    const handleSalaryFilterSelect = (selectedSalaries: string | string[]) => {
+        const salariesArray = Array.isArray(selectedSalaries) ? selectedSalaries : (selectedSalaries ? [selectedSalaries] : []);
+        if (salariesArray.length === 0) {
             handleFilterChange('minSalary', undefined);
             handleFilterChange('maxSalary', undefined);
             return;
         }
-        const firstRange = selectedSalaries[0];
+        const firstRange = salariesArray[0];
         const cleanedRange = firstRange.replace(/Rp| Million| /g, '');
         const { min, max } = parseRange(cleanedRange);
         handleFilterChange('minSalary', min ? min * 1000000 : undefined);
@@ -223,7 +225,7 @@ function SearchPage() {
     };
 
 
-    if (isLoadingUserRole) {
+    if (isLoadingUserRole && !user) {
         return (
             <div className="min-w-full max-w-screen h-screen cursor-default">
                 <NavigationBar />
@@ -246,7 +248,7 @@ function SearchPage() {
                                 placeholder={"Search Helper Name"}
                                 value={searchTerm}
                                 onChange={handleSearchInputChange}
-                                className="pr-10" // Make space for icon
+                                className="pr-10"
                             />
                             <CiSearch className={"absolute text-gray-500 right-3 top-1/2 -translate-y-1/2"} size={20} />
                         </div>
@@ -255,24 +257,20 @@ function SearchPage() {
                             <p>Filter</p>
                         </Button>
                     </div>
-                    {/* <Button variant="outline"> // Example for Sort button
-                        <ArrowUpWideNarrow size={16}/>
-                        <p>Last Active</p>
-                    </Button> */}
                 </div>
 
                 {!isCurrentUserCustomer && !isLoadingUserRole && (
-                    <div className="text-center py-10 text-gray-600">
-                        <p>Helper search is available for customers. Please log in as a customer to find helpers.</p>
+                    <div className="text-center py-10 text-gray-600 flex-grow flex items-center justify-center">
+                        <p>Helper search is available for customers. Please log in or register as a customer to find helpers.</p>
                     </div>
                 )}
 
                 {isCurrentUserCustomer && (
                     <>
-                        {isLoadingHelpers && helpers.length === 0 && <div className="text-center py-10">Loading helpers...</div>}
-                        {searchError && <div className="text-center py-10 text-red-500">Error: {searchError}</div>}
+                        {isLoadingHelpers && helpers.length === 0 && <div className="text-center py-10 flex-grow flex items-center justify-center">Loading helpers...</div>}
+                        {searchError && <div className="text-center py-10 text-red-500 flex-grow flex items-center justify-center">Error: {searchError}</div>}
                         {!isLoadingHelpers && helpers.length === 0 && !searchError && (
-                            <div className="text-center py-10 text-gray-500">No helpers found matching your criteria.</div>
+                            <div className="text-center py-10 text-gray-500 flex-grow flex items-center justify-center">No helpers found matching your criteria.</div>
                         )}
 
                         <div className={"overflow-y-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-5 md:gap-6 scrollbar-hide pb-10"}>
@@ -291,8 +289,6 @@ function SearchPage() {
                     </>
                 )}
 
-
-                {/* Filter Drawer */}
                 {isFilterOpen && (
                     <div className={"fixed inset-0 left-0 top-0 w-full h-full z-50 text-[#492924] overflow-hidden"}
                         style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}
@@ -313,7 +309,6 @@ function SearchPage() {
                                 <h2 className="text-lg font-semibold">Filter Options</h2>
                             </div>
                             <div className={'flex-grow flex flex-col gap-5 px-4 md:px-6 py-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'}>
-                                {/* Start Work Date */}
                                 <div className={"flex flex-col gap-2"}>
                                     <label htmlFor="availableFrom" className="font-medium">Available From</label>
                                     <Input
@@ -324,32 +319,26 @@ function SearchPage() {
                                         onChange={(e) => handleFilterChange('availableFrom', e.target.value)}
                                     />
                                 </div>
-
-                                {/* Job Type / Contract Status */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Contract Status</p>
                                     <BoxInput
                                         list={defaultJobTime}
-                                        selectedItems={tempFilters.contractStatus ? [tempFilters.contractStatus] : []}
-                                        onSelectionChange={(selected) => handleFilterChange('contractStatus', selected[0] || undefined)}
+                                        choosenItem={tempFilters.contractStatus || ""}
+                                        onlyOne={(selected) => handleFilterChange('contractStatus', selected || undefined)}
+                                        multiple={false}
                                         isFilter={true}
-                                        allowMultiple={false}
                                     />
                                 </div>
-
-                                {/* Skills */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Main Skills</p>
                                     <BoxInput
                                         list={filterOptions.skills.map(s => s.name)}
-                                        selectedItems={tempFilters.skills || []}
-                                        onSelectionChange={(selected) => handleFilterChange('skills', selected)}
+                                        choosenItem={tempFilters.skills?.map(id => filterOptions.skills.find(s => s.id === id)?.name).filter(Boolean) as string[] || []}
+                                        //multipleAns={(selectedNames) => handleFilterChange('skills', selectedNames.map(name => filterOptions.skills.find(s => s.name === name)?.id).filter(Boolean))}
+                                        multiple={true}
                                         isFilter={true}
-                                        allowMultiple={true}
                                     />
                                 </div>
-
-                                {/* Location */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Location</p>
                                     <select
@@ -363,50 +352,41 @@ function SearchPage() {
                                         ))}
                                     </select>
                                 </div>
-
-                                {/* Rating */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Minimum Rating</p>
                                     <BoxInput
-                                        list={defaultStarRating} // ['5', '4', '3', '2', '1']
-                                        selectedItems={tempFilters.minRating ? [String(tempFilters.minRating)] : []}
-                                        onSelectionChange={(selected) => handleFilterChange('minRating', selected[0] ? parseInt(selected[0]) : undefined)}
+                                        list={defaultStarRating}
+                                        choosenItem={tempFilters.minRating ? String(tempFilters.minRating) : ""}
+                                        onlyOne={(selected) => handleFilterChange('minRating', selected ? parseInt(selected) : undefined)}
+                                        multiple={false}
                                         isFilter={true}
-                                        allowMultiple={false}
                                     />
                                 </div>
-
-                                {/* Age */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Age</p>
                                     <div className={'flex flex-row gap-2'}>
                                         <Input placeholder="Min Age" type="number" color={'cream'} value={tempFilters.minAge || ''} onChange={(e) => handleFilterChange('minAge', e.target.value ? parseInt(e.target.value) : undefined)} />
                                         <Input placeholder="Max Age" type="number" color={'cream'} value={tempFilters.maxAge || ''} onChange={(e) => handleFilterChange('maxAge', e.target.value ? parseInt(e.target.value) : undefined)} />
                                     </div>
-                                    <BoxInput list={defaultAgeSection} onSelectionChange={handleAgeFilterSelect} isFilter={true} allowMultiple={false} />
+                                    <BoxInput list={defaultAgeSection} onlyOne={handleAgeFilterSelect} isFilter={true} multiple={false} />
                                 </div>
-
-                                {/* Level / Experience */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Helper Level</p>
                                     <div className={'flex flex-row gap-2'}>
                                         <Input placeholder="Min Level" type="number" color={'cream'} value={tempFilters.minLevel || ''} onChange={(e) => handleFilterChange('minLevel', e.target.value ? parseInt(e.target.value) : undefined)} />
                                         <Input placeholder="Max Level" type="number" color={'cream'} value={tempFilters.maxLevel || ''} onChange={(e) => handleFilterChange('maxLevel', e.target.value ? parseInt(e.target.value) : undefined)} />
                                     </div>
-                                    <BoxInput list={defaultLevelSelection} onSelectionChange={handleLevelFilterSelect} isFilter={true} allowMultiple={false} />
+                                    <BoxInput list={defaultLevelSelection} onlyOne={handleLevelFilterSelect} isFilter={true} multiple={false} />
                                 </div>
-
-                                {/* Salary Expectation */}
                                 <div className={"flex flex-col gap-2"}>
                                     <p className="font-medium">Salary Expectation (per month)</p>
                                     <div className={'flex flex-row gap-2'}>
                                         <Input placeholder="Min Salary" type="number" step="100000" color={'cream'} value={tempFilters.minSalary || ''} onChange={(e) => handleFilterChange('minSalary', e.target.value ? parseInt(e.target.value) : undefined)} />
                                         <Input placeholder="Max Salary" type="number" step="100000" color={'cream'} value={tempFilters.maxSalary || ''} onChange={(e) => handleFilterChange('maxSalary', e.target.value ? parseInt(e.target.value) : undefined)} />
                                     </div>
-                                    <BoxInput list={defaultSalarySection} onSelectionChange={handleSalaryFilterSelect} isFilter={true} allowMultiple={false} />
+                                    <BoxInput list={defaultSalarySection} onlyOne={handleSalaryFilterSelect} isFilter={true} multiple={false} />
                                 </div>
                             </div>
-                            {/* Filter Actions */}
                             <div className={'flex flex-row items-center gap-3 md:gap-5 justify-end border-t-2 border-gray-200 p-4 md:p-6 sticky bottom-0 bg-white'}>
                                 <Button className={'w-1/2 md:w-auto px-6'} color={'white'} onClick={handleResetFilters}>Reset</Button>
                                 <Button className={'w-1/2 md:w-auto px-6'} onClick={handleApplyFilters}>Apply Filters</Button>

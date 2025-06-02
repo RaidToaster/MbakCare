@@ -253,13 +253,13 @@ function UserProfile() {
                             <div className={"flex flex-col gap-2"}>
                                 <h2 className={"text-[#EE7C9E] text-sm sm:text-md font-semibold"}>Language:</h2>
                                 <div className={"flex flex-row flex-wrap gap-2"}>
-                                    {dummyLanguages.length > 0 ? dummyLanguages.map((item) => (<SkillBox key={item} item={item} />)) : <p className="text-sm text-gray-500">None</p>}
+                                    {dummyLanguages?.length > 0 ? dummyLanguages.map((item) => (<SkillBox key={item} item={item} />)) : <p className="text-sm text-gray-500">None</p>}
                                 </div>
                             </div>
                             <div className={"flex flex-col gap-2"}>
                                 <h2 className={"text-[#EE7C9E] text-sm sm:text-md font-semibold"}>Main {isProfileOfTypeHelper ? 'Skills' : 'Duties'}:</h2>
                                 <div className={"flex flex-row flex-wrap gap-2"}>
-                                    {profileData.skills.length > 0 ? profileData.skills.map((item) => (<SkillBox key={item} item={item} />)) : <p className="text-sm text-gray-500">None</p>}
+                                    {profileData.skills?.length > 0 ? profileData.skills.map((item) => (<SkillBox key={item} item={item} />)) : <p className="text-sm text-gray-500">None</p>}
                                 </div>
                             </div>
                             <div className={"flex flex-col gap-2"}>
@@ -278,7 +278,7 @@ function UserProfile() {
                                     <h1 className={"text-lg sm:text-xl font-medium"}>Work Experience </h1>
                                 </div>
                                 <div className={"flex flex-col p-4 sm:p-6 gap-6 bg-[#F7F8F1]"}>
-                                    {dummyWorkHistory.length > 0 ? dummyWorkHistory.map((job, index) => (
+                                    {dummyWorkHistory?.length > 0 ? dummyWorkHistory?.map((job, index) => (
                                         <div key={index} className={'flex flex-row gap-4 sm:gap-6 items-start'}>
                                             <FaDotCircle size={window.innerWidth < 640 ? 18 : 24} className="mt-1 text-gray-400 flex-shrink-0" />
                                             <div className={'flex flex-col gap-0.5 justify-center'}>
@@ -286,7 +286,7 @@ function UserProfile() {
                                                 <p className={'text-sm sm:text-md font-medium'}>{job.family}</p>
                                                 <div className={'flex flex-row flex-wrap gap-1 text-xs text-gray-600'}>
                                                     <span>Main duties: </span>
-                                                    {job.duties.map((duty, i) => (<span key={i}>{duty}{i < job.duties.length - 1 ? ',' : ''} </span>))}
+                                                    {job.duties?.map((duty, i) => (<span key={i}>{duty}{i < job.duties?.length - 1 ? ',' : ''} </span>))}
                                                 </div>
                                             </div>
                                         </div>
@@ -308,8 +308,8 @@ function UserProfile() {
                                     <h1 className={"text-lg sm:text-xl font-medium"}>On Job Moments</h1>
                                 </div>
                                 <div className={"flex flex-nowrap gap-4 overflow-x-auto p-4 sm:p-5 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200"}>
-                                    {dummyOnJobMomentsImages.map((imgSrc, i) => (<img src={imgSrc} className={"w-48 h-36 sm:w-64 sm:h-48 flex-shrink-0 rounded-md object-cover shadow"} alt={`Job moment ${i + 1}`} key={i} />))}
-                                    {dummyOnJobMomentsImages.length === 0 && <p className="pl-2 text-sm text-gray-500">No moments shared.</p>}
+                                    {dummyOnJobMomentsImages?.map((imgSrc, i) => (<img src={imgSrc} className={"w-48 h-36 sm:w-64 sm:h-48 flex-shrink-0 rounded-md object-cover shadow"} alt={`Job moment ${i + 1}`} key={i} />))}
+                                    {dummyOnJobMomentsImages?.length === 0 && <p className="pl-2 text-sm text-gray-500">No moments shared.</p>}
                                 </div>
                             </div>
                         </>

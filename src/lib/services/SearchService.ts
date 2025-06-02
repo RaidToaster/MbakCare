@@ -37,7 +37,7 @@ export const SearchService = {
             .from('helpers')
             .select(`
                 id,
-                users (
+                users!inner (
                     name,
                     profile_picture,
                     role
