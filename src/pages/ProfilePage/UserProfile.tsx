@@ -1,9 +1,9 @@
 import CustomerReviewCard from "@/components/Card/CustomerReviewCard.tsx";
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 import {PiIdentificationCardLight, PiNotebook} from "react-icons/pi";
-import {IoLocationOutline} from "react-icons/io5";
+import {IoLocationOutline, IoTimeOutline} from "react-icons/io5";
 import {RiGraduationCapLine} from "react-icons/ri";
-import {LuCalendarCheck} from "react-icons/lu";
+import {LuCalendarCheck, LuCoffee, LuNotebookText} from "react-icons/lu";
 import {TbArrowBackUp, TbBadge, TbContract, TbMoneybag} from "react-icons/tb";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import SkillBox from "@/components/InfoComponent/SkillBox.tsx";
@@ -14,6 +14,7 @@ import test from "@/assets/images/profile/test.jpg"
 import {AiFillStar} from "react-icons/ai";
 import {Button} from "@/components/Inputer/Button.tsx";
 import {FaDotCircle} from "react-icons/fa";
+import {FaBed} from "react-icons/fa6";
 
 function UserProfile() {
 
@@ -23,7 +24,7 @@ function UserProfile() {
     const size = 32
     const maxRate = 5
     const defaultRate = 2.5
-    const isHelper = true
+    const isHelper = false
 
     const navigate = useNavigate();
 
@@ -82,13 +83,25 @@ function UserProfile() {
                         <div
                             className={"flex flex-col lg:flex-row items-start lg:items-center p-6 gap-4 lg:gap-20 bg-[#F7F8F1]"}>
                             <div className={"flex flex-col gap-4"}>
-                                <div className={"flex flex-row items-center gap-4"}>
-                                    <PiNotebook className={"text-[#EE7C9E]"} size={size}/>
-                                    <div className={"flex flex-col justify-start"}>
-                                        <h2 className={"text-[#EE7C9E]"}>Recent Contract Status:</h2>
-                                        <h3>Resigned</h3>
+
+                                {isHelper ? (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <PiNotebook className={"text-[#EE7C9E]"} size={size}/>
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Recent Contract Status:</h2>
+                                            <h3>Resigned</h3>
+                                        </div>
                                     </div>
-                                </div>
+                                ):(
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <TbBadge className={"text-[#EE7C9E]"} size={size}/>
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Required Helper Level:</h2>
+                                            <h3>4</h3>
+                                        </div>
+                                    </div>
+                                )}
+
 
                                 <div className={"flex flex-row items-center gap-4"}>
                                     <PiIdentificationCardLight className={"text-[#EE7C9E]"} size={size}/>
@@ -98,33 +111,63 @@ function UserProfile() {
                                     </div>
                                 </div>
 
-                                <div className={"flex flex-row items-center gap-4"}>
-                                    <RiGraduationCapLine className={"text-[#EE7C9E]"} size={size}/>
-                                    <div className={"flex flex-col justify-start"}>
-                                        <h2 className={"text-[#EE7C9E]"}>Highest Education Level:</h2>
-                                        <h3>S1 (BINUS University)</h3>
+                                {!isHelper &&(
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <IoTimeOutline className={"text-[#EE7C9E]"} size={size}/>
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Contract Duration:</h2>
+                                            <h3>1 Year</h3>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
+
+                                {isHelper ? (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <RiGraduationCapLine className={"text-[#EE7C9E]"} size={size}/>
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Highest Education Level:</h2>
+                                            <h3>S1 (BINUS University)</h3>
+                                        </div>
+                                    </div>
+                                ):(
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <LuNotebookText className={"text-[#EE7C9E]"} size={size}/>
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Previous Contract Status:</h2>
+                                            <h3>Any Situation</h3>
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
                             <div className={"flex flex-col gap-4"}>
                                 <div className={"flex flex-row items-center gap-4"}>
                                     <IoLocationOutline className={"text-[#EE7C9E]"} size={size}/>
                                     <div className={"flex flex-col justify-start"}>
-                                        <h2 className={"text-[#EE7C9E]"}>Present Location:</h2>
-                                        <h3>Full Time</h3>
+                                        <h2 className={"text-[#EE7C9E]"}>{isHelper ? 'Present' : 'Work'} Location:</h2>
+                                        <h3>Surakarta</h3>
                                     </div>
                                 </div>
 
                                 <div className={"flex flex-row items-center gap-4"}>
                                     <LuCalendarCheck className={"text-[#EE7C9E]"} size={size}/>
                                     <div className={"flex flex-col justify-start"}>
-                                        <h2 className={"text-[#EE7C9E]"}>Available From:</h2>
+                                        <h2 className={"text-[#EE7C9E]"}>{isHelper ? 'Available From' : 'Start Work Date'}:</h2>
                                         <h3>22 April 2025</h3>
                                     </div>
                                 </div>
+                                {!isHelper &&(
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <FaBed className={"text-[#EE7C9E]"} size={size}/>
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Accomodation Provided:</h2>
+                                            <h3>Yes</h3>
+                                        </div>
+                                    </div>
+                                )}
 
                                 <div className={"flex flex-row items-center gap-4"}>
-                                    <PiNotebook className={"text-[#EE7C9E]"} size={size}/>
+                                    <LuCoffee className={"text-[#EE7C9E]"} size={size}/>
                                     <div className={"flex flex-col justify-start"}>
                                         <h2 className={"text-[#EE7C9E]"}>Day Off:</h2>
                                         <h3>Flexible</h3>
