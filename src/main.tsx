@@ -20,6 +20,7 @@ import EditTaskPage from "@/pages/MainPage/EditTaskPage.tsx";
 import ViewInboxPage from "@/pages/InboxPage/ViewInboxPage.tsx";
 import InboxDetailPage from "@/pages/InboxPage/InboxDetailPage.tsx";
 import LevelPage from "@/pages/ProfilePage/LevelPage.tsx";
+import NotFoundPage from "@/pages/AuthPage/NotFoundPage.tsx";
 import { AuthProvider } from './lib/auth-context';
 
 const router = createBrowserRouter([
@@ -112,8 +113,12 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/payment-summary',
-    element: <PaymentSummaryPage />
+    path:'/payment-summary',
+    element: <PaymentSummaryPage/>
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />
   }
 ])
 

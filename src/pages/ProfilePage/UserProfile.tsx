@@ -1,9 +1,9 @@
 import CustomerReviewCard from "@/components/Card/CustomerReviewCard.tsx";
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 import { PiIdentificationCardLight, PiNotebook } from "react-icons/pi";
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
 import { RiGraduationCapLine } from "react-icons/ri";
-import { LuCalendarCheck } from "react-icons/lu";
+import { LuCalendarCheck, LuCoffee, LuNotebookText } from "react-icons/lu";
 import { TbArrowBackUp, TbBadge, TbContract, TbMoneybag } from "react-icons/tb";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import SkillBox from "@/components/InfoComponent/SkillBox.tsx";
@@ -14,6 +14,7 @@ import defaultUserImage from "@/assets/images/profile/Default.png";
 import { AiFillStar } from "react-icons/ai";
 import { Button } from "@/components/Inputer/Button.tsx";
 import { FaDotCircle } from "react-icons/fa";
+import { FaBed } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { ProfileService, HelperProfileData } from "@/lib/services/ProfileService";
 import { supabase } from "@/lib/supabase";
@@ -39,6 +40,7 @@ function UserProfile() {
         { title: "Best Helper Award 2024", date: "Dec 2024", description: "Recognized for exceptional service and dedication to client families." }
     ];
     const dummyOnJobMomentsImages = Array(6).fill(defaultUserImage);
+    const [isHelper, setIsHelper] = useState(false);
 
 
     useEffect(() => {
@@ -58,6 +60,7 @@ function UserProfile() {
                 ]);
 
                 setProfileData(fetchedProfileData);
+                setIsHelper(fetchedProfileData?.role === 'helper');
 
                 if (currentAuthUser) {
                     setIsViewingOwnProfile(currentAuthUser.id === profileIdFromParams);
@@ -189,30 +192,90 @@ function UserProfile() {
                         </div>
                         <div className={"grid grid-cols-1 md:grid-cols-2 p-4 sm:p-6 gap-4 bg-[#F7F8F1]"}>
                             <div className={"flex flex-col gap-4"}>
-                                <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
-                                    <PiNotebook className={"text-[#EE7C9E]"} size={size} />
-                                    <div><h2 className={"text-[#EE7C9E] text-sm"}>Recent Contract Status:</h2><h3 className="text-sm sm:text-base">{profileData.contract_status || "N/A"}</h3></div>
-                                </div>
-                                <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
+
+                                {isHelper ? (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <PiNotebook className={"text-[#EE7C9E]"} size={size} />
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Recent Contract Status:</h2>
+                                            <h3>Resigned</h3>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <TbBadge className={"text-[#EE7C9E]"} size={size} />
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Required Helper Level:</h2>
+                                            <h3>4</h3>
+                                        </div>
+                                    </div>
+                                )}
+
+
+                                <div className={"flex flex-row items-center gap-4"}>
                                     <PiIdentificationCardLight className={"text-[#EE7C9E]"} size={size} />
-                                    <div><h2 className={"text-[#EE7C9E] text-sm"}>Job Type:</h2><h3 className="text-sm sm:text-base">{"Full Time"}</h3></div>
+                                    <div className={"flex flex-col justify-start"}>
+                                        <h2 className={"text-[#EE7C9E]"}>Job Type:</h2>
+                                        <h3>Full Time</h3>
+                                    </div>
                                 </div>
-                                <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
-                                    <RiGraduationCapLine className={"text-[#EE7C9E]"} size={size} />
-                                    <div><h2 className={"text-[#EE7C9E] text-sm"}>Highest Education Level:</h2><h3 className="text-sm sm:text-base">{"SMA/SMK"}</h3></div>
-                                </div>
+
+                                {!isHelper && (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <IoTimeOutline className={"text-[#EE7C9E]"} size={size} />
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Contract Duration:</h2>
+                                            <h3>1 Year</h3>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {isHelper ? (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <RiGraduationCapLine className={"text-[#EE7C9E]"} size={size} />
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Highest Education Level:</h2>
+                                            <h3>S1 (BINUS University)</h3>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <LuNotebookText className={"text-[#EE7C9E]"} size={size} />
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Previous Contract Status:</h2>
+                                            <h3>Any Situation</h3>
+                                        </div>
+                                    </div>
+                                )}
+
                             </div>
                             <div className={"flex flex-col gap-4"}>
-                                <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
+                                <div className={"flex flex-row items-center gap-4"}>
                                     <IoLocationOutline className={"text-[#EE7C9E]"} size={size} />
-                                    <div><h2 className={"text-[#EE7C9E] text-sm"}>Present Location:</h2><h3 className="text-sm sm:text-base">{profileData.base_location_name || "N/A"}</h3></div>
+                                    <div className={"flex flex-col justify-start"}>
+                                        <h2 className={"text-[#EE7C9E]"}>{isHelper ? 'Present' : 'Work'} Location:</h2>
+                                        <h3>Surakarta</h3>
+                                    </div>
                                 </div>
-                                <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
+
+                                <div className={"flex flex-row items-center gap-4"}>
                                     <LuCalendarCheck className={"text-[#EE7C9E]"} size={size} />
-                                    <div><h2 className={"text-[#EE7C9E] text-sm"}>Available From:</h2><h3 className="text-sm sm:text-base">{profileData.available_from ? new Date(profileData.available_from).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : "N/A"}</h3></div>
+                                    <div className={"flex flex-col justify-start"}>
+                                        <h2 className={"text-[#EE7C9E]"}>Available From:</h2>
+                                        <h3>22 April 2025</h3>
+                                    </div>
                                 </div>
+                                {!isHelper && (
+                                    <div className={"flex flex-row items-center gap-4"}>
+                                        <FaBed className={"text-[#EE7C9E]"} size={size} />
+                                        <div className={"flex flex-col justify-start"}>
+                                            <h2 className={"text-[#EE7C9E]"}>Accomodation Provided:</h2>
+                                            <h3>Yes</h3>
+                                        </div>
+                                    </div>
+                                )}
                                 <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
-                                    <PiNotebook className={"text-[#EE7C9E]"} size={size} />
+                                    <LuCoffee className={"text-[#EE7C9E]"} size={size} />
                                     <div><h2 className={"text-[#EE7C9E] text-sm"}>Day Off:</h2><h3 className="text-sm sm:text-base">{"Flexible"}</h3></div>
                                 </div>
                             </div>
