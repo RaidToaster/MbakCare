@@ -39,7 +39,7 @@ function Login() {
             console.log(loginData);
             if (loginData.user) {
                 setLoading(false);
-                navigate('/search');
+                navigate('/home');
             } else {
                 setLoading(false);
                 setError("Login succeeded but user data was not available. Please try again.");
