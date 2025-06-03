@@ -41,7 +41,7 @@ function SearchPage() {
 
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({ locations: [], skills: [] });
 
-    const [defaultJobTime] = useState<string[]>(["Available", "On Contract", "Unavailable"]);
+    const [defaultJobTime] = useState<string[]>(["Available", "Resigned", "Unavailable"]);
     const [defaultStarRating] = useState<string[]>(['5', '4', '3', '2', '1']);
     const [defaultAgeSection] = useState<string[]>(["18-30", "31-45", "46-60"]);
     const [defaultLevelSelection] = useState<string[]>(["1-5", "6-10", "11-20"]);

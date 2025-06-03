@@ -117,7 +117,7 @@ const router = createBrowserRouter([
         element: <ViewInboxPage />
       },
       {
-        path: "detail",
+        path: "detail/:id",
         element: <InboxDetailPage />
       }
     ]

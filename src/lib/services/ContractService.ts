@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { HelperSearchFilters } from "./SearchService";
+
 export interface ContractCreationData {
     customer_id: string;
     helper_id: string;
@@ -21,6 +21,30 @@ export interface ContractDetails extends ContractCreationData {
     helper_name?: string;
 }
 
+
+export interface BasicContractInfo {
+    id: string;
+    contract_number: string | null;
+    customer_name: string;
+    customer_profile_picture: string | null;
+    start_date: string;
+    status: string | null;
+    created_at: string;
+}
+
+interface RawPendingContractData {
+    id: string;
+    contract_number: string | null;
+    customer: {
+        users: {
+            name: string | null;
+            profile_picture: string | null;
+        } | null;
+    } | null;
+    start_date: string;
+    status: string;
+    created_at: string;
+}
 
 export const ContractService = {
     async createContract(
@@ -123,6 +147,50 @@ export const ContractService = {
             })),
             facilities: data.contract_facilities.map((cf: any) => cf.facilities?.name).filter(Boolean),
         } as unknown as ContractDetails;
+    },
+
+    async getPendingContractsForHelper(helperId: string): Promise<BasicContractInfo[]> {
+        const { data, error } = await supabase
+            .from('contracts')
+            .select(`
+                id,
+                contract_number,
+                customer:customers!contracts_customer_id_fkey (
+                    users!inner ( 
+                        name, 
+                        profile_picture 
+                    )
+                ),
+                start_date,
+                status,
+                created_at
+            `)
+            .eq('helper_id', helperId)
+            .eq('status', 'Pending')
+            .order('created_at', { ascending: false })
+            .returns<RawPendingContractData[]>();
+
+        if (error) {
+            console.error("Error fetching pending contracts for helper:", error.message, error.details, error.hint);
+            return [];
+        }
+        if (!data) {
+            return [];
+        }
+
+        return data.map(contract => {
+            const customerUser = contract.customer?.users;
+
+            return {
+                id: contract.id,
+                contract_number: contract.contract_number,
+                customer_name: customerUser?.name || "Unknown Customer",
+                customer_profile_picture: customerUser?.profile_picture || null,
+                start_date: contract.start_date,
+                status: contract.status,
+                created_at: contract.created_at,
+            };
+        });
     },
 
     async updateContractStatus(contractId: string, status: 'Pending' | 'Active' | 'Completed' | 'Terminated'): Promise<{ data: any; error: any }> {

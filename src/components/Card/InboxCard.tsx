@@ -1,31 +1,63 @@
-import icon from "@/assets/images/profile/Default.png";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import defaultUserIcon from "@/assets/images/profile/Default.png";
+import { BasicContractInfo } from "@/lib/services/ContractService";
 
-function InboxCard({sender, senderOrigin, title, description, time, isRead} :
-                       {sender:string, senderOrigin:string,title:string, description:string, time:string, isRead:boolean}) {
+interface InboxCardProps {
+    contract: BasicContractInfo;
+}
 
+function InboxCard({ contract }: InboxCardProps) {
     const navigate = useNavigate();
 
-    function handleNavigate(){
-        navigate('/inbox/detail');
+    function viewContractDetail() {
+
+        navigate(`/inbox/detail/${contract.id}`);
     }
 
+    const timeAgo = (dateString: string) => {
+        const date = new Date(dateString);
+        const now = new Date();
+        const seconds = Math.round((now.getTime() - date.getTime()) / 1000);
+        const minutes = Math.round(seconds / 60);
+        const hours = Math.round(minutes / 60);
+        const days = Math.round(hours / 24);
+
+        if (seconds < 60) return `${seconds}s ago`;
+        if (minutes < 60) return `${minutes}m ago`;
+        if (hours < 24) return `${hours}h ago`;
+        return `${days}d ago`;
+    };
+
+
     return (
-        <div className={`${isRead ? "bg-[#FFE5E7]" : "bg-[#F7F8F1]"} rounded-md shadow-md px-6 py-2 flex flex-row items-center justify-between`} onClick={handleNavigate}>
-            <div className={"flex flex-row items-center gap-2"}>
-                <img src={icon} alt={"Profile"}
-                     className={"h-8 w-8 overflow-hidden rounded-full object-fit object-center border-2 border-[#492924]"}/>
-                <div className={"flex flex-col justify-center gap-0.5 "}>
-                    <p className={"text-sm font-semibold"}>{sender}</p>
-                    <p className={"text-sm text-[#EE7C9E]"}>{senderOrigin}</p>
+        <div
+            onClick={viewContractDetail}
+            className={`w-full flex flex-row gap-4 p-4 rounded-md shadow hover:shadow-lg transition-shadow cursor-pointer ${contract.status === 'Pending' ? 'bg-yellow-50 border-l-4 border-yellow-400' : 'bg-white'
+                }`}
+        >
+            <img
+                src={contract.customer_profile_picture || defaultUserIcon}
+                alt={contract.customer_name || "Customer"}
+                className={"h-12 w-12 rounded-full object-cover self-center"}
+            />
+            <div className={"flex flex-col w-full gap-0.5"}>
+                <div className={"flex flex-row justify-between items-center"}>
+                    <h3 className={"font-semibold text-md text-[#492924]"}>
+                        Contract Proposal from {contract.customer_name}
+                    </h3>
+                    <p className={"text-xs text-gray-500"}>{timeAgo(contract.created_at)}</p>
                 </div>
+                <p className={"text-xs text-gray-600"}>
+                    Contract No: {contract.contract_number || "N/A"}
+                </p>
+                <p className={"text-xs text-gray-600"}>
+                    Proposed Start Date: {new Date(contract.start_date).toLocaleDateString('en-GB')}
+                </p>
+                <p className={`text-xs font-medium mt-1 ${contract.status === 'Pending' ? 'text-yellow-600' : 'text-gray-500'
+                    }`}>
+                    Status: {contract.status}
+                </p>
             </div>
-            <div className={"w-2/3 flex flex-row gap-1 items-center"}>
-                <p className={"truncate whitespace-nowrap overflow-hidden text-ellipsis font-semibold w-full text-sm"}>{title}</p>
-                <p>—</p>
-                <p className={'truncate whitespace-nowrap overflow-hidden text-ellipsis text-sm'}>{description}</p>
-            </div>
-            <p>{time}</p>
         </div>
     );
 }
