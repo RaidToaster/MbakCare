@@ -55,6 +55,9 @@ export const AuthService = {
                 }
             }
         });
+
+        this.signOut();
+
         if (authError) {
             throw new Error(authError.message);
         }
