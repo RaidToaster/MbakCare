@@ -1,4 +1,4 @@
-// src/pages/InboxPage/ViewInboxPage.tsx
+
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 import InboxCard from "@/components/Card/InboxCard.tsx";
 import { useEffect, useState } from "react";
