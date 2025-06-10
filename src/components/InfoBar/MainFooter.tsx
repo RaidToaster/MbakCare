@@ -56,7 +56,7 @@ const MainFooter = () => {
                         <Link to="/terms-of-service" className="hover:underline">TERMS OF SERVICE</Link>
                         <Link to="/contact-us" className="hover:underline">CONTACT US</Link>
                     </div>
-                    <div className={"flex flex-col gap-4 text-center lg:text-left justify-center items-center lg:items-start lg:justify-start lg:w-auto"}>
+                    <div className={"flex flex-col gap-4 text-center lg:text-left justify-center items-center lg:items-start lg:justify-start w-full"}>
                         <p className={"font-bold"}>FOLLOW US</p>
                         <p>Yes, we are social</p>
                         <div className={"w-full flex flex-row gap-4 justify-center lg:justify-start items-center"}>

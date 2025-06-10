@@ -140,7 +140,6 @@ function SearchCustomerPage() {
                                 placeholder={"Search Customer Name"}
                                 value={searchTerm}
                                 onChange={handleSearchInputChange}
-                                className="pr-10"
                             />
                             <CiSearch className={"absolute text-gray-500 right-3 top-1/2 -translate-y-1/2"} size={20} />
                         </div>

@@ -229,7 +229,7 @@ function SearchPage() {
         return (
             <div className="min-w-full max-w-screen h-screen cursor-default">
                 <NavigationBar />
-                <div className="flex justify-center items-center h-full pt-40">Loading user data...</div>
+                <div className="flex flex-1 justify-center items-center h-full pt-40">Loading user data...</div>
                 <MainFooter />
             </div>
         );
@@ -248,7 +248,6 @@ function SearchPage() {
                                 placeholder={"Search Helper Name"}
                                 value={searchTerm}
                                 onChange={handleSearchInputChange}
-                                className="pr-10"
                             />
                             <CiSearch className={"absolute text-gray-500 right-3 top-1/2 -translate-y-1/2"} size={20} />
                         </div>

@@ -113,7 +113,7 @@ function UserProfile() {
         return (
             <div className="bg-white min-h-screen min-w-full max-w-screen h-full cursor-default">
                 <NavigationBar />
-                <div className="w-full flex justify-center items-center py-8 pt-40 text-[#492924]">Loading profile...</div>
+                <div className="w-full flex-1 flex justify-center items-center py-8 pt-40 text-[#492924]">Loading profile...</div>
                 <MainFooter />
             </div>
         );
@@ -155,34 +155,36 @@ function UserProfile() {
                     <div className={"w-full flex flex-col rounded-md shadow-md overflow-hidden bg-[#F7F8F1] relative"}>
                         <TbArrowBackUp className={"cursor-pointer absolute left-3 top-3 sm:left-5 sm:top-5 text-white z-10"} size={window.innerWidth < 640 ? 32 : 40} onClick={backTrack} />
                         <img src={banner} alt={"User Profile Banner"} className={"w-full h-[150px] sm:h-[200px] object-cover object-top"} />
-                        <img src={profileData.profile_picture || defaultUserImage} alt={`${profileData.name || 'User'}'s Profile`}
-                            className={"absolute w-28 h-28 sm:w-32 md:w-40 sm:h-32 md:h-40 object-cover rounded-full border-2 sm:border-4 border-white shadow-lg top-[100px] sm:top-[130px] md:top-[120px] left-4 sm:left-8 md:left-14"} />
-                        <div className={"flex flex-col gap-2.5 lg:flex-row justify-between p-4 sm:p-6 md:p-8 pt-16 sm:pt-20 md:pt-24 lg:items-center"}>
-                            <div className={"flex flex-col gap-1 sm:gap-2 lg:pl-48 xl:pl-56 mt-[-20px] lg:mt-0"}>
-                                <h1 className={"text-lg sm:text-xl md:text-2xl font-bold truncate"}>{profileData.name || "Helper Name"} - {profileData.age || "N/A"} Years Old</h1>
-                                <div className={"flex flex-row gap-2 items-center"}>
-                                    <div className="relative flex">
-                                        {[...Array(5)].map((_, i) => (
-                                            <AiFillStar key={i} size={window.innerWidth < 640 ? 18 : 24} className="text-gray-300" />
-                                        ))}
-                                        <div className="absolute top-0 left-0 flex overflow-hidden" style={{ width: `${resultRate(profileData.rating) * 100}%` }}>
+                        <div className={'w-full relative flex justify-end lg:justify-start items-center p-4 lg:p-0'}>
+                            <img src={profileData.profile_picture || defaultUserImage} alt={`${profileData.name || 'User'}'s Profile`}
+                                 className={"lg:absolute size-32 md:size-40 object-cover rounded-full border-2 sm:border-4 border-white shadow-lg left-10 lg:left-14 sm:-top-16 md:-top-20"} />
+                            <div className={"w-full flex flex-col gap-2.5 lg:flex-row justify-between p-8 lg:items-center"}>
+                                <div className={"flex flex-col gap-1 sm:gap-2 lg:pl-48 xl:pl-56 mt-[-20px] lg:mt-0"}>
+                                    <h1 className={"text-lg sm:text-xl md:text-2xl font-bold truncate"}>{profileData.name || "Helper Name"} - {profileData.age || "N/A"} Years Old</h1>
+                                    <div className={"flex flex-row gap-2 items-center"}>
+                                        <div className="relative flex">
                                             {[...Array(5)].map((_, i) => (
-                                                <AiFillStar key={i} size={window.innerWidth < 640 ? 18 : 24} className="text-[#EFBB4B]" />
+                                                <AiFillStar key={i} size={window.innerWidth < 640 ? 18 : 24} className="text-gray-300" />
                                             ))}
+                                            <div className="absolute top-0 left-0 flex overflow-hidden" style={{ width: `${resultRate(profileData.rating) * 100}%` }}>
+                                                {[...Array(5)].map((_, i) => (
+                                                    <AiFillStar key={i} size={window.innerWidth < 640 ? 18 : 24} className="text-[#EFBB4B]" />
+                                                ))}
+                                            </div>
                                         </div>
+                                        <p className={"text-[#EFBB4B] text-xs sm:text-sm"}>{profileData.rating?.toFixed(1) || "0.0"} | Rated by {0} client(s)</p>
                                     </div>
-                                    <p className={"text-[#EFBB4B] text-xs sm:text-sm"}>{profileData.rating?.toFixed(1) || "0.0"} | Rated by {0} client(s)</p>
+                                    <p className="text-xs sm:text-sm text-gray-600">
+                                        {profileData.religion || "Religion N/A"} | From {profileData.base_location_name || "Location N/A"}
+                                    </p>
                                 </div>
-                                <p className="text-xs sm:text-sm text-gray-600">
-                                    {profileData.religion || "Religion N/A"} | From {profileData.base_location_name || "Location N/A"}
-                                </p>
+                                {!isViewingOwnProfile && loggedInUserRole === 'customer' && (
+                                    <Button onClick={toMakeContract} size={'lg'} className="mt-4 lg:mt-0 self-start lg:self-center">
+                                        <TbContract className={"text-white"} size={window.innerWidth < 640 ? 20 : 24} />
+                                        Make Contract
+                                    </Button>
+                                )}
                             </div>
-                            {!isViewingOwnProfile && loggedInUserRole === 'customer' && (
-                                <Button onClick={toMakeContract} size={'lg'} className="mt-4 lg:mt-0 self-start lg:self-center">
-                                    <TbContract className={"text-white"} size={window.innerWidth < 640 ? 20 : 24} />
-                                    Make Contract
-                                </Button>
-                            )}
                         </div>
                     </div>
 
