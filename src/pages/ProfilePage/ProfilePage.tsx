@@ -220,7 +220,7 @@ function ProfilePage() {
         return (
             <div className={"min-h-screen min-w-full max-w-screen h-full"}>
                 <NavigationBar />
-                <div className="flex justify-center items-center h-full pt-40 text-[#492924]">Loading profile...</div>
+                <div className="flex flex-1 justify-center items-center h-full pt-40 text-[#492924]">Loading profile...</div>
                 <MainFooter />
             </div>
         );

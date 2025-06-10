@@ -13,7 +13,7 @@ function HelperReviewCard() {
                     the task management feature makes everything so much easier. I feel more valued and secure in my
                     work."</p>
                 <div className={"flex flex-row gap-4 items-center justify-center md:justify-start"}>
-                    <img src={Profile1} alt={"Profile"} className={"w-16 h-16 rounded-full object-cover"}/>
+                    <img src={Profile1} alt={"Profile"} className={"hidden lg:flex w-16 h-16 rounded-full object-cover"}/>
                     <div className={"flex flex-col gap-2"}>
                         <h3>Siti Rahma</h3>
                         <p>Professional Helper</p>

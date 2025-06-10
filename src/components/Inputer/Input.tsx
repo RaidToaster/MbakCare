@@ -9,7 +9,7 @@ const inputVariants = cva(
             serial: {
                 auth: "w-80 h-16 pl-12 rounded-full",
                 profile:"px-4 py-1 rounded-lg",
-                search:"pr-10 min-w-96 pl-4 rounded-md"
+                search:"pr-10 min-w-96 pl-4 py-6 rounded-md"
             },
             color:{
                 default: 'bg-white',
