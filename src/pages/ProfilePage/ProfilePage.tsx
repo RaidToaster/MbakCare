@@ -270,7 +270,7 @@ function ProfilePage() {
                 <div className={"bg-[#F7F8F1] p-6 sm:p-8 rounded-md shadow-md flex flex-col gap-6 md:gap-8 w-full"}>
                     <div className={"flex flex-col gap-2 w-full items-center justify-center"}>
                         <h3 className={"text-lg sm:text-xl font-semibold text-[#EE7C9E]"}>Profile Picture</h3>
-                        <PhotoInputer onChange={handlePhotoInputChange} defaultPhoto={displayProfilePicture} />
+                        <PhotoInputer onChange={handlePhotoInputChange} defaultPhoto={displayProfilePicture} full={true} />
                     </div>
                     <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
                         <label htmlFor="name" className={"text-sm sm:text-md font-semibold text-[#EE7C9E]"}>Full Name</label>
