@@ -11,6 +11,8 @@ interface AuthContextType {
     userRole: UserRole;
     isLoading: boolean;
     isRoleLoading: boolean;
+    profileImageUrl: string | null;
+    setProfileImageUrl: (url: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,10 +27,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [userRole, setUserRole] = useState<UserRole>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isRoleLoading, setIsRoleLoading] = useState(false);
+    const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
     const initialLoad = useRef(true);
     const lastUserId = useRef<string | null>(null);
 
     useEffect(() => {
+        const fetchProfilePicture = async (userId: string) => {
+            try {
+                const { data, error } = await supabase
+                    .from('users')
+                    .select('profile_picture')
+                    .eq('id', userId)
+                    .single();
+                if (error && error.code !== 'PGRST116') throw error;
+                if (data?.profile_picture) {
+                    setProfileImageUrl(data.profile_picture);
+                } else {
+                    setProfileImageUrl(null);
+                }
+            } catch (e) {
+                console.error("Failed to fetch profile picture:", e);
+                setProfileImageUrl(null); 
+            }
+        };
+
         const fetchInitialSessionAndRole = async () => {
             setIsLoading(true);
             setIsRoleLoading(true);
@@ -48,16 +70,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
             if (currentUser) {
                 lastUserId.current = currentUser.id;
-                try {
-                    const role = await AuthService.getUserRole(currentUser.id);
-                    console.log("Initial user role:", role);
-                    setUserRole(role);
-                } catch (roleError) {
-                    console.error("Error fetching user role on initial load:", roleError);
-                    setUserRole(null);
-                }
+                await Promise.all([
+                    (async () => {
+                        try {
+                            const role = await AuthService.getUserRole(currentUser.id);
+                            console.log("Initial user role:", role);
+                            setUserRole(role);
+                        } catch (roleError) {
+                            console.error("Error fetching user role on initial load:", roleError);
+                            setUserRole(null);
+                        }
+                    })(),
+                    fetchProfilePicture(currentUser.id)
+                ]);
             } else {
                 setUserRole(null);
+                setProfileImageUrl(null);
                 lastUserId.current = null;
             }
             setIsRoleLoading(false);
@@ -90,6 +118,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     try {
                         const role = await AuthService.getUserRole(currentUser.id);
                         setUserRole(role);
+                        fetchProfilePicture(currentUser.id);
                     } catch (roleError) {
                         console.error("Error fetching user role on auth change:", roleError);
                         setUserRole(null);
@@ -99,6 +128,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     lastUserId.current = null;
                     setUser(null);
                     setUserRole(null);
+                    setProfileImageUrl(null);
                     setIsRoleLoading(false);
                 }
 
@@ -106,6 +136,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                     setUser(null);
                     setUserRole(null);
                     setSession(null);
+                    setProfileImageUrl(null);
                     lastUserId.current = null;
                 }
             }
@@ -116,7 +147,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
     }, []);
 
-    const value = { user, session, userRole, isLoading, isRoleLoading };
+    const value = { user, session, userRole, isLoading, isRoleLoading, profileImageUrl, setProfileImageUrl };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

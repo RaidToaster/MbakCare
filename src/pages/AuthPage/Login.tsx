@@ -68,7 +68,7 @@ function Login() {
 
 
     return (
-        <div className="max-h-screen w-screen bg-[#FBF3EB] flex flex-col lg:flex-row">
+        <div className="h-screen w-screen bg-[#FBF3EB] flex flex-col lg:flex-row">
             <div className="hidden lg:block lg:w-2/5 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#000000cb] to-transparent z-10"></div>
                 <img
@@ -82,7 +82,7 @@ function Login() {
                 </div>
             </div>
 
-            <div className="w-full min-h-screen lg:w-3/5 flex flex-col items-center justify-center p-8 gap-16">
+            <div className="w-full lg:w-3/5 flex flex-col items-center justify-center p-8 gap-16 overflow-y-auto">
                 <div className='z-10'>
                     <img
                         src={logo}

@@ -154,7 +154,7 @@ function ContractCreationPage() {
 
         if (newSelectedIds.length > numTasksValue && numTasksValue > 0) {
             newSelectedIds = newSelectedIds.slice(0, numTasksValue);
-            alert(`You can only select up to ${numMainTasks} tasks.`);
+            setFormError(`You can only select up to ${numMainTasks} tasks.`);
         }
         setSelectedMainTaskIds(newSelectedIds);
         return newSelectedIds.map(id => skillOptions.find(s => s.id === id)?.name).filter(Boolean) as string[];

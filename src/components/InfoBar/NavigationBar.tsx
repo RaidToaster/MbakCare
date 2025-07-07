@@ -7,47 +7,11 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "@/lib/services/AuthService";
 import { useAuthCt } from "@/lib/auth-context";
-import { supabase } from "@/lib/supabase";
 
 function NavigationBar() {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
-    const { user, userRole, isLoading: isAuthLoading, isRoleLoading } = useAuthCt();
-
-    const [profileImageUrl, setProfileImageUrl] = useState<string>(defaultProfileIcon);
-
-    useEffect(() => {
-        const fetchProfilePic = async () => {
-            if (user && user.id) {
-                try {
-                    const { data: userData, error: userError } = await supabase
-                        .from('users')
-                        .select('profile_picture')
-                        .eq('id', user.id)
-                        .single();
-
-                    if (userError && userError.code !== 'PGRST116') {
-                        console.error("Error fetching user profile picture:", userError.message);
-                        setProfileImageUrl(defaultProfileIcon);
-                    } else if (userData?.profile_picture) {
-                        setProfileImageUrl(userData.profile_picture);
-                    } else {
-                        setProfileImageUrl(defaultProfileIcon);
-                    }
-                } catch (e) {
-                    console.error("Exception fetching profile picture:", e);
-                    setProfileImageUrl(defaultProfileIcon);
-                }
-            } else {
-                setProfileImageUrl(defaultProfileIcon);
-            }
-        };
-
-        if (!isAuthLoading) {
-            fetchProfilePic();
-        }
-
-    }, [user, isAuthLoading]);
+    const { user, userRole, isLoading: isAuthLoading, isRoleLoading, profileImageUrl } = useAuthCt();
 
     function togglePopup() {
         setIsOpen(!isOpen);
@@ -137,7 +101,7 @@ function NavigationBar() {
                 </nav>
                 {user ? ( // Use user from context
                     <div className="relative group">
-                        <img src={profileImageUrl} alt={"Profile"}
+                        <img src={profileImageUrl || defaultProfileIcon} alt={"Profile"}
                             className={"h-12 w-12 md:h-14 md:w-14 p-0.5 rounded-full object-cover border-2 border-white/80 cursor-pointer"}
                             onClick={toProfile}
                         />
@@ -168,7 +132,7 @@ function NavigationBar() {
                 >
                     {user && ( // Use user from context
                         <div className="flex flex-col items-center mb-4 border-b border-white/20 pb-4">
-                            <img src={profileImageUrl} alt="Profile" className="h-20 w-20 rounded-full object-cover border-2 border-white mb-2" />
+                            <img src={profileImageUrl || defaultProfileIcon} alt="Profile" className="h-20 w-20 rounded-full object-cover border-2 border-white mb-2" />
                             <p className="font-semibold text-lg truncate max-w-[calc(100%-2rem)]">{user.email}</p>
                             <Link to="/profile" className="text-sm hover:underline mt-1" onClick={togglePopup}>View Profile</Link>
                         </div>
