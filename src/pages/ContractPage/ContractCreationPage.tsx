@@ -205,28 +205,28 @@ function ContractCreationPage() {
                     <ContractQuestionCard
                         question={"Select the main tasks you want to assign:"}
                         list={skillOptions.map(s => s.name)}
-                        //choosenItem={selectedMainTaskIds.map(id => skillOptions.find(s=>s.id === id)?.name).filter(Boolean) as string[]}
+                        choosenItem={selectedMainTaskIds.map(id => skillOptions.find(s => s.id === id)?.name).filter(Boolean) as string[]}
                         multipleAns={handleMainTaskSelection}
                         multiple={true}
                     />
                     <ContractQuestionCard
                         question={"Are you willing to provide housing accommodation:"}
                         list={confirmChoices}
-                        //choosenItem={providesHousing}
+                        choosenItem={providesHousing}
                         onlyOne={handleHousingSelection}
                         multiple={false}
                     />
                     <ContractQuestionCard
                         question={"Select the facility/facilities you want to provide:"}
                         list={facilityOptions.map(f => f.name)}
-                        //choosenItem={selectedFacilityIds.map(id => facilityOptions.find(f=>f.id === id)?.name).filter(Boolean) as string[]}
+                        choosenItem={selectedFacilityIds.map(id => facilityOptions.find(f => f.id === id)?.name).filter(Boolean) as string[]}
                         multipleAns={handleFacilitySelection}
                         multiple={true}
                     />
                     <ContractQuestionCard
                         question={"Select contract duration:"}
                         list={defaultDurationOptions}
-                        //choosenItem={selectedDuration}
+                        choosenItem={selectedDuration}
                         onlyOne={handleDurationSelection}
                         multiple={false}
                     />

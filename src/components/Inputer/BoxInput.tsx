@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import SkillBox from "@/components/InfoComponent/SkillBox.tsx";
 
 function BoxInput(
@@ -9,17 +9,27 @@ function BoxInput(
     const [selectedItems, setSelectedItems] = useState<string[]>(choosenItem instanceof Array ? choosenItem : [choosenItem]);
     const [showAll, setShowAll] = useState(false);
 
-    function handleSelect(skill: string) {
-        if (multiple) {
-            setSelectedItems(prev =>
-                prev.includes(skill) ? prev.filter(s => s !== skill) : [...prev, skill]
-            );
-            if(multipleAns) multipleAns(selectedItems)
+    useEffect(() => {
+        const newSelectedItems = choosenItem instanceof Array ? choosenItem : (choosenItem ? [choosenItem] : []);
+        setSelectedItems(newSelectedItems);
+    }, [choosenItem]);
 
+    function handleSelect(skill: string) {
+        let updatedItems;
+        if (multiple) {
+            updatedItems = selectedItems.includes(skill)
+                ? selectedItems.filter(s => s !== skill)
+                : [...selectedItems, skill];
+            if (multipleAns) {
+                multipleAns(updatedItems);
+            }
         } else {
-            setSelectedItems([skill]);
-            if(onlyOne) onlyOne(skill)
+            updatedItems = [skill];
+            if (onlyOne) {
+                onlyOne(skill);
+            }
         }
+        setSelectedItems(updatedItems);
     }
 
     const shouldCollapse = isFilter && list.length > 5;
