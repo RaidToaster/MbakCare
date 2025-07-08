@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import { NotificationService } from "./NotificationService";
+import { ProfileService } from "./ProfileService";
 
 export interface ContractCreationData {
     customer_id: string;
@@ -48,12 +49,33 @@ interface RawPendingContractData {
 }
 
 export const ContractService = {
+    async isHelperAvailable(helperId: string): Promise<boolean> {
+        const { data, error } = await supabase
+            .from('contracts')
+            .select('id')
+            .eq('helper_id', helperId)
+            .eq('status', 'Active')
+            .limit(1);
+
+        if (error) {
+            console.error("Error checking helper availability:", error);
+            return false; // Assume not available on error
+        }
+
+        return data.length === 0;
+    },
+
     async createContract(
         contractData: Omit<ContractDetails, 'id' | 'contract_number' | 'status' | 'created_at' | 'agreed_at'>,
         tasksData: Array<{ skill_id: string; task_type: 'Main' | 'Additional'; quantity: number; rate_per_task: number }>,
         facilityIds: string[]
     ): Promise<{ contract: ContractDetails | null; error: any }> {
         try {
+            const available = await this.isHelperAvailable(contractData.helper_id);
+            if (!available) {
+                throw new Error("This helper is currently in an active contract and cannot be hired at the moment.");
+            }
+
             // 1. Create the main contract record
             const { data: newContract, error: contractError } = await supabase
                 .from('contracts')
@@ -225,6 +247,12 @@ export const ContractService = {
             return { data: null, error: new Error("Failed to update contract or contract not found.") };
         }
 
+        // Update helper's contract status
+        if (updatedContract.helper_id) {
+            const helperStatus = status === 'Active' ? 'On Contract' : 'Available';
+            await ProfileService.updateHelperContractStatus(updatedContract.helper_id, helperStatus);
+        }
+
         // Notify the customer about the helper's decision
         if (updatedContract.customer_id) {
             const title = status === 'Active' ? 'Contract Accepted' : 'Contract Declined';
@@ -238,7 +266,7 @@ export const ContractService = {
                 reference_table: 'contracts'
             });
         }
-        
+
         return { data: updatedContract, error: null };
     },
 
