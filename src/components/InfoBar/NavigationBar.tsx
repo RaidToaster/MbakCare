@@ -3,7 +3,7 @@ import defaultProfileIcon from "@/assets/images/profile/Default.png";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthService } from "@/lib/services/AuthService";
 import { useAuthCt } from "@/lib/auth-context";

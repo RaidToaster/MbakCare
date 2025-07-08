@@ -6,7 +6,6 @@ import { Lock, Mail } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { LoginForm } from '@/model/types.ts'
-import { supabase } from '@/lib/supabase'
 import { FcGoogle } from "react-icons/fc";
 import { AuthService } from '@/lib/services/AuthService'
 

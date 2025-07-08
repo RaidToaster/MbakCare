@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { NotificationService } from "./NotificationService";
 
 export interface ContractCreationData {
     customer_id: string;
@@ -71,6 +72,18 @@ export const ContractService = {
             if (!newContract) throw new Error("Contract creation failed to return data.");
 
             const contractId = newContract.id;
+
+            // Notify the helper
+            if (newContract.helper_id) {
+                await NotificationService.createNotification({
+                    user_id: newContract.helper_id,
+                    type: 'contract_proposal',
+                    title: 'New Contract Proposal',
+                    message: 'You have received a new contract proposal.',
+                    reference_id: contractId,
+                    reference_table: 'contracts'
+                });
+            }
 
             // 2. Insert contract tasks
             if (tasksData && tasksData.length > 0) {
@@ -193,13 +206,40 @@ export const ContractService = {
         });
     },
 
-    async updateContractStatus(contractId: string, status: 'Pending' | 'Active' | 'Completed' | 'Terminated'): Promise<{ data: any; error: any }> {
-        return supabase
+    async updateContractStatus(contractId: string, status: 'Active' | 'Terminated'): Promise<{ data: any; error: any }> {
+        const { data: updatedContract, error: updateError } = await supabase
             .from('contracts')
-            .update({ status: status, agreed_at: status === 'Active' ? new Date().toISOString() : undefined })
+            .update({
+                status: status,
+                agreed_at: status === 'Active' ? new Date().toISOString() : null
+            })
             .eq('id', contractId)
-            .select()
+            .select('id, customer_id, helper_id')
             .single();
+
+        if (updateError) {
+            console.error("Error updating contract status:", updateError);
+            return { data: null, error: updateError };
+        }
+        if (!updatedContract) {
+            return { data: null, error: new Error("Failed to update contract or contract not found.") };
+        }
+
+        // Notify the customer about the helper's decision
+        if (updatedContract.customer_id) {
+            const title = status === 'Active' ? 'Contract Accepted' : 'Contract Declined';
+            const message = `The contract proposal has been ${status === 'Active' ? 'accepted' : 'declined'} by the helper.`;
+            await NotificationService.createNotification({
+                user_id: updatedContract.customer_id,
+                type: 'system_message',
+                title: title,
+                message: message,
+                reference_id: contractId,
+                reference_table: 'contracts'
+            });
+        }
+        
+        return { data: updatedContract, error: null };
     },
 
 };

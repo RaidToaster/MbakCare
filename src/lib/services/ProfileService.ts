@@ -409,5 +409,18 @@ export const ProfileService = {
             return { error };
         }
         return { error: null };
+    },
+
+    async updateHelperContractStatus(helperId: string, status: 'Available' | 'On Contract'): Promise<{ error: any }> {
+        const { error } = await supabase
+            .from('helpers')
+            .update({ contract_status: status })
+            .eq('id', helperId);
+        
+        if (error) {
+            console.error("Error updating helper contract status:", error);
+        }
+        
+        return { error };
     }
 };

@@ -2,15 +2,15 @@
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
 import InboxCard from "@/components/Card/InboxCard.tsx";
 import { useEffect, useState } from "react";
-import { ContractService, BasicContractInfo } from "@/lib/services/ContractService.ts";
 import { useAuthCt } from "@/lib/auth-context";
+import { Notification, NotificationService } from "@/lib/services/NotificationService.ts";
 import { supabase } from "@/lib/supabase";
 
 function ViewInboxPage() {
     const { userRole, isLoading: authIsLoading } = useAuthCt();
     const [currentUser, setCurrentUser] = useState<any>(null);
-    const [pendingContracts, setPendingContracts] = useState<BasicContractInfo[]>([]);
-    const [isLoadingContracts, setIsLoadingContracts] = useState(true);
+    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
@@ -24,47 +24,45 @@ function ViewInboxPage() {
     }, []);
 
     useEffect(() => {
-        if (currentUser && userRole === 'helper' && !authIsLoading) {
-            setIsLoadingContracts(true);
+        if (currentUser && !authIsLoading) {
+            setIsLoading(true);
             setError(null);
-            ContractService.getPendingContractsForHelper(currentUser.id)
+            NotificationService.getNotifications(currentUser.id)
                 .then(data => {
-                    setPendingContracts(data);
+                    setNotifications(data);
                 })
                 .catch(err => {
-                    console.error("Failed to fetch pending contracts:", err);
-                    setError("Could not load your contract proposals.");
+                    console.error("Failed to fetch notifications:", err);
+                    setError("Could not load your inbox.");
                 })
                 .finally(() => {
-                    setIsLoadingContracts(false);
+                    setIsLoading(false);
                 });
-        } else if (!authIsLoading && userRole !== 'helper') {
-            // Handle non-helper users or show appropriate message
-            setPendingContracts([]);
-            setIsLoadingContracts(false);
-        } else if (!authIsLoading && !currentUser) {
-            setIsLoadingContracts(false); // No user logged in
+        } else if (!authIsLoading) {
+            // No user logged in or auth is still loading
+            setNotifications([]);
+            setIsLoading(false);
         }
-    }, [currentUser, userRole, authIsLoading]);
+    }, [currentUser, authIsLoading]);
 
-    if (authIsLoading || isLoadingContracts) {
+    if (authIsLoading || isLoading) {
         return (
             <div className={"min-h-screen min-w-full max-w-screen h-full"}>
                 <NavigationBar />
                 <div className={"flex justify-center items-center w-full h-full px-8 lg:px-64 py-8 pt-40 text-[#492924]"}>
-                    Loading inbox...
+                    Loading Inbox...
                 </div>
             </div>
         );
     }
 
-    if (!currentUser || userRole !== 'helper') {
+    if (!currentUser) {
         return (
             <div className={"min-h-screen min-w-full max-w-screen h-full"}>
                 <NavigationBar />
                 <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924] items-center"}>
                     <h1 className={"font-bold text-4xl text-center"}>Inbox</h1>
-                    <p>This inbox is for helpers to review contract proposals.</p>
+                    <p>Please log in to view your notifications.</p>
                 </div>
             </div>
         );
@@ -75,17 +73,17 @@ function ViewInboxPage() {
             <NavigationBar />
             <div className={"flex flex-col w-full h-full px-4 sm:px-8 lg:px-32 xl:px-64 py-8 pt-28 sm:pt-32 md:pt-40 gap-8 text-[#492924]"}>
                 <div className="flex flex-col items-center justify-center relative mb-4">
-                    <h1 className={"font-bold text-3xl sm:text-4xl text-center"}>Contract Proposals</h1>
-                    <div className="w-48 sm:w-64 h-0.5 bg-[#DA807B] mt-1 rounded-md"></div>
+                    <h1 className={"font-bold text-3xl sm:text-4xl text-center"}>Inbox</h1>
+                    <div className="w-24 sm:w-32 h-0.5 bg-[#DA807B] mt-1 rounded-md"></div>
                 </div>
                 {error && <div className="text-center text-red-500 bg-red-100 p-3 rounded-md">{error}</div>}
                 <div className={"flex flex-col gap-3 md:gap-4 w-full"}>
-                    {pendingContracts.length > 0 ? (
-                        pendingContracts.map((contract) => (
-                            <InboxCard key={contract.id} contract={contract} />
+                    {notifications.length > 0 ? (
+                        notifications.map((notification) => (
+                            <InboxCard key={notification.id} notification={notification} />
                         ))
                     ) : (
-                        !isLoadingContracts && <p className="text-center text-gray-500">You have no pending contract proposals at the moment.</p>
+                        !isLoading && <p className="text-center text-gray-500">You have no new notifications.</p>
                     )}
                 </div>
             </div>

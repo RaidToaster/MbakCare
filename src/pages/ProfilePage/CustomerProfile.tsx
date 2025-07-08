@@ -1,6 +1,5 @@
 import CustomerReviewCard from "@/components/Card/CustomerReviewCard.tsx";
 import NavigationBar from "@/components/InfoBar/NavigationBar.tsx";
-import { PiNotebook } from "react-icons/pi";
 import { IoLocationOutline, IoTimeOutline } from "react-icons/io5";
 import { TbArrowBackUp, TbBadge, TbContract } from "react-icons/tb";
 import MainFooter from "@/components/InfoBar/MainFooter.tsx";

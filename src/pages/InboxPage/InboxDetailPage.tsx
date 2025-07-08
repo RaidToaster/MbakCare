@@ -8,6 +8,7 @@ import Notification from "@/components/InfoComponent/Notification.tsx";
 import { ContractService, ContractDetails } from "@/lib/services/ContractService.ts";
 import { useAuthCt } from "@/lib/auth-context";
 import { supabase } from "@/lib/supabase";
+import { NotificationService } from "@/lib/services/NotificationService";
 
 function InboxDetailPage() {
     const navigate = useNavigate();
@@ -70,14 +71,17 @@ function InboxDetailPage() {
     }
 
     const handleContractAction = async (action: 'Active' | 'Declined') => {
-        if (!contractDetails) return;
+        if (!contractDetails || !currentUser) return;
         setIsProcessingAction(true);
         setActionError(null);
         try {
-
             const mappedStatus: 'Active' | 'Terminated' = action === 'Declined' ? 'Terminated' : 'Active';
             const { error: updateError } = await ContractService.updateContractStatus(contractDetails.id, mappedStatus);
             if (updateError) throw updateError;
+
+            // Mark the notification as read
+            await NotificationService.markContractNotificationAsRead(contractDetails.id, currentUser.id);
+
             setPopupMessage(`Contract successfully ${action === 'Active' ? 'accepted' : 'declined'}.`);
             setShowConfirmPopup(true);
 

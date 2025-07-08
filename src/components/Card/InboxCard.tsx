@@ -1,17 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import defaultUserIcon from "@/assets/images/profile/Default.png";
-import { BasicContractInfo } from "@/lib/services/ContractService";
+import { Notification } from "@/lib/services/NotificationService";
 
 interface InboxCardProps {
-    contract: BasicContractInfo;
+    notification: Notification;
 }
 
-function InboxCard({ contract }: InboxCardProps) {
+function InboxCard({ notification }: InboxCardProps) {
     const navigate = useNavigate();
 
-    function viewContractDetail() {
-
-        navigate(`/inbox/detail/${contract.id}`);
+    function handleClick() {
+        if (notification.type === 'contract_proposal' && notification.reference_id) {
+            navigate(`/inbox/detail/${notification.reference_id}`);
+        }
     }
 
     const timeAgo = (dateString: string) => {
@@ -28,34 +29,32 @@ function InboxCard({ contract }: InboxCardProps) {
         return `${days}d ago`;
     };
 
+    const isClickable = notification.type === 'contract_proposal';
 
     return (
         <div
-            onClick={viewContractDetail}
-            className={`w-full flex flex-row gap-4 p-4 rounded-md shadow hover:shadow-lg transition-shadow cursor-pointer ${contract.status === 'Pending' ? 'bg-yellow-50 border-l-4 border-yellow-400' : 'bg-white'
+            onClick={isClickable ? handleClick : undefined}
+            className={`w-full flex flex-row gap-4 p-4 rounded-md shadow hover:shadow-lg transition-shadow ${isClickable ? 'cursor-pointer' : ''} ${!notification.is_read ? 'bg-yellow-50 border-l-4 border-yellow-400' : 'bg-white'
                 }`}
         >
             <img
-                src={contract.customer_profile_picture || defaultUserIcon}
-                alt={contract.customer_name || "Customer"}
+                src={notification.sender_profile_picture || defaultUserIcon}
+                alt={notification.sender_name || "Sender"}
                 className={"h-12 w-12 rounded-full object-cover self-center"}
             />
-            <div className={"flex flex-col w-full gap-0.5"}>
+            <div className={"flex flex-col w-full gap-1"}>
                 <div className={"flex flex-row justify-between items-center"}>
                     <h3 className={"font-semibold text-md text-[#492924]"}>
-                        Contract Proposal from {contract.customer_name}
+                        {notification.title}
                     </h3>
-                    <p className={"text-xs text-gray-500"}>{timeAgo(contract.created_at)}</p>
+                    <p className={"text-xs text-gray-500"}>{timeAgo(notification.created_at)}</p>
                 </div>
-                <p className={"text-xs text-gray-600"}>
-                    Contract No: {contract.contract_number || "N/A"}
+                <p className={"text-sm text-gray-700"}>
+                    {notification.message}
                 </p>
-                <p className={"text-xs text-gray-600"}>
-                    Proposed Start Date: {new Date(contract.start_date).toLocaleDateString('en-GB')}
-                </p>
-                <p className={`text-xs font-medium mt-1 ${contract.status === 'Pending' ? 'text-yellow-600' : 'text-gray-500'
+                <p className={`text-xs font-medium mt-1 ${!notification.is_read ? 'text-yellow-600' : 'text-gray-500'
                     }`}>
-                    Status: {contract.status}
+                    {!notification.is_read ? 'Unread' : 'Read'}
                 </p>
             </div>
         </div>
