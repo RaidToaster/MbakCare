@@ -8,8 +8,9 @@ import MainFooter from "@/components/InfoBar/MainFooter.tsx";
 import { useState, useEffect } from "react";
 import Notification from "@/components/InfoComponent/Notification.tsx";
 import { ContractService } from "@/lib/services/ContractService.ts";
-import { ContractDraftData } from "./ContractCreationPage.tsx"; // Ensure this path is correct
-import { supabase } from "@/lib/supabase.ts"; // For fetching current user
+import { ContractDraftData } from "./ContractCreationPage.tsx";
+import { supabase } from "@/lib/supabase.ts";
+import { Input } from "@/components/Inputer/Input.tsx";
 
 function ContractDetailPage() {
     const navigate = useNavigate();
@@ -23,9 +24,10 @@ function ContractDetailPage() {
     }, []);
 
     const [draftData, setDraftData] = useState<ContractDraftData | null>(null);
-    const [isLoading, setIsLoading] = useState(false); // For the "Send Contract" action
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
 
     useEffect(() => {
         if (location.state && location.state.contractDraft) {
@@ -62,9 +64,8 @@ function ContractDetailPage() {
         setIsLoading(true);
 
         const durationInMonths = parseDurationToMonths(draftData.selectedDuration);
-        const today = new Date();
-        const endDate = new Date(today);
-        endDate.setMonth(today.getMonth() + durationInMonths);
+        const endDate = new Date(startDate);
+        endDate.setMonth(startDate.getMonth() + durationInMonths);
 
         const tasksToCreate = draftData.selectedMainTaskIds.map(skillId => ({
             skill_id: skillId,
@@ -76,7 +77,7 @@ function ContractDetailPage() {
         const contractInsertData = {
             customer_id: currentUser.id,
             helper_id: draftData.helperId,
-            start_date: today.toISOString().split('T')[0],
+            start_date: startDate.toISOString().split('T')[0],
             end_date: endDate.toISOString().split('T')[0],
             duration_months: durationInMonths,
             tasks: tasksToCreate,
@@ -134,11 +135,10 @@ function ContractDetailPage() {
     const helperDisplayName = draftData.helperName || "Helper Name"; // Helper name passed from creation page
     const contractCreationDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
     const durationInMonthsValue = parseDurationToMonths(draftData.selectedDuration);
-    const contractStartDate = new Date();
-    const contractEndDate = new Date(contractStartDate);
-    contractEndDate.setMonth(contractStartDate.getMonth() + durationInMonthsValue);
+    const contractEndDate = new Date(startDate);
+    contractEndDate.setMonth(startDate.getMonth() + durationInMonthsValue);
 
-    const startDateDisplay = contractStartDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+    const startDateDisplay = startDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
     const endDateDisplay = contractEndDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
 
 
@@ -190,8 +190,19 @@ function ContractDetailPage() {
 
                     <div className={"flex flex-col gap-1.5 mt-3"}>
                         <p className={"font-bold text-base sm:text-lg"}>2. Contract Duration</p>
-                        <p className={"pl-4 text-sm sm:text-base"}>
-                            This employment contract shall be valid for a duration of {draftData.selectedDuration.toLowerCase()}, starting from {startDateDisplay} and ending on {endDateDisplay}, unless extended or terminated according to the terms of this
+                        <div className="pl-4">
+                            <label htmlFor="start_date" className="text-sm font-semibold text-[#EE7C9E]">Select Start Date:</label>
+                            <Input
+                                type="date"
+                                id="start_date"
+                                name="start_date"
+                                value={startDate.toISOString().split('T')[0]}
+                                onChange={(e) => setStartDate(new Date(e.target.value))}
+                                className="mt-1"
+                            />
+                        </div>
+                        <p className={"pl-4 text-sm sm:text-base mt-2"}>
+                            This employment contract shall be valid for a duration of {draftData.selectedDuration.toLowerCase()}, starting from <b>{startDateDisplay}</b> and ending on <b>{endDateDisplay}</b>, unless extended or terminated according to the terms of this
                             contract.
                         </p>
                     </div>

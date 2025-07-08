@@ -179,9 +179,14 @@ function UserProfile() {
                                     </p>
                                 </div>
                                 {!isViewingOwnProfile && loggedInUserRole === 'customer' && (
-                                    <Button onClick={toMakeContract} size={'lg'} className="mt-4 lg:mt-0 self-start lg:self-center">
+                                    <Button
+                                        onClick={toMakeContract}
+                                        size={'lg'}
+                                        className="mt-4 lg:mt-0 self-start lg:self-center"
+                                        disabled={profileData.contract_status !== 'Available'}
+                                    >
                                         <TbContract className={"text-white"} size={window.innerWidth < 640 ? 20 : 24} />
-                                        Make Contract
+                                        {profileData.contract_status === 'Available' ? 'Make Contract' : 'Helper Unavailable'}
                                     </Button>
                                 )}
                             </div>
@@ -199,8 +204,8 @@ function UserProfile() {
                                     <div className={"flex flex-row items-center gap-4"}>
                                         <PiNotebook className={"text-[#EE7C9E]"} size={size} />
                                         <div className={"flex flex-col justify-start"}>
-                                            <h2 className={"text-[#EE7C9E]"}>Recent Contract Status:</h2>
-                                            <h3>Resigned</h3>
+                                            <h2 className={"text-[#EE7C9E]"}>Contract Status:</h2>
+                                            <h3>{profileData.contract_status || 'N/A'}</h3>
                                         </div>
                                     </div>
                                 ) : (

@@ -137,7 +137,7 @@ function ProfilePage() {
 
     const handleLookingForJobToggle = () => {
         const newValue = !(formData.looking_for_job ?? false);
-        setFormData(prev => ({ ...prev, looking_for_job: newValue, contract_status: newValue ? 'Available' : prev.contract_status }));
+        setFormData(prev => ({ ...prev, looking_for_job: newValue }));
     };
     const handleLookingForHelperToggle = () => {
         const newValue = !(formData.looking_for_helper ?? false);
@@ -181,7 +181,7 @@ function ProfilePage() {
                     about_me: formData.about_me,
                     salary_expectation: formData.salary_expectation,
                     available_from: formData.available_from,
-                    contract_status: formData.looking_for_job ? 'Available' : formData.contract_status,
+                    contract_status: formData.looking_for_job ? 'Available' : (formData.contract_status === 'Available' ? 'Unavailable' : formData.contract_status),
                     marital_status: formData.marital_status,
                     number_of_kids: formData.number_of_kids,
                     preferred_job_type: formData.preferred_job_type,
@@ -364,11 +364,11 @@ function ProfilePage() {
                                 <textarea id="family_description" name="family_description" value={formData.family_description || ''} onChange={handleInputChange} rows={4} className="w-full p-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" />
                             </div>
                             <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
-                                <BoxInput list={confirmChoices} choosenItem={formData.has_pets ? "Yes" : "No"} onlyOne={(val) => handleBoxInputChange('has_pets', val)} multiple={false} />
+                                <label htmlFor="num_family_members" className={"text-sm sm:text-md font-semibold text-[#EE7C9E]"}>Number of Family Members</label>
                                 <Input id="num_family_members" name="num_family_members" type="number" value={formData.num_family_members === null || formData.num_family_members === undefined ? '' : formData.num_family_members} onChange={handleInputChange} />
                             </div>
                             <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
-                                <h3 className={"text-sm sm:text-md font-semibold text-[#EE7C9E]"}>Do you have pets?</h3 >
+                                <h3 className={"text-sm sm:text-md font-semibold text-[#EE7C9E]"}>Do you have pets?</h3>
                                 <BoxInput list={confirmChoices} choosenItem={formData.has_pets ? "Yes" : "No"} onlyOne={(val) => handleBoxInputChange('has_pets', val)} multiple={false} />
                             </div>
                             <div className={"flex flex-col gap-2 w-full items-start justify-center"}>

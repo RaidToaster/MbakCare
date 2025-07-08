@@ -149,7 +149,7 @@ function InboxDetailPage() {
                 <div className="flex flex-col justify-center relative bg-[#F7F8F1] rounded-md p-6 sm:p-8 md:p-10 lg:p-14 gap-5 w-full text-justify shadow-md">
                     <h1 className={"text-2xl sm:text-3xl mb-6 sm:m-10 text-center font-bold"}>Contract Proposal Review</h1>
                     <p className="text-sm sm:text-base">
-                        Contract No: {contractDetails.contract_number || "N/A"}<br />
+                        Contract No: {contractDetails.id || "N/A"}<br />
                         Proposed on: {new Date(contractDetails.created_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
                     </p>
                     <div className={"flex flex-col gap-4 lg:flex-row items-start lg:items-start justify-between w-full text-sm sm:text-base"}>
