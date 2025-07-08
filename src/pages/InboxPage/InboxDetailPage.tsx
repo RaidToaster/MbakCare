@@ -34,6 +34,7 @@ function InboxDetailPage() {
     const [showConfirmPopup, setShowConfirmPopup] = useState(false);
     const [popupMessage, setPopupMessage] = useState("");
     const [isProcessingAction, setIsProcessingAction] = useState(false);
+    const [isHelperAvailable, setIsHelperAvailable] = useState(true);
 
     useEffect(() => {
         if (!contractId) {
@@ -61,8 +62,11 @@ function InboxDetailPage() {
                 setIsLoading(false);
             }
         };
-        if (currentUser) { // Only fetch if user is loaded
+        if (currentUser) {
             fetchContract();
+            if (userRole === 'helper') {
+                ContractService.isHelperAvailable(currentUser.id).then(setIsHelperAvailable);
+            }
         }
     }, [contractId, currentUser, userRole]);
 
@@ -203,7 +207,12 @@ function InboxDetailPage() {
 
                 {userRole === 'helper' && contractDetails.status === 'Pending' && (
                     <div className={"flex flex-col sm:flex-row justify-center items-center gap-4 mt-6"}>
-                        <Button size={'xl'} color="pink" onClick={() => handleContractAction('Active')} disabled={isProcessingAction}>
+                        {!isHelperAvailable && (
+                            <p className="text-center text-red-500 font-semibold">
+                                You cannot accept a new contract while you are in an active one.
+                            </p>
+                        )}
+                        <Button size={'xl'} color="pink" onClick={() => handleContractAction('Active')} disabled={isProcessingAction || !isHelperAvailable}>
                             {isProcessingAction ? "Processing..." : "Accept Contract"}
                         </Button>
                         <Button size={'xl'} color="white" onClick={() => handleContractAction('Declined')} disabled={isProcessingAction}>

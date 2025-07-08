@@ -9,6 +9,7 @@ import { Button } from "@/components/Inputer/Button.tsx";
 import { useAuthCt } from "@/lib/auth-context";
 import { SearchService } from "@/lib/services/SearchService.ts";
 import { supabase } from "@/lib/supabase.ts";
+import { ContractService } from "@/lib/services/ContractService.ts";
 
 interface SkillOption { id: string; name: string; }
 interface FacilityOption { id: string; name: string; }
@@ -35,6 +36,7 @@ function ContractCreationPage() {
 
     const [helperId, setHelperId] = useState<string | null>(null);
     const [helperName, setHelperName] = useState<string | undefined>(undefined);
+    const [isHelperAvailable, setIsHelperAvailable] = useState(true);
 
     useEffect(() => {
         const fetchCurrentUser = async () => {
@@ -64,10 +66,18 @@ function ContractCreationPage() {
         const hId = queryParams.get('helperId');
         if (hId) {
             setHelperId(hId);
+            const checkAvailability = async () => {
+                const available = await ContractService.isHelperAvailable(hId);
+                setIsHelperAvailable(available);
+                if (!available) {
+                    setFormError("This helper is currently unavailable and cannot be hired.");
+                }
+            };
             const fetchHelperName = async () => {
                 const { data } = await supabase.from('users').select('name').eq('id', hId).single();
                 if (data) setHelperName(data.name || undefined);
             };
+            checkAvailability();
             fetchHelperName();
         } else {
             console.warn("Helper ID is missing from query params.");
@@ -232,8 +242,9 @@ function ContractCreationPage() {
                     />
 
                     <div className={"flex items-center justify-center mt-4"}>
-                        <Button onClick={handleGenerateContract} size={'xl'} className={"text-md"}>
-                            <TbContract className={"size-8"} />Generate Contract
+                        <Button onClick={handleGenerateContract} size={'xl'} className={"text-md"} disabled={!isHelperAvailable}>
+                            <TbContract className={"size-8"} />
+                            {isHelperAvailable ? 'Generate Contract' : 'Helper Unavailable'}
                         </Button>
                     </div>
                 </div>
