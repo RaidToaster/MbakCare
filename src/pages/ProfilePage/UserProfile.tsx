@@ -18,6 +18,7 @@ import { FaBed } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { ProfileService, HelperProfileData } from "@/lib/services/ProfileService";
 import { supabase } from "@/lib/supabase";
+import LevelDisplay from "@/components/InfoComponent/LevelDisplay.tsx";
 
 type UserRole = 'customer' | 'helper' | 'admin';
 
@@ -30,6 +31,7 @@ function UserProfile() {
     const [error, setError] = useState<string | null>(null);
     const [loggedInUserRole, setLoggedInUserRole] = useState<UserRole | null>(null);
     const [isViewingOwnProfile, setIsViewingOwnProfile] = useState(false);
+    const [levelThresholds, setLevelThresholds] = useState<{ level: number, xp_required: number }[]>([]);
 
     const dummyLanguages = ["Indonesia", "English", "Chinese"];
     const dummyPersonality = ["Kind", "Caring", "Intimate"];
@@ -54,12 +56,14 @@ function UserProfile() {
             setError(null);
 
             try {
-                const [fetchedProfileData, { data: { user: currentAuthUser } }] = await Promise.all([
+                const [fetchedProfileData, { data: { user: currentAuthUser } }, thresholds] = await Promise.all([
                     ProfileService.getHelperProfileById(profileIdFromParams),
-                    supabase.auth.getUser()
+                    supabase.auth.getUser(),
+                    ProfileService.getLevelThresholds()
                 ]);
 
                 setProfileData(fetchedProfileData);
+                setLevelThresholds(thresholds);
                 setIsHelper(fetchedProfileData?.role === 'helper');
 
                 if (currentAuthUser) {
@@ -295,10 +299,7 @@ function UserProfile() {
                                 <h1 className={"text-lg sm:text-xl font-medium"}>Level Information </h1>
                             </div>
                             <div className={"flex flex-col p-4 sm:p-6 gap-6 bg-[#F7F8F1]"}>
-                                <div className={"flex flex-row items-center gap-3 sm:gap-4"}>
-                                    <TbBadge className={"text-[#EE7C9E]"} size={size} />
-                                    <div><h2 className={"text-[#EE7C9E] text-md sm:text-xl"}>Current Level:</h2><h3 className={"text-md sm:text-xl"}>{profileData.level || 0}</h3></div>
-                                </div>
+                                <LevelDisplay profileData={profileData} levelThresholds={levelThresholds} />
                                 <div className={"bg-[#FFF2F3] border-l-2 border-[#EE7C9E] px-4 sm:px-6 py-3 sm:py-4 rounded-sm text-xs sm:text-sm"}>
                                     <p className={"text-justify"}><b>Disclaimer:</b><br />The level shown above reflects the helper's overall work experience and skill proficiency. It is not based on calendar years, but rather on actual tasks completed, responsibilities handled, and verified certifications. We use a points-based system where:<br /> Every completed task contributes to the helper's experience points (EXP).<br /> Certifications and formal training add extra EXP.<br /> Level 10 = Equivalent of 5 Years of Real-World Experience.</p>
                                 </div>

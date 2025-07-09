@@ -67,7 +67,7 @@ const router = createBrowserRouter([
     element: <ProfilePage />
   },
   {
-    path: "/level",
+    path: "/profile/level",
     element: <LevelPage />
   },
   {

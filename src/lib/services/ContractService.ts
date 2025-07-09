@@ -9,7 +9,7 @@ export interface ContractCreationData {
     end_date: string;
     duration_months: number;
 
-    tasks: Array<{ skill_id: string; task_type: 'Main' | 'Additional'; quantity: number; rate_per_task: number }>;
+    tasks: Array<{ id?: string; skill_id: string; task_type: 'Main' | 'Additional'; quantity: number; rate_per_task: number; skill_name?: string }>;
     facilities: string[];
 }
 
@@ -268,6 +268,47 @@ export const ContractService = {
         }
 
         return { data: updatedContract, error: null };
+    },
+    async getActiveContractForUser(userId: string, role: 'customer' | 'helper'): Promise<ContractDetails | null> {
+        const userRoleColumn = role === 'customer' ? 'customer_id' : 'helper_id';
+
+        const { data, error } = await supabase
+            .from('contracts')
+            .select(`
+                *,
+                customer:customers!contracts_customer_id_fkey ( users!inner(name) ),
+                helper:helpers!contracts_helper_id_fkey ( users!inner(name) ),
+                contract_tasks ( *, skills (name) ),
+                contract_facilities ( facilities (name) )
+            `)
+            .eq(userRoleColumn, userId)
+            .eq('status', 'Active')
+            .limit(1)
+            .single();
+
+        if (error) {
+            if (error.code === 'PGRST116') return null; // No active contract found, which is not an error
+            console.error("Error fetching active contract:", error);
+            return null;
+        }
+
+        if (!data) return null;
+
+        return {
+            ...data,
+            customer_id: data.customer_id,
+            helper_id: data.helper_id,
+            customer_name: data.customer?.users?.name || "N/A",
+            helper_name: data.helper?.users?.name || "N/A",
+            tasks: data.contract_tasks.map((task: any) => ({
+                id: task.id,
+                skill_name: task.skills?.name || "Unknown Skill",
+                task_type: task.task_type,
+                quantity: task.quantity,
+                rate_per_task: task.rate_per_task,
+            })),
+            facilities: data.contract_facilities.map((cf: any) => cf.facilities?.name).filter(Boolean),
+        } as unknown as ContractDetails;
     },
 
 };

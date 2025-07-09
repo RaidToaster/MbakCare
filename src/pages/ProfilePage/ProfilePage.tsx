@@ -347,6 +347,15 @@ function ProfilePage() {
                                 <Input id="professional_title" name="professional_title" value={formData.professional_title || ''} onChange={handleInputChange} placeholder="e.g., Experienced Nanny, Diligent Housekeeper" />
                             </div>
                             <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
+                                <h3 className={"text-sm sm:text-md font-semibold text-[#EE7C9E]"}>Level & Experience</h3>
+                                <div className="w-full p-4 border border-gray-200 rounded-md bg-white flex justify-between items-center">
+                                    <p>Your current level is: <strong>{formData.level || 1}</strong></p>
+                                    <Button type="button" color="pink" rounded="med" onClick={() => navigate('/profile/level')}>
+                                        View Level Progress
+                                    </Button>
+                                </div>
+                            </div>
+                            <div className={"flex flex-col gap-2 w-full items-start justify-center"}>
                                 <label htmlFor="about_me" className={"text-sm sm:text-md font-semibold text-[#EE7C9E]"}>About Me</label>
                                 <textarea id="about_me" name="about_me" value={formData.about_me || ''} onChange={handleInputChange} rows={5} className="w-full p-2 border border-gray-300 rounded-md focus:ring-pink-500 focus:border-pink-500" />
                             </div>

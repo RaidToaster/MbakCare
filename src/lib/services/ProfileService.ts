@@ -410,6 +410,18 @@ export const ProfileService = {
         }
         return { error: null };
     },
+    async getLevelThresholds(): Promise<{ level: number, xp_required: number }[]> {
+        const { data, error } = await supabase
+            .from('level_xp_thresholds')
+            .select('level, xp_required')
+            .order('level', { ascending: true });
+
+        if (error) {
+            console.error("Error fetching level thresholds:", error);
+            return [];
+        }
+        return data || [];
+    },
 
     async updateHelperContractStatus(helperId: string, status: 'Available' | 'On Contract'): Promise<{ error: any }> {
         const { error } = await supabase
