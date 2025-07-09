@@ -22,6 +22,7 @@ import InboxDetailPage from "@/pages/InboxPage/InboxDetailPage.tsx";
 import LevelPage from "@/pages/ProfilePage/LevelPage.tsx";
 import NotFoundPage from "@/pages/AuthPage/NotFoundPage.tsx";
 import { AuthProvider } from './lib/auth-context';
+import { ToastProvider } from './components/InfoComponent/Toast';
 import SearchCustomerPage from './pages/MainPage/SearchCustomerPage';
 import CustomerProfile from './pages/ProfilePage/CustomerProfile';
 
@@ -135,7 +136,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
     </AuthProvider>
   </StrictMode>,
 )

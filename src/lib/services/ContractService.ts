@@ -152,8 +152,8 @@ export const ContractService = {
             .from('contracts')
             .select(`
                 *,
-                customer:customers!contracts_customer_id_fkey ( users!inner(name) ),
-                helper:helpers!contracts_helper_id_fkey ( users!inner(name) ),
+                customer:customers!contracts_customer_id_fkey ( users(name) ),
+                helper:helpers!contracts_helper_id_fkey ( users(name) ),
                 contract_tasks ( *, skills (name) ),
                 contract_facilities ( facilities (name) )
             `)
@@ -175,6 +175,7 @@ export const ContractService = {
             helper_name: data.helper?.users?.name || "N/A",
             tasks: data.contract_tasks.map((task: any) => ({
                 id: task.id,
+                skill_id: task.skill_id,
                 skill_name: task.skills?.name || "Unknown Skill",
                 task_type: task.task_type,
                 quantity: task.quantity,
@@ -191,9 +192,9 @@ export const ContractService = {
                 id,
                 contract_number,
                 customer:customers!contracts_customer_id_fkey (
-                    users!inner ( 
-                        name, 
-                        profile_picture 
+                    users (
+                        name,
+                        profile_picture
                     )
                 ),
                 start_date,
@@ -276,8 +277,8 @@ export const ContractService = {
             .from('contracts')
             .select(`
                 *,
-                customer:customers!contracts_customer_id_fkey ( users!inner(name) ),
-                helper:helpers!contracts_helper_id_fkey ( users!inner(name) ),
+                customer:customers!contracts_customer_id_fkey ( users(name) ),
+                helper:helpers!contracts_helper_id_fkey ( users(name) ),
                 contract_tasks ( *, skills (name) ),
                 contract_facilities ( facilities (name) )
             `)
@@ -302,6 +303,7 @@ export const ContractService = {
             helper_name: data.helper?.users?.name || "N/A",
             tasks: data.contract_tasks.map((task: any) => ({
                 id: task.id,
+                skill_id: task.skill_id,
                 skill_name: task.skills?.name || "Unknown Skill",
                 task_type: task.task_type,
                 quantity: task.quantity,

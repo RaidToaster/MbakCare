@@ -4,6 +4,7 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { Button } from "@/components/Inputer/Button.tsx";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { DailyTask, TaskService } from "@/lib/services/TaskService.ts";
+import { useToast } from "../InfoComponent/Toast.tsx";
 
 type UserRole = 'customer' | 'helper';
 
@@ -16,6 +17,7 @@ interface TaskCardProps {
 function TaskCard({ task, role, onUpdate }: TaskCardProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
+    const { addToast } = useToast();
     const size = 32;
 
     function toggleExpand() {
@@ -27,9 +29,9 @@ function TaskCard({ task, role, onUpdate }: TaskCardProps) {
         const { error } = await TaskService.updateTaskStatus(task.id, status);
 
         if (error) {
-            alert(`Failed to update task: ${error.message}`);
+            addToast(`Failed to update task: ${error.message}`, 'error');
         } else {
-            alert(`Task marked as ${status}.`);
+            addToast(`Task marked as ${status}.`, 'success');
             onUpdate();
             setIsOpen(false);
         }

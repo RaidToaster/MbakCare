@@ -6,44 +6,48 @@ import TaskCard from "@/components/Card/TaskCard.tsx";
 import { Button } from "@/components/Inputer/Button.tsx";
 import { FaPlus } from "react-icons/fa";
 import { useAuthCt } from "@/lib/auth-context.tsx";
+import { useToast } from "@/components/InfoComponent/Toast.tsx";
 import { ContractService, ContractDetails } from "@/lib/services/ContractService.ts";
 import { DailyTask, TaskService, TaskCreationData } from "@/lib/services/TaskService.ts";
 
 function TaskPage() {
-    const { user } = useAuthCt();
+    const { user, userRole } = useAuthCt();
     const navigate = useNavigate();
+    const { addToast } = useToast();
     const [activeContract, setActiveContract] = useState<ContractDetails | null>(null);
     const [tasks, setTasks] = useState<DailyTask[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchTaskData = async () => {
-        if (!user) return;
+        if (!user || !userRole) return;
         setIsLoading(true);
-        const contract = await ContractService.getActiveContractForUser(user.id, user.role as 'customer' | 'helper');
-        setActiveContract(contract);
+        if (userRole === 'customer' || userRole === 'helper') {
+            const contract = await ContractService.getActiveContractForUser(user.id, userRole);
+            setActiveContract(contract);
 
-        if (contract) {
-            const today = new Date().toISOString().split('T')[0];
-            const fetchedTasks = await TaskService.getDailyTasksForContract(contract.id, today);
-            setTasks(fetchedTasks);
+            if (contract) {
+                const today = new Date().toISOString().split('T')[0];
+                const fetchedTasks = await TaskService.getDailyTasksForContract(contract.id, today);
+                setTasks(fetchedTasks);
+            }
         }
         setIsLoading(false);
     };
 
     useEffect(() => {
         fetchTaskData();
-    }, [user]);
+    }, [user, userRole]);
 
     const handleTaskUpdate = () => {
         fetchTaskData(); // Refetch all data to ensure consistency
     };
 
     const openCreateTaskModal = () => {
-        if (user?.role === 'customer') {
+        if (userRole === 'customer') {
             setIsModalOpen(true);
         } else {
-            alert("Only customers can create tasks.");
+            addToast("Only customers can create tasks.", 'error');
         }
     };
 
@@ -67,13 +71,13 @@ function TaskPage() {
                 <div className={"flex flex-col gap-4"}>
                     <h2 className="font-bold text-2xl text-center">Main Tasks</h2>
                     {mainTasks.length > 0 ? mainTasks.map(task => (
-                        <TaskCard key={task.id} task={task} role={user!.role as 'customer' | 'helper'} onUpdate={handleTaskUpdate} />
+                        <TaskCard key={task.id} task={task} role={userRole as 'customer' | 'helper'} onUpdate={handleTaskUpdate} />
                     )) : <p className="text-center text-gray-500">No main tasks for today.</p>}
                 </div>
                 <div className={"flex flex-col gap-4"}>
                     <h2 className="font-bold text-2xl text-center">Additional Tasks</h2>
                     {additionalTasks.length > 0 ? additionalTasks.map(task => (
-                        <TaskCard key={task.id} task={task} role={user!.role as 'customer' | 'helper'} onUpdate={handleTaskUpdate} />
+                        <TaskCard key={task.id} task={task} role={userRole as 'customer' | 'helper'} onUpdate={handleTaskUpdate} />
                     )) : <p className="text-center text-gray-500">No additional tasks for today.</p>}
                 </div>
             </>
@@ -90,7 +94,7 @@ function TaskPage() {
                         <div className="w-24 h-1 bg-[#DA807B] mt-1 rounded-md"></div>
                         <p className="mt-2 text-gray-600">{new Date().toDateString()}</p>
                     </div>
-                    {user?.role === 'customer' && (
+                    {userRole === 'customer' && activeContract && (
                         <Button
                             className={"bg-[#EE7C9E] p-4 text-white flex items-center justify-center absolute right-0"}
                             onClick={openCreateTaskModal}
@@ -115,19 +119,19 @@ interface CreateTaskModalProps {
 }
 
 function CreateTaskModal({ contract, onClose, onTaskCreated }: CreateTaskModalProps) {
+    console.log("Contract data in modal:", contract);
     const [description, setDescription] = useState('');
     const [skillId, setSkillId] = useState('');
     const [priority, setPriority] = useState<'High' | 'Medium' | 'Low'>('Medium');
     const [dueDate, setDueDate] = useState('');
     const [requirePhoto, setRequirePhoto] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
-
-    const availableSkills = contract.tasks.map(t => ({ id: t.skill_id, name: t.skill_name }));
+    const { addToast } = useToast();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!skillId || !description) {
-            alert("Please select a skill and provide a description.");
+            addToast("Please select a skill and provide a description.", 'error');
             return;
         }
         setIsSubmitting(true);
@@ -141,11 +145,12 @@ function CreateTaskModal({ contract, onClose, onTaskCreated }: CreateTaskModalPr
             due_date: dueDate || undefined,
         };
 
+        console.log("Submitting task data:", taskData);
         const { error } = await TaskService.createDailyTask(taskData);
         if (error) {
-            alert(`Failed to create task: ${error.message}`);
+            addToast(`Failed to create task: ${error.message}`, 'error');
         } else {
-            alert("Task created successfully!");
+            addToast("Task created successfully!", 'success');
             onTaskCreated();
             onClose();
         }
@@ -161,8 +166,8 @@ function CreateTaskModal({ contract, onClose, onTaskCreated }: CreateTaskModalPr
                         <label htmlFor="skill" className="block text-sm font-medium text-gray-700">Task Type (Skill)</label>
                         <select id="skill" value={skillId} onChange={e => setSkillId(e.target.value)} className="mt-1 block w-full p-2 border border-gray-300 rounded-md">
                             <option value="" disabled>Select a skill</option>
-                            {availableSkills.map(skill => (
-                                <option key={skill.id} value={skill.id}>{skill.name}</option>
+                            {contract.tasks.map(task => (
+                                <option key={task.skill_id} value={task.skill_id}>{task.skill_name}</option>
                             ))}
                         </select>
                     </div>
