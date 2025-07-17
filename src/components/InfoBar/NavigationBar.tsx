@@ -41,12 +41,14 @@ function NavigationBar() {
         { path: "/home", label: "Home" },
         { path: "/search", label: "Find Helper" },
         { path: "/task/view", label: "Task Manager" },
+        { path: "/contract/manage", label: "My Contract" },
         { path: "/payment-summary", label: "Payments" },
         { path: "/inbox/view", label: "Inbox" },
     ] : [
         { path: "/home", label: "Home" },
         { path: "/search-customer", label: "Find Job" },
         { path: "/task/view", label: "Task Manager" },
+        { path: "/contract/manage", label: "My Contract" },
         { path: "/payment-summary", label: "Payments" },
         { path: "/inbox/view", label: "Inbox" },
     ];

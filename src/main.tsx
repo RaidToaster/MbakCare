@@ -14,6 +14,7 @@ import UserProfile from "@/pages/ProfilePage/UserProfile.tsx";
 import TaskPage from "@/pages/MainPage/TaskPage.tsx";
 import ContractCreationPage from "@/pages/ContractPage/ContractCreationPage.tsx";
 import ContractDetailPage from "@/pages/ContractPage/ContractDetailPage.tsx";
+import ContractManagementPage from "@/pages/ContractPage/ContractManagementPage.tsx";
 import PaymentSummaryPage from "@/pages/MainPage/PaymentSummaryPage.tsx";
 import ProfilePage from "@/pages/ProfilePage/ProfilePage.tsx";
 import EditTaskPage from "@/pages/MainPage/EditTaskPage.tsx";
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       {
         path: "detail",
         element: <ContractDetailPage />
+      },
+      {
+        path: "manage",
+        element: <ContractManagementPage />
       }
     ]
   },
