@@ -106,9 +106,9 @@ function ContractManagementPage() {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen min-w-full max-w-screen h-full">
+            <div className="min-h-screen min-w-full max-w-screen h-full flex flex-col">
                 <NavigationBar />
-                <div className="flex justify-center items-center h-full pt-40">
+                <div className="flex justify-center items-center flex-grow pt-40">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#EE7C9E]"></div>
                 </div>
                 <MainFooter />
@@ -118,16 +118,16 @@ function ContractManagementPage() {
 
     if (!user) {
         return (
-            <div className="min-h-screen min-w-full max-w-screen h-full">
+            <div className="min-h-screen min-w-full max-w-screen h-full flex flex-col">
                 <NavigationBar />
-                <div className="flex flex-col items-center justify-center h-full pt-40 px-4">
+                <div className="flex flex-col items-center justify-center flex-grow pt-40 px-4">
                     <div className="text-center max-w-md">
                         <div className="text-6xl mb-4">🔒</div>
                         <h2 className="text-2xl font-bold text-gray-700 mb-2">Access Denied</h2>
                         <p className="text-gray-600 mb-6">
                             Please log in to view your contracts and manage your active agreements.
                         </p>
-                        <Button onClick={() => navigate('/auth/login')}>
+                        <Button className="bg-gray-400 mb-4" onClick={() => navigate('/auth/login')}>
                             Go to Login
                         </Button>
                     </div>
@@ -138,9 +138,9 @@ function ContractManagementPage() {
     }
 
     return (
-        <div className="min-h-screen min-w-full max-w-screen h-full">
+        <div className="min-h-screen min-w-full max-w-screen h-full flex flex-col">
             <NavigationBar />
-            <div className="flex flex-col w-full h-full px-4 sm:px-8 lg:px-32 xl:px-64 py-8 pt-28 sm:pt-32 md:pt-40 gap-8 text-[#492924]">
+            <div className="flex flex-col w-full flex-grow px-4 sm:px-8 lg:px-32 xl:px-64 py-8 pt-28 sm:pt-32 md:pt-40 gap-8 text-[#492924]">
                 <div className="w-full flex justify-start relative mb-4">
                     <TbArrowBackUp
                         className="cursor-pointer absolute left-0 top-1/2 -translate-y-1/2 hidden lg:block"

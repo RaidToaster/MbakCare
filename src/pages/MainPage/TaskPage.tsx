@@ -20,7 +20,10 @@ function TaskPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchTaskData = async () => {
-        if (!user || !userRole) return;
+        if (!user || !userRole) {
+            setIsLoading(false);
+            return;
+        }
         setIsLoading(true);
         if (userRole === 'customer' || userRole === 'helper') {
             const contract = await ContractService.getActiveContractForUser(user.id, userRole);
@@ -55,6 +58,9 @@ function TaskPage() {
         if (isLoading) {
             return <div className="text-center">Loading tasks...</div>;
         }
+        if (!user) {
+            return <div className="text-center text-2xl">You are not logged in.</div>;
+        }
         if (!activeContract) {
             return <div className="text-center p-8 bg-yellow-100 rounded-md">You do not have an active contract. Tasks can only be managed within an active contract.</div>;
         }
@@ -85,9 +91,9 @@ function TaskPage() {
     };
 
     return (
-        <div className={"min-w-full max-w-screen min-h-screen h-full cursor-default"}>
+        <div className={"min-w-full max-w-screen min-h-screen h-full cursor-default flex flex-col"}>
             <NavigationBar />
-            <div className={"flex flex-col w-full h-full px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
+            <div className={"flex flex-col w-full flex-grow px-8 lg:px-64 py-8 pt-40 gap-8 text-[#492924]"}>
                 <div className={"w-full flex flex-row items-center justify-center relative"}>
                     <div className="flex flex-col items-center justify-center">
                         <h1 className={"font-bold text-3xl text-center"}>Daily To-Do List</h1>
